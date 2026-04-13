@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>工具控制平面</title><meta name="description" content="专门补工具调用怎样进入统一执行面，适合权限、Hook、MCP 等章节一起看。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/zh/"><span>←</span><span>回到学习主线</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">桥接文档</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">工具控制平面</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">这页适合什么时候回看</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">专门补工具调用怎样进入统一执行面，适合权限、Hook、MCP 等章节一起看。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">最适合和这些章节一起读</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s02/">s02<!-- --> · <!-- -->工具使用</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s08/">s08<!-- --> · <!-- -->Hook 系统</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s19/">s19<!-- --> · <!-- -->MCP 与插件</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p>这篇桥接文档用来回答另一个关键问题：</p>
+<p><strong>为什么“工具系统”不只是一个 <code>tool_name -> handler</code> 的映射表？</strong></p>
+</blockquote>
+<h2>这一篇为什么要存在</h2>
+<p><code>s02</code> 先教你工具注册和分发，这完全正确。<br>
+因为如果你一开始连工具调用都没做出来，后面的一切都无从谈起。</p>
+<p>但当系统长大以后，工具层会逐渐承载越来越多的责任：</p>
+<ul>
+<li>权限判断</li>
+<li>MCP 接入</li>
+<li>通知发送</li>
+<li>subagent / teammate 共享状态</li>
+<li>file state cache</li>
+<li>当前消息和当前会话环境</li>
+<li>某些工具专属限制</li>
+</ul>
+<p>这时候，“工具层”就已经不是一张函数表了。</p>
+<p>它更像一条总线：</p>
+<p><strong>模型通过工具名发出动作意图，系统通过工具控制平面决定这条意图在什么环境里执行。</strong></p>
+<h2>先解释几个名词</h2>
+<h3>什么是工具控制平面</h3>
+<p>这里的“控制平面”可以继续沿用上一份桥接文档的理解：</p>
+<blockquote>
+<p>不直接做业务结果，而是负责协调工具如何执行的一层。</p>
+</blockquote>
+<p>它关心的问题不是“这个工具最后返回了什么”，而是：</p>
+<ul>
+<li>它在哪执行</li>
+<li>它有没有权限</li>
+<li>它可不可以访问某些共享状态</li>
+<li>它是本地工具还是外部工具</li>
+</ul>
+<h3>什么是执行上下文</h3>
+<p>执行上下文，就是工具运行时能看到的环境。</p>
+<p>例如：</p>
+<ul>
+<li>当前工作目录</li>
+<li>当前 app state</li>
+<li>当前消息列表</li>
+<li>当前权限模式</li>
+<li>当前可用 MCP client</li>
+</ul>
+<h3>什么是能力来源</h3>
+<p>不是所有工具都来自同一个地方。</p>
+<p>系统里常见的能力来源有：</p>
+<ul>
+<li>本地原生工具</li>
+<li>MCP 外部工具</li>
+<li>agent 工具</li>
+<li>task / worktree / team 这类平台工具</li>
+</ul>
+<h2>最小心智模型</h2>
+<p>工具系统可以先画成 4 层：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">1. ToolSpec
+   模型看见的工具名字、描述、输入 schema
+
+2. Tool Router
+   根据工具名把请求送去正确的能力来源
+
+3. ToolUseContext
+   工具运行时能访问的共享环境
+
+4. Tool Result Envelope
+   把输出包装回主循环
+</code></pre>
+<p>最重要的升级点在第三层：</p>
+<p><strong>更完整系统的核心，不是 tool table，而是 ToolUseContext。</strong></p>
+<h2>关键数据结构</h2>
+<h3>1. ToolSpec</h3>
+<p>这还是最基础的结构：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">tool = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"read_file"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Read file contents."</span>,
+    <span class="hljs-string">"input_schema"</span>: {...},
+}
+</code></pre>
+<h3>2. ToolDispatchMap</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">handlers = {
+    <span class="hljs-string">"read_file"</span>: read_file,
+    <span class="hljs-string">"write_file"</span>: write_file,
+    <span class="hljs-string">"bash"</span>: run_bash,
+}
+</code></pre>
+<p>这依旧需要，但它不是全部。</p>
+<h3>3. ToolUseContext</h3>
+<p>教学版可以先做一个简化版本：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">tool_use_context = {
+    <span class="hljs-string">"tools"</span>: handlers,
+    <span class="hljs-string">"permission_context"</span>: {...},
+    <span class="hljs-string">"mcp_clients"</span>: {},
+    <span class="hljs-string">"messages"</span>: [...],
+    <span class="hljs-string">"app_state"</span>: {...},
+    <span class="hljs-string">"notifications"</span>: [],
+    <span class="hljs-string">"cwd"</span>: <span class="hljs-string">"..."</span>,
+}
+</code></pre>
+<p>这个结构的关键点是：</p>
+<ul>
+<li>工具不再只拿到“输入参数”</li>
+<li>工具还能拿到“共享运行环境”</li>
+</ul>
+<h3>4. ToolResultEnvelope</h3>
+<p>不要把返回值只想成字符串。</p>
+<p>更稳妥的形状是：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">result = {
+    <span class="hljs-string">"ok"</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">"content"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"is_error"</span>: <span class="hljs-literal">False</span>,
+    <span class="hljs-string">"attachments"</span>: [],
+}
+</code></pre>
+<p>这样后面你才能平滑承接：</p>
+<ul>
+<li>普通文本结果</li>
+<li>结构化结果</li>
+<li>错误结果</li>
+<li>附件类结果</li>
+</ul>
+<h2>为什么更完整的系统一定会出现 ToolUseContext</h2>
+<p>想象两个系统。</p>
+<h3>系统 A：只有 dispatch map</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">output = handlers[tool_name](**tool_input)
+</code></pre>
+<p>这适合最小 demo。</p>
+<h3>系统 B：有 ToolUseContext</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">output = handlers[tool_name](tool_input, tool_use_context)
+</code></pre>
+<p>这个版本才更接近一个真实平台。</p>
+<p>因为工具现在不只是“做一个动作”，而是在一个复杂系统里做动作。</p>
+<p>例如：</p>
+<ul>
+<li><code>bash</code> 要看权限</li>
+<li><code>mcp__postgres__query</code> 要找对应 client</li>
+<li><code>agent</code> 工具要创建子执行环境</li>
+<li><code>task_output</code> 工具可能要写磁盘并发通知</li>
+</ul>
+<p>这些都要求它们共享同一个上下文总线。</p>
+<h2>最小实现</h2>
+<h3>第一步：仍然保留 ToolSpec 和 handler</h3>
+<p>这个主线不要丢。</p>
+<h3>第二步：引入一个统一 context</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ToolUseContext</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-variable language_">self</span>.handlers = {}
+        <span class="hljs-variable language_">self</span>.permission_context = {}
+        <span class="hljs-variable language_">self</span>.mcp_clients = {}
+        <span class="hljs-variable language_">self</span>.messages = []
+        <span class="hljs-variable language_">self</span>.app_state = {}
+        <span class="hljs-variable language_">self</span>.notifications = []
+</code></pre>
+<h3>第三步：让所有 handler 都能看到 context</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">run_tool</span>(<span class="hljs-params">tool_name: <span class="hljs-built_in">str</span>, tool_input: <span class="hljs-built_in">dict</span>, ctx: ToolUseContext</span>):
+    handler = ctx.handlers[tool_name]
+    <span class="hljs-keyword">return</span> handler(tool_input, ctx)
+</code></pre>
+<h3>第四步：在 router 层分不同能力来源</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">route_tool</span>(<span class="hljs-params">tool_name: <span class="hljs-built_in">str</span>, tool_input: <span class="hljs-built_in">dict</span>, ctx: ToolUseContext</span>):
+    <span class="hljs-keyword">if</span> tool_name.startswith(<span class="hljs-string">"mcp__"</span>):
+        <span class="hljs-keyword">return</span> run_mcp_tool(tool_name, tool_input, ctx)
+    <span class="hljs-keyword">return</span> run_native_tool(tool_name, tool_input, ctx)
+</code></pre>
+<h2>一张应该讲清楚的图</h2>
+<pre class="code-block" data-language="text"><code class="hljs language-text">LLM tool call
+  |
+  v
+Tool Router
+  |
+  +-- native tools ----------> local handlers
+  |
+  +-- mcp tools -------------> mcp client
+  |
+  +-- agent/task/team tools --> platform handlers
+            |
+            v
+       ToolUseContext
+         - permissions
+         - messages
+         - app state
+         - notifications
+         - mcp clients
+</code></pre>
+<h2>它和 <code>s02</code>、<code>s19</code> 的关系</h2>
+<ul>
+<li><code>s02</code> 先教你工具调用为什么成立</li>
+<li>这篇解释更完整的系统里工具层为什么会长成一个控制平面</li>
+<li><code>s19</code> 再把 MCP 作为外部能力来源接进来</li>
+</ul>
+<p>也就是说：</p>
+<p><strong>MCP 不是另一套独立系统，而是 Tool Control Plane 的一个能力来源。</strong></p>
+<h2>初学者最容易犯的错</h2>
+<h3>1. 以为工具上下文只是 <code>cwd</code></h3>
+<p>不是。</p>
+<p>更完整的系统里，工具上下文往往还包含权限、状态、外部连接和通知接口。</p>
+<h3>2. 让每个工具自己去全局变量里找环境</h3>
+<p>这样工具层会变得非常散。</p>
+<p>更清楚的做法，是显式传一个统一 context。</p>
+<h3>3. 把本地工具和 MCP 工具拆成完全不同体系</h3>
+<p>这会让系统边界越来越乱。</p>
+<p>更好的方式是：</p>
+<ul>
+<li>能力来源不同</li>
+<li>但都汇入统一 router 和统一 result envelope</li>
+</ul>
+<h3>4. 把 tool result 永远当成纯字符串</h3>
+<p>这样后面接附件、错误、结构化信息时会很别扭。</p>
+<h2>教学边界</h2>
+<p>这篇最重要的，不是把工具层做成一个庞大的企业总线，而是先把下面三层边界讲清：</p>
+<ul>
+<li>tool call 不是直接执行，而是先进入统一调度入口</li>
+<li>工具 handler 不应该各自去偷拿环境，而应该共享一份显式 <code>ToolUseContext</code></li>
+<li>本地工具、插件工具、MCP 工具可以来源不同，但结果都应该回到统一控制面</li>
+</ul>
+<p>类型化上下文、能力注册中心、大结果存储和更细的工具限额，都是你把这条最小控制总线讲稳以后再补的扩展。</p>
+<h2>一句话记住</h2>
+<p><strong>最小工具系统靠 dispatch map，更完整的工具系统靠 ToolUseContext 这条控制总线。</strong></p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"docs\",\"s02a-tool-control-plane\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"s02a-tool-control-plane\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/zh\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"回到学习主线\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"桥接文档\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"工具控制平面\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"这页适合什么时候回看\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"专门补工具调用怎样进入统一执行面，适合权限、Hook、MCP 等章节一起看。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"最适合和这些章节一起读\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s02\",{\"href\":\"/zh/s02\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s02\",\" · \",\"工具使用\"]}],[\"$\",\"$L13\",\"s08\",{\"href\":\"/zh/s08\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s08\",\" · \",\"Hook 系统\"]}],[\"$\",\"$L13\",\"s19\",{\"href\":\"/zh/s19\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s19\",\" · \",\"MCP 与插件\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"s02a-tool-control-plane\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"工具控制平面\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"专门补工具调用怎样进入统一执行面，适合权限、Hook、MCP 等章节一起看。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

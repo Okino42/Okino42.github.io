@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="ja"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19章・4段階で、0から高完成度の Claude Code-like agent を組み立てる"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/ja/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/reference/">リファレンス</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/compare/">比較</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">コアループ</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">エージェントループ</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">ツール使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">Todo 書き込み</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">サブエージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">スキル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">コンテキスト圧縮</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">システム強化</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">権限システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">記憶システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">システムプロンプト</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">エラー回復</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">タスクランタイム</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">タスクシステム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/ja/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">バックグラウンドタスク</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">Cron スケジューラ</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">マルチエージェント基盤</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">エージェントチーム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">チームプロトコル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自律エージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 分離</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP とプラグイン</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s13</span><h1 class="text-2xl font-bold sm:text-3xl">バックグラウンドタスク</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">タスクランタイム</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">タスク目標と実行スロットを分ける<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">287<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>6<!-- --> <!-- -->ツール</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">永続タスクは何を終えるべきかを表し、実行スロットは誰がどこまで走っているかを表します。両者は関連しますが同一ではありません。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学習</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">コード</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深掘り</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > s05 > s06 > s07 > s08 > s09 > s10 > s11 > s12 > [ s13 ] > s14 > s15 > s16 > s17 > s18 > s19</code></p>
+<blockquote class="hero-callout">
+<p><em>遅い command は横で待たせればよく、main loop まで一緒に止まる必要はありません。</em></p>
+</blockquote>
+<h2>この章が解く問題</h2>
+<p>前の章までの tool call は、基本的に次の形でした。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">model が tool を要求する
+  ->
+すぐ実行する
+  ->
+すぐ結果を返す
+</code></pre>
+<p>短い command ならこれで問題ありません。</p>
+<p>でも次のような処理はすぐに詰まります。</p>
+<ul>
+<li><code>npm install</code></li>
+<li><code>pytest</code></li>
+<li><code>docker build</code></li>
+<li>重い code generation</li>
+<li>長時間の lint / typecheck</li>
+</ul>
+<p>もし main loop がその完了を同期的に待ち続けると、2 つの問題が起きます。</p>
+<ul>
+<li>model は待ち時間のあいだ次の判断へ進めない</li>
+<li>user は別の軽い作業を進めたいのに、agent 全体が足止めされる</li>
+</ul>
+<p>この章で入れるのは、</p>
+<p><strong>遅い実行を background へ逃がし、main loop は次の仕事へ進めるようにすること</strong></p>
+<p>です。</p>
+<h2>併読すると楽になる資料</h2>
+<ul>
+<li><code>task goal</code> と <code>live execution slot</code> がまだ混ざるなら <a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a></li>
+<li><code>RuntimeTaskRecord</code> と task board の境界を見直したいなら <a href="./data-structures.md"><code>data-structures.md</code></a></li>
+<li>background execution が「別の main loop」に見えてきたら <a href="./s02b-tool-execution-runtime.md"><code>s02b-tool-execution-runtime.md</code></a></li>
+</ul>
+<h2>先に言葉をそろえる</h2>
+<h3>foreground とは何か</h3>
+<p>ここで言う foreground は、</p>
+<blockquote>
+<p>この turn の中で今すぐ結果が必要なので、main loop がその場で待つ実行</p>
+</blockquote>
+<p>です。</p>
+<h3>background とは何か</h3>
+<p>background は謎の裏世界ではありません。</p>
+<p>意味は単純で、</p>
+<blockquote>
+<p>command を別の execution line に任せ、main loop は先に別のことを進める</p>
+</blockquote>
+<p>ことです。</p>
+<h3>通知キューとは何か</h3>
+<p>background task が終わっても、その完全な出力をいきなり model へ丸ごと押し込む必要はありません。</p>
+<p>いったん queue に要約通知として積み、</p>
+<blockquote>
+<p>次の model call の直前にまとめて main loop へ戻す</p>
+</blockquote>
+<p>のが分かりやすい設計です。</p>
+<h2>最小心智モデル</h2>
+<p>この章で最も大切な 1 文は次です。</p>
+<p><strong>並行になるのは実行と待機であって、main loop 自体が増えるわけではありません。</strong></p>
+<p>図にするとこうです。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">Main loop
+  |
+  +-- background_run("pytest")
+  |      -> すぐ task_id を返す
+  |
+  +-- そのまま別の仕事を続ける
+  |
+  +-- 次の model call の前
+         -> drain_notifications()
+         -> 結果要約を messages へ注入
+
+Background lane
+  |
+  +-- 実際に subprocess を実行
+  +-- 終了後に result preview を queue へ積む
+</code></pre>
+<p>この図を保ったまま理解すれば、後でもっと複雑な runtime へ進んでも心智が崩れにくくなります。</p>
+<h2>この章の核になるデータ構造</h2>
+<h3>1. RuntimeTaskRecord</h3>
+<p>この章で扱う background task は durable task board の task とは別物です。</p>
+<p>教材コードでは、background 実行はおおむね次の record を持ちます。</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">task = {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"a1b2c3d4"</span>,
+    <span class="hljs-string">"command"</span>: <span class="hljs-string">"pytest"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"running"</span>,
+    <span class="hljs-string">"started_at"</span>: <span class="hljs-number">1710000000.0</span>,
+    <span class="hljs-string">"finished_at"</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">"result_preview"</span>: <span class="hljs-string">""</span>,
+    <span class="hljs-string">"output_file"</span>: <span class="hljs-string">".runtime-tasks/a1b2c3d4.log"</span>,
+}
+</code></pre>
+<p>各 field の意味は次の通りです。</p>
+<ul>
+<li><code>id</code>: runtime slot の識別子</li>
+<li><code>command</code>: 今走っている command</li>
+<li><code>status</code>: <code>running</code> / <code>completed</code> / <code>timeout</code> / <code>error</code></li>
+<li><code>started_at</code>: いつ始まったか</li>
+<li><code>finished_at</code>: いつ終わったか</li>
+<li><code>result_preview</code>: model に戻す短い要約</li>
+<li><code>output_file</code>: 完全出力の保存先</li>
+</ul>
+<p>教材版ではこれを disk 上にも分けて残します。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">.runtime-tasks/
+  a1b2c3d4.json
+  a1b2c3d4.log
+</code></pre>
+<p>これで読者は、</p>
+<ul>
+<li><code>json</code> は状態 record</li>
+<li><code>log</code> は完全出力</li>
+<li>model へ戻すのはまず preview</li>
+</ul>
+<p>という 3 層を自然に見分けられます。</p>
+<h3>2. Notification</h3>
+<p>background result はまず notification queue に入ります。</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">notification = {
+    <span class="hljs-string">"task_id"</span>: <span class="hljs-string">"a1b2c3d4"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"completed"</span>,
+    <span class="hljs-string">"command"</span>: <span class="hljs-string">"pytest"</span>,
+    <span class="hljs-string">"preview"</span>: <span class="hljs-string">"42 tests passed"</span>,
+    <span class="hljs-string">"output_file"</span>: <span class="hljs-string">".runtime-tasks/a1b2c3d4.log"</span>,
+}
+</code></pre>
+<p>notification の役割は 1 つだけです。</p>
+<blockquote>
+<p>main loop に「結果が戻ってきた」と知らせること</p>
+</blockquote>
+<p>ここに完全出力の全量を埋め込む必要はありません。</p>
+<h2>最小実装を段階で追う</h2>
+<h3>第 1 段階: background manager を持つ</h3>
+<p>最低限必要なのは次の 2 つの状態です。</p>
+<ul>
+<li><code>tasks</code>: いま存在する runtime task</li>
+<li><code>_notification_queue</code>: main loop にまだ回収されていない結果</li>
+</ul>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BackgroundManager</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-variable language_">self</span>.tasks = {}
+        <span class="hljs-variable language_">self</span>._notification_queue = []
+        <span class="hljs-variable language_">self</span>._lock = threading.Lock()
+</code></pre>
+<p>ここで lock を置いているのは、background thread と main loop が同じ queue / dict を触るからです。</p>
+<h3>第 2 段階: <code>run()</code> はすぐ返す</h3>
+<p>background 化の一番大きな変化はここです。</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, command: <span class="hljs-built_in">str</span></span>) -> <span class="hljs-built_in">str</span>:
+    task_id = <span class="hljs-built_in">str</span>(uuid.uuid4())[:<span class="hljs-number">8</span>]
+    <span class="hljs-variable language_">self</span>.tasks[task_id] = {
+        <span class="hljs-string">"id"</span>: task_id,
+        <span class="hljs-string">"status"</span>: <span class="hljs-string">"running"</span>,
+        <span class="hljs-string">"command"</span>: command,
+        <span class="hljs-string">"started_at"</span>: time.time(),
+    }
+
+    thread = threading.Thread(
+        target=<span class="hljs-variable language_">self</span>._execute,
+        args=(task_id, command),
+        daemon=<span class="hljs-literal">True</span>,
+    )
+    thread.start()
+    <span class="hljs-keyword">return</span> task_id
+</code></pre>
+<p>重要なのは thread 自体より、</p>
+<p><strong>main loop が結果ではなく <code>task_id</code> を受け取り、先に進める</strong></p>
+<p>ことです。</p>
+<h3>第 3 段階: subprocess が終わったら notification を積む</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_execute</span>(<span class="hljs-params">self, task_id: <span class="hljs-built_in">str</span>, command: <span class="hljs-built_in">str</span></span>):
+    <span class="hljs-keyword">try</span>:
+        result = subprocess.run(..., timeout=<span class="hljs-number">300</span>)
+        status = <span class="hljs-string">"completed"</span>
+        preview = (result.stdout + result.stderr)[:<span class="hljs-number">500</span>]
+    <span class="hljs-keyword">except</span> subprocess.TimeoutExpired:
+        status = <span class="hljs-string">"timeout"</span>
+        preview = <span class="hljs-string">"command timed out"</span>
+
+    <span class="hljs-keyword">with</span> <span class="hljs-variable language_">self</span>._lock:
+        <span class="hljs-variable language_">self</span>.tasks[task_id][<span class="hljs-string">"status"</span>] = status
+        <span class="hljs-variable language_">self</span>._notification_queue.append({
+            <span class="hljs-string">"task_id"</span>: task_id,
+            <span class="hljs-string">"status"</span>: status,
+            <span class="hljs-string">"preview"</span>: preview,
+        })
+</code></pre>
+<p>ここでの設計意図ははっきりしています。</p>
+<ul>
+<li>execution lane は command を実際に走らせる</li>
+<li>notification queue は main loop へ戻すための要約を持つ</li>
+</ul>
+<p>役割を分けることで、result transport が見やすくなります。</p>
+<h3>第 4 段階: 次の model call 前に queue を drain する</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">agent_loop</span>(<span class="hljs-params">messages: <span class="hljs-built_in">list</span></span>):
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        notifications = BG.drain_notifications()
+        <span class="hljs-keyword">if</span> notifications:
+            notif_text = <span class="hljs-string">"\n"</span>.join(
+                <span class="hljs-string">f"[bg:<span class="hljs-subst">{n[<span class="hljs-string">'task_id'</span>]}</span>] <span class="hljs-subst">{n[<span class="hljs-string">'preview'</span>]}</span>"</span> <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> notifications
+            )
+            messages.append({
+                <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+                <span class="hljs-string">"content"</span>: <span class="hljs-string">f"&#x3C;background-results>\n<span class="hljs-subst">{notif_text}</span>\n&#x3C;/background-results>"</span>,
+            })
+            messages.append({
+                <span class="hljs-string">"role"</span>: <span class="hljs-string">"assistant"</span>,
+                <span class="hljs-string">"content"</span>: <span class="hljs-string">"Noted background results."</span>,
+            })
+</code></pre>
+<p>この構造が大切です。</p>
+<p>結果は「いつでも割り込んで model へ押し込まれる」のではなく、</p>
+<p><strong>次の model call の入口でまとめて注入される</strong></p>
+<p>からです。</p>
+<h3>第 5 段階: preview と full output を分ける</h3>
+<p>教材コードでは <code>result_preview</code> と <code>output_file</code> を分けています。</p>
+<p>これは初心者にも非常に大事な設計です。</p>
+<p>なぜなら background result にはしばしば次の問題があるからです。</p>
+<ul>
+<li>出力が長い</li>
+<li>model に全量を見せる必要がない</li>
+<li>user だけ詳細 log を見れば十分なことが多い</li>
+</ul>
+<p>そこでまず model には短い preview を返し、必要なら後で <code>read_file</code> 等で full log を読む形にします。</p>
+<h3>第 6 段階: stalled task も見られるようにする</h3>
+<p>教材コードは <code>STALL_THRESHOLD_S</code> を持ち、長く走りすぎている task を拾えます。</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">detect_stalled</span>(<span class="hljs-params">self</span>) -> <span class="hljs-built_in">list</span>[<span class="hljs-built_in">str</span>]:
+    now = time.time()
+    stalled = []
+    <span class="hljs-keyword">for</span> task_id, info <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.tasks.items():
+        <span class="hljs-keyword">if</span> info[<span class="hljs-string">"status"</span>] != <span class="hljs-string">"running"</span>:
+            <span class="hljs-keyword">continue</span>
+        elapsed = now - info.get(<span class="hljs-string">"started_at"</span>, now)
+        <span class="hljs-keyword">if</span> elapsed > STALL_THRESHOLD_S:
+            stalled.append(task_id)
+    <span class="hljs-keyword">return</span> stalled
+</code></pre>
+<p>ここで学ぶべき本質は sophisticated monitoring ではありません。</p>
+<p><strong>background 化したら「開始したまま返ってこないもの」を見張る観点が必要になる</strong></p>
+<p>ということです。</p>
+<h2>これは task board の task とは違う</h2>
+<p>ここは混ざりやすいので強調します。</p>
+<p><code>s12</code> の <code>task</code> は durable goal node です。</p>
+<p>一方この章の background task は、</p>
+<blockquote>
+<p>いま実行中の live runtime slot</p>
+</blockquote>
+<p>です。</p>
+<p>同じ <code>task</code> という言葉を使っても指している層が違います。</p>
+<p>だから分からなくなったら、本文だけを往復せずに次へ戻るべきです。</p>
+<ul>
+<li><a href="./entity-map.md"><code>entity-map.md</code></a></li>
+<li><a href="./data-structures.md"><code>data-structures.md</code></a></li>
+<li><a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a></li>
+</ul>
+<h2>前の章とどうつながるか</h2>
+<p>この章は <code>s12</code> の durable task graph を否定する章ではありません。</p>
+<p>むしろ、</p>
+<ul>
+<li><code>s12</code> が「何の仕事が存在するか」を管理し</li>
+<li><code>s13</code> が「いまどの command が走っているか」を管理する</li>
+</ul>
+<p>という役割分担を教える章です。</p>
+<p>後の <code>s14</code>、<code>s17</code>、<code>s18</code> へ行く前に、</p>
+<p><strong>goal と runtime slot を分けて見る癖</strong></p>
+<p>をここで作っておくことが重要です。</p>
+<h2>初学者が混ぜやすいポイント</h2>
+<h3>1. background execution を「もう 1 本の main loop」と考える</h3>
+<p>実際に増えているのは subprocess waiting lane であって、main conversational loop ではありません。</p>
+<h3>2. result を queue ではなく即座に messages へ乱暴に書き込む</h3>
+<p>これでは model input の入口が分散し、system の流れが追いにくくなります。</p>
+<h3>3. full output と preview を分けない</h3>
+<p>長い log で context がすぐあふれます。</p>
+<h3>4. runtime task と durable task を同一視する</h3>
+<p>「いま走っている command」と「長く残る work goal」は別物です。</p>
+<h3>5. queue 操作に lock を使わない</h3>
+<p>background thread と main loop の競合で状態が壊れやすくなります。</p>
+<h3>6. timeout / error を <code>completed</code> と同じように扱う</h3>
+<p>戻すべき情報は同じではありません。終了理由は explicit に残すべきです。</p>
+<h2>教学上の境界</h2>
+<p>この章でまず理解すべき中心は、製品用の完全な async runtime ではありません。</p>
+<p>中心は次の 3 行です。</p>
+<ul>
+<li>遅い仕事を foreground から切り離す</li>
+<li>結果は notification として main loop に戻す</li>
+<li>runtime slot は durable task board とは別層で管理する</li>
+</ul>
+<p>ここが腹落ちしてから、</p>
+<ul>
+<li>より複雑な scheduler</li>
+<li>複数種類の background lane</li>
+<li>分散 worker</li>
+</ul>
+<p>へ進めば十分です。</p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/ja/s12/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">前の章</div><div class="font-medium">s12<!-- --> - <!-- -->タスクシステム</div></div></a><a class="group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/ja/s14/"><div><div class="text-xs text-zinc-400">次の章</div><div class="font-medium">Cron スケジューラ<!-- --> - <!-- -->s14</div></div><span class="transition-transform group-hover:translate-x-1">→</span></a></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"ja\",\"s13\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"ja\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s13\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"ja\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"ja\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T3313,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: background execution -- the model thinks while the harness waits.\n\"\"\"\ns13_background_tasks.py - Background Tasks\n\nRun slow commands in background threads. Before each LLM call, the loop\ndrains a notification queue and hands finished results back to the model.\n\n    Main thread                Background thread\n    +-----------------+        +-----------------+\n    | agent loop      |        | task executes   |\n    | ...             |        | ...             |\n    | [LLM call] \u003c---+------- | enqueue(result) |\n    |  ^drain queue   |        +-----------------+\n    +-----------------+\n\n    Timeline:\n    Agent ----[spawn A]----[spawn B]----[other work]----\n                 |              |\n                 v              v\n              [A runs]      [B runs]\n                 |              |\n                 +-- notification queue --\u003e [results injected]\n\nBackground tasks here are runtime execution slots, not the durable task-board\nrecords introduced in s12.\n\"\"\"\n\nimport os\nimport json\nimport subprocess\nimport threading\nimport time\nimport uuid\nfrom pathlib import Path\n\nfrom anthropic import Anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\n\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nRUNTIME_DIR = WORKDIR / \".runtime-tasks\"\nRUNTIME_DIR.mkdir(exist_ok=True)\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\n\nSYSTEM = f\"You are a coding agent at {WORKDIR}. Use background_run for long-running commands.\"\n\nSTALL_THRESHOLD_S = 45  # seconds before a task is considered stalled\n\n\nclass NotificationQueue:\n    \"\"\"\n    Priority-based notification queue with same-key folding.\n\n    Folding means a newer message can replace an older message with the\n    same key, so the context is not flooded with stale updates.\n    \"\"\"\n\n    PRIORITIES = {\"immediate\": 0, \"high\": 1, \"medium\": 2, \"low\": 3}\n\n    def __init__(self):\n        self._queue = []  # list of (priority, key, message)\n        self._lock = threading.Lock()\n\n    def push(self, message: str, priority: str = \"medium\", key: str = None):\n        \"\"\"Add a message to the queue, folding if key matches an existing entry.\"\"\"\n        with self._lock:\n            if key:\n                # Fold: replace existing message with same key\n                self._queue = [(p, k, m) for p, k, m in self._queue if k != key]\n            self._queue.append((self.PRIORITIES.get(priority, 2), key, message))\n            self._queue.sort(key=lambda x: x[0])\n\n    def drain(self) -\u003e list[str]:\n        \"\"\"Return all pending messages in priority order and clear the queue.\"\"\"\n        with self._lock:\n            messages = [m for _, _, m in self._queue]\n            self._queue.clear()\n            return messages\n\n\n# -- BackgroundManager: threaded execution + notification queue --\nclass BackgroundManager:\n    def __init__(self):\n        self.dir = RUNTIME_DIR\n        self.tasks = {}  # task_id -\u003e {status, result, command, started_at}\n        self._notification_queue = []  # completed task results\n        self._lock = threading.Lock()\n\n    def _record_path(self, task_id: str) -\u003e Path:\n        return self.dir / f\"{task_id}.json\"\n\n    def _output_path(self, task_id: str) -\u003e Path:\n        return self.dir / f\"{task_id}.log\"\n\n    def _persist_task(self, task_id: str):\n        record = dict(self.tasks[task_id])\n        self._record_path(task_id).write_text(\n            json.dumps(record, indent=2, ensure_ascii=False)\n        )\n\n    def _preview(self, output: str, limit: int = 500) -\u003e str:\n        compact = \" \".join((output or \"(no output)\").split())\n        return compact[:limit]\n\n    def run(self, command: str) -\u003e str:\n        \"\"\"Start a background thread, return task_id immediately.\"\"\"\n        task_id = str(uuid.uuid4())[:8]\n        output_file = self._output_path(task_id)\n        self.tasks[task_id] = {\n            \"id\": task_id,\n            \"status\": \"running\",\n            \"result\": None,\n            \"command\": command,\n            \"started_at\": time.time(),\n            \"finished_at\": None,\n            \"result_preview\": \"\",\n            \"output_file\": str(output_file.relative_to(WORKDIR)),\n        }\n        self._persist_task(task_id)\n        thread = threading.Thread(\n            target=self._execute, args=(task_id, command), daemon=True\n        )\n        thread.start()\n        return (\n            f\"Background task {task_id} started: {command[:80]} \"\n            f\"(output_file={output_file.relative_to(WORKDIR)})\"\n        )\n\n    def _execute(self, task_id: str, command: str):\n        \"\"\"Thread target: run subprocess, capture output, push to queue.\"\"\"\n        try:\n            r = subprocess.run(\n                command, shell=True, cwd=WORKDIR,\n                capture_output=True, text=True, timeout=300\n            )\n            output = (r.stdout + r.stderr).strip()[:50000]\n            status = \"completed\"\n        except subprocess.TimeoutExpired:\n            output = \"Error: Timeout (300s)\"\n            status = \"timeout\"\n        except Exception as e:\n            output = f\"Error: {e}\"\n            status = \"error\"\n        final_output = output or \"(no output)\"\n        preview = self._preview(final_output)\n        output_path = self._output_path(task_id)\n        output_path.write_text(final_output)\n        self.tasks[task_id][\"status\"] = status\n        self.tasks[task_id][\"result\"] = final_output\n        self.tasks[task_id][\"finished_at\"] = time.time()\n        self.tasks[task_id][\"result_preview\"] = preview\n        self._persist_task(task_id)\n        with self._lock:\n            self._notification_queue.append({\n                \"task_id\": task_id,\n                \"status\": status,\n                \"command\": command[:80],\n                \"preview\": preview,\n                \"output_file\": str(output_path.relative_to(WORKDIR)),\n            })\n\n    def check(self, task_id: str = None) -\u003e str:\n        \"\"\"Check status of one task or list all.\"\"\"\n        if task_id:\n            t = self.tasks.get(task_id)\n            if not t:\n                return f\"Error: Unknown task {task_id}\"\n            visible = {\n                \"id\": t[\"id\"],\n                \"status\": t[\"status\"],\n                \"command\": t[\"command\"],\n                \"result_preview\": t.get(\"result_preview\", \"\"),\n                \"output_file\": t.get(\"output_file\", \"\"),\n            }\n            return json.dumps(visible, indent=2, ensure_ascii=False)\n        lines = []\n        for tid, t in self.tasks.items():\n            lines.append(\n                f\"{tid}: [{t['status']}] {t['command'][:60]} \"\n                f\"-\u003e {t.get('result_preview') or '(running)'}\"\n            )\n        return \"\\n\".join(lines) if lines else \"No background tasks.\"\n\n    def drain_notifications(self) -\u003e list:\n        \"\"\"Return and clear all pending completion notifications.\"\"\"\n        with self._lock:\n            notifs = list(self._notification_queue)\n            self._notification_queue.clear()\n        return notifs\n\n    def detect_stalled(self) -\u003e list[str]:\n        \"\"\"\n        Return task IDs that have been running longer than STALL_THRESHOLD_S.\n        \"\"\"\n        now = time.time()\n        stalled = []\n        for task_id, info in self.tasks.items():\n            if info[\"status\"] != \"running\":\n                continue\n            elapsed = now - info.get(\"started_at\", now)\n            if elapsed \u003e STALL_THRESHOLD_S:\n                stalled.append(task_id)\n        return stalled\n\n\nBG = BackgroundManager()\n\n\n# -- Tool implementations --\ndef safe_path(p: str) -\u003e Path:\n    path = (WORKDIR / p).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {p}\")\n    return path\n\ndef run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\", \"\u003e /dev/\"]\n    if any(d in command for d in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        r = subprocess.run(command, shell=True, cwd=WORKDIR,\n                           capture_output=True, text=True, timeout=120)\n        out = (r.stdout + r.stderr).strip()\n        return out[:50000] if out else \"(no output)\"\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\ndef run_read(path: str, limit: int = None) -\u003e str:\n    try:\n        lines = safe_path(path).read_text().splitlines()\n        if limit and limit \u003c len(lines):\n            lines = lines[:limit] + [f\"... ({len(lines) - limit} more)\"]\n        return \"\\n\".join(lines)[:50000]\n    except Exception as e:\n        return f\"Error: {e}\"\n\ndef run_write(path: str, content: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        fp.parent.mkdir(parents=True, exist_ok=True)\n        fp.write_text(content)\n        return f\"Wrote {len(content)} bytes\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\ndef run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        c = fp.read_text()\n        if old_text not in c:\n            return f\"Error: Text not found in {path}\"\n        fp.write_text(c.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\nTOOL_HANDLERS = {\n    \"bash\":             lambda **kw: run_bash(kw[\"command\"]),\n    \"read_file\":        lambda **kw: run_read(kw[\"path\"], kw.get(\"limit\")),\n    \"write_file\":       lambda **kw: run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\":        lambda **kw: run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n    \"background_run\":   lambda **kw: BG.run(kw[\"command\"]),\n    \"check_background\": lambda **kw: BG.check(kw.get(\"task_id\")),\n}\n\nTOOLS = [\n    {\"name\": \"bash\", \"description\": \"Run a shell command (blocking).\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"limit\": {\"type\": \"integer\"}}, \"required\": [\"path\"]}},\n    {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n    {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n    {\"name\": \"background_run\", \"description\": \"Run command in background thread. Returns task_id immediately.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"check_background\", \"description\": \"Check background task status. Omit task_id to list all.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"task_id\": {\"type\": \"string\"}}}},\n]\n\n\ndef agent_loop(messages: list):\n    while True:\n        # Drain background notifications and inject as a synthetic user/assistant\n        # transcript pair before the next model call (teaching demo behavior).\n        notifs = BG.drain_notifications()\n        if notifs and messages:\n            notif_text = \"\\n\".join(\n                f\"[bg:{n['task_id']}] {n['status']}: {n['preview']} \"\n                f\"(output_file={n['output_file']})\"\n                for n in notifs\n            )\n            messages.append({\"role\": \"user\", \"content\": f\"\u003cbackground-results\u003e\\n{notif_text}\\n\u003c/background-results\u003e\"})\n        response = client.messages.create(\n            model=MODEL, system=SYSTEM, messages=messages,\n            tools=TOOLS, max_tokens=8000,\n        )\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n        if response.stop_reason != \"tool_use\":\n            return\n        results = []\n        for block in response.content:\n            if block.type == \"tool_use\":\n                handler = TOOL_HANDLERS.get(block.name)\n                try:\n                    output = handler(**block.input) if handler else f\"Unknown tool: {block.name}\"\n                except Exception as e:\n                    output = f\"Error: {e}\"\n                print(f\"\u003e {block.name}:\")\n                print(str(output)[:200])\n                results.append({\"type\": \"tool_result\", \"tool_use_id\": block.id, \"content\": str(output)})\n        messages.append({\"role\": \"user\", \"content\": results})\n\n\nif __name__ == \"__main__\":\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms13 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history)\n        response_content = history[-1][\"content\"]\n        if isinstance(response_content, list):\n            for block in response_content:\n                if hasattr(block, \"text\"):\n                    print(block.text)\n        print()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s13\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"バックグラウンドタスク\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300\",\"children\":\"タスクランタイム\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"タスク目標と実行スロットを分ける\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[287,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[6,\" \",\"ツール\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"永続タスクは何を終えるべきかを表し、実行スロットは誰がどこまで走っているかを表します。両者は関連しますが同一ではありません。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s13\",\"diff\":{\"from\":\"s12\",\"to\":\"s13\",\"newClasses\":[\"NotificationQueue\",\"BackgroundManager\"],\"newFunctions\":[],\"newTools\":[\"background_run\",\"check_background\"],\"locDelta\":60},\"source\":\"$14\",\"filename\":\"s13_background_tasks.py\",\"guideData\":{\"focus\":\"`RuntimeTaskState` と `Notification` が何を分担しているかを見る。\",\"confusion\":\"バックグラウンドタスクはタスクボード上のノードではなく、いま走っている実行スロットです。\",\"goal\":\"遅い処理をバックグラウンドへ逃がし、次のターンで結果を主ループへ戻せるようにする。\"},\"bridgeDocs\":[{\"slug\":\"s13a-runtime-task-model\",\"kind\":\"mechanism\",\"title\":\"ランタイムタスクモデル\",\"summary\":{\"zh\":\"把 task goal、runtime record、notification 三层边界一次讲清。\",\"en\":\"The most common Stage 3 confusion: two meanings of 'task'. Read between s12 and s13.\",\"ja\":\"作業目標・実行記録・通知の3層境界をまとめて補う資料です。\"},\"fallbackLocale\":null},{\"slug\":\"s02b-tool-execution-runtime\",\"kind\":\"mechanism\",\"title\":\"ツール実行ランタイム\",\"summary\":{\"zh\":\"把工具并发、串行、进度消息、结果顺序和 context 合并这层运行时讲清楚。\",\"en\":\"How multiple tool calls in one turn get executed safely. Best read after s02.\",\"ja\":\"tool の並列実行と直列実行、progress 更新、結果順序、context 統合をまとめて補う資料です。\"},\"fallbackLocale\":null}],\"locale\":\"ja\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/ja/s12\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"前の章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s12\",\" - \",\"タスクシステム\"]}]]}]]}],[\"$\",\"$L16\",null,{\"href\":\"/ja/s14\",\"className\":\"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"次の章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"Cron スケジューラ\",\" - \",\"s14\"]}]]}],[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:translate-x-1\",\"children\":\"→\"}]]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19章・4段階で、0から高完成度の Claude Code-like agent を組み立てる\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>

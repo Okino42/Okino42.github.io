@@ -1,0 +1,362 @@
+<!DOCTYPE html><html lang="ja"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19章・4段階で、0から高完成度の Claude Code-like agent を組み立てる"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/ja/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/reference/">リファレンス</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/compare/">比較</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">コアループ</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">エージェントループ</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">ツール使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">Todo 書き込み</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">サブエージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">スキル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">コンテキスト圧縮</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">システム強化</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">権限システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">記憶システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">システムプロンプト</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">エラー回復</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">タスクランタイム</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">タスクシステム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">バックグラウンドタスク</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">Cron スケジューラ</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">マルチエージェント基盤</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/ja/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">エージェントチーム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">チームプロトコル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自律エージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 分離</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP とプラグイン</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s15</span><h1 class="text-2xl font-bold sm:text-3xl">エージェントチーム</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">マルチエージェント基盤</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">常駐する専門チームメイト<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">350<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>10<!-- --> <!-- -->ツール</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">長く動くシステムには、その場限りのサブタスクではなく、名前と役割を持って居続けるチームメイトが必要です。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学習</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">コード</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深掘り</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > s05 > s06 > s07 > s08 > s09 > s10 > s11 > s12 > s13 > s14 > [ s15 ] > s16 > s17 > s18 > s19</code></p>
+<blockquote class="hero-callout">
+<p><em>subagent は一回きりの委譲に向く。team system が解くのは、「誰かが長く online で残り、繰り返し仕事を受け取り、互いに協調できる」状態です。</em></p>
+</blockquote>
+<h2>この章が本当に解きたい問題</h2>
+<p><code>s04</code> の subagent は、main agent が作業を小さく切り出すのに十分役立ちます。</p>
+<p>ただし subagent には明確な境界があります。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">生成される
+  ->
+少し作業する
+  ->
+要約を返す
+  ->
+消える
+</code></pre>
+<p>これは一回きりの調査や短い委譲にはとても向いています。<br>
+しかし、次のような system を作りたいときには足りません。</p>
+<ul>
+<li>テスト担当の agent を長く待機させる</li>
+<li>リファクタ担当とテスト担当を並行して持ち続ける</li>
+<li>ある teammate が後のターンでも同じ責任を持ち続ける</li>
+<li>lead が後で同じ teammate へ再び仕事を振る</li>
+</ul>
+<p>つまり今不足しているのは「model call を 1 回増やすこと」ではありません。</p>
+<p>不足しているのは:</p>
+<p><strong>名前・役割・inbox・状態を持った、長期的に存在する実行者の集まり</strong></p>
+<p>です。</p>
+<h2>併読のすすめ</h2>
+<ul>
+<li>teammate と <code>s04</code> の subagent をまだ同じものに見てしまうなら、<a href="./entity-map.md"><code>entity-map.md</code></a> に戻ります。</li>
+<li><code>s16-s18</code> まで続けて読むなら、<a href="./team-task-lane-model.md"><code>team-task-lane-model.md</code></a> を手元に置き、teammate、protocol request、task、runtime slot、worktree lane を混ぜないようにします。</li>
+<li>長く生きる teammate と background 実行の runtime slot が混ざり始めたら、<a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a> で goal / execution の境界を先に固めます。</li>
+</ul>
+<h2>まず用語をはっきり分ける</h2>
+<h3>teammate とは何か</h3>
+<p>ここでの <code>teammate</code> は:</p>
+<blockquote>
+<p>名前、役割、inbox、lifecycle を持ち、複数ターンにまたがって system 内へ残る agent</p>
+</blockquote>
+<p>のことです。</p>
+<p>重要なのは「賢い helper」ではなく、<strong>持続する actor</strong> だという点です。</p>
+<h3>roster とは何か</h3>
+<p><code>roster</code> は team member の名簿です。</p>
+<p>少なくとも次を答えられる必要があります。</p>
+<ul>
+<li>今 team に誰がいるか</li>
+<li>その人の role は何か</li>
+<li>その人は idle か、working か、shutdown 済みか</li>
+</ul>
+<h3>mailbox とは何か</h3>
+<p><code>mailbox</code> は各 teammate が持つ受信箱です。</p>
+<p>他の member はそこへ message を送ります。<br>
+受信側は、自分の次の work loop に入る前に mailbox を drain します。</p>
+<p>この設計の利点は、協調が次のように見えることです。</p>
+<ul>
+<li>誰が誰に送ったか</li>
+<li>どの member がまだ未読か</li>
+<li>どの message が actor 間通信なのか</li>
+</ul>
+<h2>最小心智モデル</h2>
+<p>この章をいちばん壊れにくく理解する方法は、各 teammate を次のように見ることです。</p>
+<blockquote>
+<p>自分の <code>messages</code>、自分の mailbox、自分の agent loop を持った長期 actor</p>
+</blockquote>
+<pre class="code-block" data-language="text"><code class="hljs language-text">lead
+  |
+  +-- spawn alice (tester)
+  +-- spawn bob (refactorer)
+  |
+  +-- send message -> alice inbox
+  +-- send message -> bob inbox
+
+alice
+  |
+  +-- 自分の messages
+  +-- 自分の inbox
+  +-- 自分の agent loop
+
+bob
+  |
+  +-- 自分の messages
+  +-- 自分の inbox
+  +-- 自分の agent loop
+</code></pre>
+<p>この章の一番大事な対比は次です。</p>
+<ul>
+<li>subagent: 一回きりの探索 helper</li>
+<li>teammate: 長く存在し続ける協調 member</li>
+</ul>
+<h2>それまでの章にどう接続するか</h2>
+<p><code>s15</code> は単に「人数を増やす章」ではありません。<br>
+<code>s12-s14</code> でできた task / runtime / schedule の上に、<strong>長く残る実行者層</strong>を足す章です。</p>
+<p>接続の主線は次です。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">lead が「長く担当させたい仕事」を見つける
+  ->
+teammate を spawn する
+  ->
+team roster に登録する
+  ->
+mailbox に仕事の手がかりや依頼を送る
+  ->
+teammate が自分の inbox を drain する
+  ->
+自分の agent loop と tools を回す
+  ->
+結果を message / task update として返す
+</code></pre>
+<p>ここで見失ってはいけない境界は 4 つです。</p>
+<ol>
+<li><code>s12-s14</code> が作ったのは work layer であり、ここでは actor layer を足している</li>
+<li><code>s15</code> の default はまだ lead 主導である</li>
+<li>structured protocol は次章 <code>s16</code></li>
+<li>autonomous claim は <code>s17</code></li>
+</ol>
+<p>つまりこの章は、team system の中でもまだ:</p>
+<ul>
+<li>名付ける</li>
+<li>残す</li>
+<li>送る</li>
+<li>受け取る</li>
+</ul>
+<p>という基礎層を作っている段階です。</p>
+<h2>主要データ構造</h2>
+<h3><code>TeamMember</code></h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">member = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"role"</span>: <span class="hljs-string">"tester"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"working"</span>,
+}
+</code></pre>
+<p>教学版では、まずこの 3 つが揃っていれば十分です。</p>
+<ul>
+<li><code>name</code>: 誰か</li>
+<li><code>role</code>: 何を主に担当するか</li>
+<li><code>status</code>: 今どういう状態か</li>
+</ul>
+<p>最初から大量の field を足す必要はありません。<br>
+この章で大事なのは「長く存在する actor が立ち上がること」です。</p>
+<h3><code>TeamConfig</code></h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">config = {
+    <span class="hljs-string">"team_name"</span>: <span class="hljs-string">"default"</span>,
+    <span class="hljs-string">"members"</span>: [member1, member2],
+}
+</code></pre>
+<p>通常は次のような場所に置きます。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">.team/config.json
+</code></pre>
+<p>この record があると system は再起動後も、</p>
+<ul>
+<li>以前誰がいたか</li>
+<li>誰がどの role を持っていたか</li>
+</ul>
+<p>を失わずに済みます。</p>
+<h3><code>MessageEnvelope</code></h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">message = {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"message"</span>,
+    <span class="hljs-string">"from"</span>: <span class="hljs-string">"lead"</span>,
+    <span class="hljs-string">"to"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"content"</span>: <span class="hljs-string">"Please review auth module."</span>,
+    <span class="hljs-string">"timestamp"</span>: <span class="hljs-number">1710000000.0</span>,
+}
+</code></pre>
+<p><code>envelope</code> は「本文だけでなくメタ情報も含めて包んだ 1 件の message record」です。</p>
+<p>これを使う理由:</p>
+<ul>
+<li>sender が分かる</li>
+<li>receiver が分かる</li>
+<li>message type を分けられる</li>
+<li>mailbox を durable channel として扱える</li>
+</ul>
+<h2>最小実装の進め方</h2>
+<h3>Step 1: まず roster を持つ</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TeammateManager</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, team_dir: Path</span>):
+        <span class="hljs-variable language_">self</span>.team_dir = team_dir
+        <span class="hljs-variable language_">self</span>.config_path = team_dir / <span class="hljs-string">"config.json"</span>
+        <span class="hljs-variable language_">self</span>.config = <span class="hljs-variable language_">self</span>._load_config()
+</code></pre>
+<p>この章の起点は roster です。<br>
+roster がないまま team を語ると、結局「今この場で数回呼び出した model たち」にしか見えません。</p>
+<h3>Step 2: teammate を spawn する</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">spawn</span>(<span class="hljs-params">self, name: <span class="hljs-built_in">str</span>, role: <span class="hljs-built_in">str</span>, prompt: <span class="hljs-built_in">str</span></span>):
+    member = {<span class="hljs-string">"name"</span>: name, <span class="hljs-string">"role"</span>: role, <span class="hljs-string">"status"</span>: <span class="hljs-string">"working"</span>}
+    <span class="hljs-variable language_">self</span>.config[<span class="hljs-string">"members"</span>].append(member)
+    <span class="hljs-variable language_">self</span>._save_config()
+
+    thread = threading.Thread(
+        target=<span class="hljs-variable language_">self</span>._teammate_loop,
+        args=(name, role, prompt),
+        daemon=<span class="hljs-literal">True</span>,
+    )
+    thread.start()
+</code></pre>
+<p>ここで大切なのは thread という実装選択そのものではありません。<br>
+大切なのは次のことです。</p>
+<p><strong>一度 spawn された teammate は、一回限りの tool call ではなく、継続する lifecycle を持つ</strong></p>
+<h3>Step 3: 各 teammate に mailbox を持たせる</h3>
+<p>教学版で一番分かりやすいのは JSONL inbox です。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">.team/inbox/alice.jsonl
+.team/inbox/bob.jsonl
+</code></pre>
+<p>送信側:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">send</span>(<span class="hljs-params">self, sender: <span class="hljs-built_in">str</span>, to: <span class="hljs-built_in">str</span>, content: <span class="hljs-built_in">str</span></span>):
+    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">f"<span class="hljs-subst">{to}</span>.jsonl"</span>, <span class="hljs-string">"a"</span>) <span class="hljs-keyword">as</span> f:
+        f.write(json.dumps({
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"message"</span>,
+            <span class="hljs-string">"from"</span>: sender,
+            <span class="hljs-string">"to"</span>: to,
+            <span class="hljs-string">"content"</span>: content,
+            <span class="hljs-string">"timestamp"</span>: time.time(),
+        }) + <span class="hljs-string">"\n"</span>)
+</code></pre>
+<p>受信側:</p>
+<ol>
+<li>すべて読む</li>
+<li>JSON として parse する</li>
+<li>読み終わったら inbox を drain する</li>
+</ol>
+<p>ここで教えたいのは storage trick ではありません。</p>
+<p>教えたいのは:</p>
+<p><strong>協調は shared <code>messages[]</code> ではなく、mailbox boundary を通して起こる</strong></p>
+<p>という構造です。</p>
+<h3>Step 4: teammate は毎ラウンド mailbox を先に確認する</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">teammate_loop</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span>, role: <span class="hljs-built_in">str</span>, prompt: <span class="hljs-built_in">str</span></span>):
+    messages = [{<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: prompt}]
+
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        inbox = bus.read_inbox(name)
+        <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> inbox:
+            messages.append({<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: json.dumps(item)})
+
+        response = client.messages.create(...)
+        ...
+</code></pre>
+<p>この step をあいまいにすると、読者はすぐこう誤解します。</p>
+<ul>
+<li>新しい仕事を与えるたびに teammate を再生成するのか</li>
+<li>元の context はどこに残るのか</li>
+</ul>
+<p>正しくは:</p>
+<ul>
+<li>teammate は残る</li>
+<li>messages も残る</li>
+<li>新しい仕事は inbox 経由で入る</li>
+<li>次ラウンドに入る前に mailbox を見る</li>
+</ul>
+<p>です。</p>
+<h2>Teammate / Subagent / Runtime Slot をどう分けるか</h2>
+<p>この段階で最も混ざりやすいのはこの 3 つです。<br>
+次の表をそのまま覚えて構いません。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>仕組み</th><th>何に近いか</th><th>lifecycle</th><th>核心境界</th></tr></thead><tbody><tr><td>subagent</td><td>一回きりの外部委託 helper</td><td>作って、少し働いて、終わる</td><td>小さな探索文脈の隔離</td></tr><tr><td>runtime slot</td><td>実行中の background slot</td><td>その実行が終われば消える</td><td>長い execution を追跡する</td></tr><tr><td>teammate</td><td>長期に残る team member</td><td>idle と working を行き来する</td><td>名前、role、mailbox、独立 loop</td></tr></tbody></table></div>
+<p>口語的に言い換えると:</p>
+<ul>
+<li>subagent: 「ちょっと調べて戻ってきて」</li>
+<li>runtime slot: 「これは裏で走らせて、あとで知らせて」</li>
+<li>teammate: 「あなたは今後しばらくテスト担当ね」</li>
+</ul>
+<h2>ここで教えるべき境界</h2>
+<p>この章でまず固めるべきは 3 つだけです。</p>
+<ul>
+<li>roster</li>
+<li>mailbox</li>
+<li>独立 loop</li>
+</ul>
+<p>これだけで「長く残る teammate」という実体は十分立ち上がります。</p>
+<p>ただし、まだここでは教え過ぎない方がよいものがあります。</p>
+<h3>1. protocol request layer</h3>
+<p>つまり:</p>
+<ul>
+<li>どの message が普通の会話か</li>
+<li>どの message が <code>request_id</code> を持つ構造化 request か</li>
+</ul>
+<p>これは <code>s16</code> の範囲です。</p>
+<h3>2. autonomous claim layer</h3>
+<p>つまり:</p>
+<ul>
+<li>teammate が自分で仕事を探すか</li>
+<li>どの policy で self-claim するか</li>
+<li>resume は何を根拠に行うか</li>
+</ul>
+<p>これは <code>s17</code> の範囲です。</p>
+<p><code>s15</code> の default はあくまで:</p>
+<ul>
+<li>lead が作る</li>
+<li>lead が送る</li>
+<li>teammate が受ける</li>
+</ul>
+<p>です。</p>
+<h2>初学者が特によくやる間違い</h2>
+<h3>1. teammate を「名前付き subagent」にする</h3>
+<p>名前が付いていても、実装が</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">spawn -> work -> summary -> destroy
+</code></pre>
+<p>なら本質的にはまだ subagent です。</p>
+<h3>2. team 全員で 1 本の <code>messages</code> を共有する</h3>
+<p>これは一見簡単ですが、文脈汚染がすぐ起きます。</p>
+<p>各 teammate は少なくとも:</p>
+<ul>
+<li>自分の messages</li>
+<li>自分の inbox</li>
+<li>自分の status</li>
+</ul>
+<p>を持つべきです。</p>
+<h3>3. roster を durable にしない</h3>
+<p>system を止めた瞬間に「team に誰がいたか」を完全に失うなら、長期 actor layer としてはかなり弱いです。</p>
+<h3>4. mailbox なしで shared variable だけで会話させる</h3>
+<p>実装は短くできますが、teammate 間協調の境界が見えなくなります。<br>
+教学 repo では durable mailbox を置いた方が、読者の心智がずっと安定します。</p>
+<h2>学び終わったら言えるべきこと</h2>
+<p>少なくとも次の 4 つを自分の言葉で説明できれば、この章の主線は掴めています。</p>
+<ol>
+<li>teammate の本質は「多 model」ではなく「長期に残る actor identity」である</li>
+<li>team system の最小構成は「roster + mailbox + 独立 loop」である</li>
+<li>subagent と teammate の違いは lifecycle の長さにある</li>
+<li>teammate と runtime slot の違いは、「actor identity」か「live execution」かにある</li>
+</ol>
+<h2>次章で何を足すか</h2>
+<p>この章が解いているのは:</p>
+<blockquote>
+<p>team member が長く存在し、互いに message を送り合えるようにすること</p>
+</blockquote>
+<p>次章 <code>s16</code> が解くのは:</p>
+<blockquote>
+<p>message が単なる自由文ではなく、追跡・承認・拒否・期限切れを持つ protocol object になるとき、どう設計するか</p>
+</blockquote>
+<p>つまり <code>s15</code> が「team の存在」を作り、<code>s16</code> が「team の構造化協調」を作ります。</p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/ja/s14/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">前の章</div><div class="font-medium">s14<!-- --> - <!-- -->Cron スケジューラ</div></div></a><a class="group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/ja/s16/"><div><div class="text-xs text-zinc-400">次の章</div><div class="font-medium">チームプロトコル<!-- --> - <!-- -->s16</div></div><span class="transition-transform group-hover:translate-x-1">→</span></a></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"ja\",\"s15\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"ja\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s15\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"ja\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"ja\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T421f,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: team mailboxes -- multiple models, coordinated through files.\n\"\"\"\ns15_agent_teams.py - Agent Teams\n\nPersistent named agents with file-based JSONL inboxes. Each teammate runs\nits own agent loop in a separate thread. Communication happens through\nappend-only inbox files.\n\n    Subagent (s04):  spawn -\u003e execute -\u003e return summary -\u003e destroyed\n    Teammate (s15):  spawn -\u003e work -\u003e idle -\u003e work -\u003e ... -\u003e shutdown\n\n    .team/config.json                   .team/inbox/\n    +----------------------------+      +------------------+\n    | {\"team_name\": \"default\",   |      | alice.jsonl      |\n    |  \"members\": [              |      | bob.jsonl        |\n    |    {\"name\":\"alice\",        |      | lead.jsonl       |\n    |     \"role\":\"coder\",        |      +------------------+\n    |     \"status\":\"idle\"}       |\n    |  ]}                        |      send_message(\"alice\", \"fix bug\"):\n    +----------------------------+        open(\"alice.jsonl\", \"a\").write(msg)\n\n                                        read_inbox(\"alice\"):\n    spawn_teammate(\"alice\",\"coder\",...)   msgs = [json.loads(l) for l in ...]\n         |                                open(\"alice.jsonl\", \"w\").close()\n         v                                return msgs  # drain\n    Thread: alice             Thread: bob\n    +------------------+      +------------------+\n    | agent_loop       |      | agent_loop       |\n    | status: working  |      | status: idle     |\n    | ... runs tools   |      | ... waits ...    |\n    | status -\u003e idle   |      |                  |\n    +------------------+      +------------------+\n\nKey idea: teammates have names, inboxes, and independent loops.\n\nRead this file in this order:\n1. MessageBus: how messages are queued and drained.\n2. TeammateManager: what persistent teammate state looks like.\n3. _teammate_loop / TOOL_HANDLERS: how each named teammate keeps re-entering the same tool loop.\n\nMost common confusion:\n- a teammate is not a one-shot subagent\n- an inbox message is not yet a full protocol request\n\nTeaching boundary:\nthis file teaches persistent named workers plus mailboxes.\nApproval protocols and autonomous policies are added in later chapters.\n\"\"\"\n\nimport json\nimport os\nimport subprocess\nimport threading\nimport time\nfrom pathlib import Path\n\nfrom anthropic import Anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\nTEAM_DIR = WORKDIR / \".team\"\nINBOX_DIR = TEAM_DIR / \"inbox\"\n\nSYSTEM = f\"You are a team lead at {WORKDIR}. Spawn teammates and communicate via inboxes.\"\n\nVALID_MSG_TYPES = {\n    \"message\",\n    \"broadcast\",\n    \"shutdown_request\",\n    \"shutdown_response\",\n    \"plan_approval\",\n    \"plan_approval_response\",\n}\n\n\n# -- MessageBus: JSONL inbox per teammate --\nclass MessageBus:\n    def __init__(self, inbox_dir: Path):\n        self.dir = inbox_dir\n        self.dir.mkdir(parents=True, exist_ok=True)\n\n    def send(self, sender: str, to: str, content: str,\n             msg_type: str = \"message\", extra: dict = None) -\u003e str:\n        if msg_type not in VALID_MSG_TYPES:\n            return f\"Error: Invalid type '{msg_type}'. Valid: {VALID_MSG_TYPES}\"\n        msg = {\n            \"type\": msg_type,\n            \"from\": sender,\n            \"content\": content,\n            \"timestamp\": time.time(),\n        }\n        if extra:\n            msg.update(extra)\n        inbox_path = self.dir / f\"{to}.jsonl\"\n        with open(inbox_path, \"a\") as f:\n            f.write(json.dumps(msg) + \"\\n\")\n        return f\"Sent {msg_type} to {to}\"\n\n    def read_inbox(self, name: str) -\u003e list:\n        inbox_path = self.dir / f\"{name}.jsonl\"\n        if not inbox_path.exists():\n            return []\n        messages = []\n        for line in inbox_path.read_text().strip().splitlines():\n            if line:\n                messages.append(json.loads(line))\n        inbox_path.write_text(\"\")\n        return messages\n\n    def broadcast(self, sender: str, content: str, teammates: list) -\u003e str:\n        count = 0\n        for name in teammates:\n            if name != sender:\n                self.send(sender, name, content, \"broadcast\")\n                count += 1\n        return f\"Broadcast to {count} teammates\"\n\n\nBUS = MessageBus(INBOX_DIR)\n\n\n# -- TeammateManager: persistent named agents with config.json --\nclass TeammateManager:\n    \"\"\"Persistent teammate registry plus worker-loop launcher.\"\"\"\n\n    def __init__(self, team_dir: Path):\n        self.dir = team_dir\n        self.dir.mkdir(exist_ok=True)\n        self.config_path = self.dir / \"config.json\"\n        self.config = self._load_config()\n        self.threads = {}\n\n    def _load_config(self) -\u003e dict:\n        if self.config_path.exists():\n            return json.loads(self.config_path.read_text())\n        return {\"team_name\": \"default\", \"members\": []}\n\n    def _save_config(self):\n        self.config_path.write_text(json.dumps(self.config, indent=2))\n\n    def _find_member(self, name: str) -\u003e dict:\n        for m in self.config[\"members\"]:\n            if m[\"name\"] == name:\n                return m\n        return None\n\n    def spawn(self, name: str, role: str, prompt: str) -\u003e str:\n        member = self._find_member(name)\n        if member:\n            if member[\"status\"] not in (\"idle\", \"shutdown\"):\n                return f\"Error: '{name}' is currently {member['status']}\"\n            member[\"status\"] = \"working\"\n            member[\"role\"] = role\n        else:\n            member = {\"name\": name, \"role\": role, \"status\": \"working\"}\n            self.config[\"members\"].append(member)\n        self._save_config()\n        thread = threading.Thread(\n            target=self._teammate_loop,\n            args=(name, role, prompt),\n            daemon=True,\n        )\n        self.threads[name] = thread\n        thread.start()\n        return f\"Spawned '{name}' (role: {role})\"\n\n    def _teammate_loop(self, name: str, role: str, prompt: str):\n        sys_prompt = (\n            f\"You are '{name}', role: {role}, at {WORKDIR}. \"\n            f\"Use send_message to communicate. Complete your task.\"\n        )\n        messages = [{\"role\": \"user\", \"content\": prompt}]\n        tools = self._teammate_tools()\n        for _ in range(50):\n            inbox = BUS.read_inbox(name)\n            for msg in inbox:\n                messages.append({\"role\": \"user\", \"content\": json.dumps(msg)})\n            try:\n                response = client.messages.create(\n                    model=MODEL,\n                    system=sys_prompt,\n                    messages=messages,\n                    tools=tools,\n                    max_tokens=8000,\n                )\n            except Exception:\n                break\n            messages.append({\"role\": \"assistant\", \"content\": response.content})\n            if response.stop_reason != \"tool_use\":\n                break\n            results = []\n            for block in response.content:\n                if block.type == \"tool_use\":\n                    output = self._exec(name, block.name, block.input)\n                    print(f\"  [{name}] {block.name}: {str(output)[:120]}\")\n                    results.append({\n                        \"type\": \"tool_result\",\n                        \"tool_use_id\": block.id,\n                        \"content\": str(output),\n                    })\n            messages.append({\"role\": \"user\", \"content\": results})\n        member = self._find_member(name)\n        if member and member[\"status\"] != \"shutdown\":\n            member[\"status\"] = \"idle\"\n            self._save_config()\n\n    def _exec(self, sender: str, tool_name: str, args: dict) -\u003e str:\n        # these base tools are unchanged from s02\n        if tool_name == \"bash\":\n            return _run_bash(args[\"command\"])\n        if tool_name == \"read_file\":\n            return _run_read(args[\"path\"])\n        if tool_name == \"write_file\":\n            return _run_write(args[\"path\"], args[\"content\"])\n        if tool_name == \"edit_file\":\n            return _run_edit(args[\"path\"], args[\"old_text\"], args[\"new_text\"])\n        if tool_name == \"send_message\":\n            return BUS.send(sender, args[\"to\"], args[\"content\"], args.get(\"msg_type\", \"message\"))\n        if tool_name == \"read_inbox\":\n            return json.dumps(BUS.read_inbox(sender), indent=2)\n        return f\"Unknown tool: {tool_name}\"\n\n    def _teammate_tools(self) -\u003e list:\n        # these base tools are unchanged from s02\n        return [\n            {\"name\": \"bash\", \"description\": \"Run a shell command.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n            {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}}, \"required\": [\"path\"]}},\n            {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n            {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n            {\"name\": \"send_message\", \"description\": \"Send message to a teammate.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"to\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}, \"msg_type\": {\"type\": \"string\", \"enum\": list(VALID_MSG_TYPES)}}, \"required\": [\"to\", \"content\"]}},\n            {\"name\": \"read_inbox\", \"description\": \"Read and drain your inbox.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {}}},\n        ]\n\n    def list_all(self) -\u003e str:\n        if not self.config[\"members\"]:\n            return \"No teammates.\"\n        lines = [f\"Team: {self.config['team_name']}\"]\n        for m in self.config[\"members\"]:\n            lines.append(f\"  {m['name']} ({m['role']}): {m['status']}\")\n        return \"\\n\".join(lines)\n\n    def member_names(self) -\u003e list:\n        return [m[\"name\"] for m in self.config[\"members\"]]\n\n\nTEAM = TeammateManager(TEAM_DIR)\n\n\n# -- Base tool implementations (these base tools are unchanged from s02) --\ndef _safe_path(p: str) -\u003e Path:\n    path = (WORKDIR / p).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {p}\")\n    return path\n\n\ndef _run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\"]\n    if any(d in command for d in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        r = subprocess.run(\n            command, shell=True, cwd=WORKDIR,\n            capture_output=True, text=True, timeout=120,\n        )\n        out = (r.stdout + r.stderr).strip()\n        return out[:50000] if out else \"(no output)\"\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\n\ndef _run_read(path: str, limit: int = None) -\u003e str:\n    try:\n        lines = _safe_path(path).read_text().splitlines()\n        if limit and limit \u003c len(lines):\n            lines = lines[:limit] + [f\"... ({len(lines) - limit} more)\"]\n        return \"\\n\".join(lines)[:50000]\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef _run_write(path: str, content: str) -\u003e str:\n    try:\n        fp = _safe_path(path)\n        fp.parent.mkdir(parents=True, exist_ok=True)\n        fp.write_text(content)\n        return f\"Wrote {len(content)} bytes\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef _run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        fp = _safe_path(path)\n        c = fp.read_text()\n        if old_text not in c:\n            return f\"Error: Text not found in {path}\"\n        fp.write_text(c.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\n# -- Lead tool dispatch (9 tools) --\nTOOL_HANDLERS = {\n    \"bash\":            lambda **kw: _run_bash(kw[\"command\"]),\n    \"read_file\":       lambda **kw: _run_read(kw[\"path\"], kw.get(\"limit\")),\n    \"write_file\":      lambda **kw: _run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\":       lambda **kw: _run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n    \"spawn_teammate\":  lambda **kw: TEAM.spawn(kw[\"name\"], kw[\"role\"], kw[\"prompt\"]),\n    \"list_teammates\":  lambda **kw: TEAM.list_all(),\n    \"send_message\":    lambda **kw: BUS.send(\"lead\", kw[\"to\"], kw[\"content\"], kw.get(\"msg_type\", \"message\")),\n    \"read_inbox\":      lambda **kw: json.dumps(BUS.read_inbox(\"lead\"), indent=2),\n    \"broadcast\":       lambda **kw: BUS.broadcast(\"lead\", kw[\"content\"], TEAM.member_names()),\n}\n\n# these base tools are unchanged from s02\nTOOLS = [\n    {\"name\": \"bash\", \"description\": \"Run a shell command.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"limit\": {\"type\": \"integer\"}}, \"required\": [\"path\"]}},\n    {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n    {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n    {\"name\": \"spawn_teammate\", \"description\": \"Spawn a persistent teammate that runs in its own thread.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}, \"role\": {\"type\": \"string\"}, \"prompt\": {\"type\": \"string\"}}, \"required\": [\"name\", \"role\", \"prompt\"]}},\n    {\"name\": \"list_teammates\", \"description\": \"List all teammates with name, role, status.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {}}},\n    {\"name\": \"send_message\", \"description\": \"Send a message to a teammate's inbox.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"to\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}, \"msg_type\": {\"type\": \"string\", \"enum\": list(VALID_MSG_TYPES)}}, \"required\": [\"to\", \"content\"]}},\n    {\"name\": \"read_inbox\", \"description\": \"Read and drain the lead's inbox.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {}}},\n    {\"name\": \"broadcast\", \"description\": \"Send a message to all teammates.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"content\": {\"type\": \"string\"}}, \"required\": [\"content\"]}},\n]\n\n\ndef agent_loop(messages: list):\n    while True:\n        inbox = BUS.read_inbox(\"lead\")\n        if inbox:\n            messages.append({\n                \"role\": \"user\",\n                \"content\": f\"\u003cinbox\u003e{json.dumps(inbox, indent=2)}\u003c/inbox\u003e\",\n            })\n        response = client.messages.create(\n            model=MODEL,\n            system=SYSTEM,\n            messages=messages,\n            tools=TOOLS,\n            max_tokens=8000,\n        )\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n        if response.stop_reason != \"tool_use\":\n            return\n        results = []\n        for block in response.content:\n            if block.type == \"tool_use\":\n                handler = TOOL_HANDLERS.get(block.name)\n                try:\n                    output = handler(**block.input) if handler else f\"Unknown tool: {block.name}\"\n                except Exception as e:\n                    output = f\"Error: {e}\"\n                print(f\"\u003e {block.name}:\")\n                print(str(output)[:200])\n                results.append({\n                    \"type\": \"tool_result\",\n                    \"tool_use_id\": block.id,\n                    \"content\": str(output),\n                })\n        messages.append({\"role\": \"user\", \"content\": results})\n\n\nif __name__ == \"__main__\":\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms15 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n        if query.strip() == \"/team\":\n            print(TEAM.list_all())\n            continue\n        if query.strip() == \"/inbox\":\n            print(json.dumps(BUS.read_inbox(\"lead\"), indent=2))\n            continue\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history)\n        response_content = history[-1][\"content\"]\n        if isinstance(response_content, list):\n            for block in response_content:\n                if hasattr(block, \"text\"):\n                    print(block.text)\n        print()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s15\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"エージェントチーム\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300\",\"children\":\"マルチエージェント基盤\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"常駐する専門チームメイト\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[350,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[10,\" \",\"ツール\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"長く動くシステムには、その場限りのサブタスクではなく、名前と役割を持って居続けるチームメイトが必要です。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s15\",\"diff\":{\"from\":\"s14\",\"to\":\"s15\",\"newClasses\":[\"MessageBus\",\"TeammateManager\"],\"newFunctions\":[\"_safe_path\",\"_run_bash\",\"_run_read\",\"_run_write\",\"_run_edit\"],\"newTools\":[\"alice\",\"send_message\",\"read_inbox\",\"spawn_teammate\",\"list_teammates\",\"broadcast\"],\"locDelta\":-102},\"source\":\"$14\",\"filename\":\"s15_agent_teams.py\",\"guideData\":{\"focus\":\"`TeamMember`、`MessageEnvelope`、独立 inbox を見る。\",\"confusion\":\"teammate は名前を変えた subagent ではなく、長寿命で繰り返し責務を持つ存在です。\",\"goal\":\"メールボックス経由で協力する長寿命マルチエージェントチームの雛形を作る。\"},\"bridgeDocs\":[{\"slug\":\"s00f-code-reading-order\",\"kind\":\"map\",\"title\":\"コード読解順\",\"summary\":{\"zh\":\"专门告诉你本地 `agents/*.py` 该按什么顺序打开、每章先盯住哪类状态和函数，避免重新乱翻源码。\",\"en\":\"Shows which local `agents/*.py` files to open first and what state or functions to inspect before the code turns into noise.\",\"ja\":\"ローカルの `agents/*.py` をどの順で開き、各章でまずどの状態や関数を見るべきかを整理した読解ガイドです。\"},\"fallbackLocale\":null},{\"slug\":\"team-task-lane-model\",\"kind\":\"map\",\"title\":\"チームメイト・タスク・レーンモデル\",\"summary\":{\"zh\":\"专门拆清队友、协议请求、任务、运行时槽位和 worktree 车道这五层边界。\",\"en\":\"Five concepts that look similar but live on different layers. Keep open during s15-s18.\",\"ja\":\"teammate・protocol request・task・runtime slot・worktree lane の 5 層境界を整理します。\"},\"fallbackLocale\":null},{\"slug\":\"entity-map\",\"kind\":\"map\",\"title\":\"エンティティ地図\",\"summary\":{\"zh\":\"按对象和模块关系看系统，适合读到中后段时重新校准模块边界。\",\"en\":\"Use this when concepts start to blur. It tells you which layer each thing belongs to.\",\"ja\":\"オブジェクトとモジュール関係から全体を再確認する地図です。\"},\"fallbackLocale\":null}],\"locale\":\"ja\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/ja/s14\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"前の章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s14\",\" - \",\"Cron スケジューラ\"]}]]}]]}],[\"$\",\"$L16\",null,{\"href\":\"/ja/s16\",\"className\":\"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"次の章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"チームプロトコル\",\" - \",\"s16\"]}]]}],[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:translate-x-1\",\"children\":\"→\"}]]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19章・4段階で、0から高完成度の Claude Code-like agent を組み立てる\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>

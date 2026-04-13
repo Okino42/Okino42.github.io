@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>Query Transition Model</title><meta name="description" content="Why each continuation needs an explicit reason. Best read alongside s11 (Error Recovery)."/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/en/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/en/reference/">Reference</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/en/compare/">Compare</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Core Loop</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">The Agent Loop</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">Tool Use</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">TodoWrite</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">Subagent</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">Skills</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">Context Compact</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">System Hardening</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">Permission System</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook System</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">Memory System</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">System Prompt</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">Error Recovery</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Task Runtime</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">Task System</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">Background Tasks</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">Cron Scheduler</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Multi-Agent Platform</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent Teams</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">Team Protocols</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">Autonomous Agents</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree Isolation</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP &amp; Plugin</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/en/"><span>←</span><span>Back To Learning Path</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">Deep Dive</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">Query Transition Model</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">When This Page Helps</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">Why each continuation needs an explicit reason. Best read alongside s11 (Error Recovery).</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">Best Read Alongside</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/en/s11/">s11<!-- --> · <!-- -->Error Recovery</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/en/s17/">s17<!-- --> · <!-- -->Autonomous Agents</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p><strong>Deep Dive</strong> -- Best read alongside s11 (Error Recovery). It deepens the transition model introduced in s00a.</p>
+</blockquote>
+<h3>When to Read This</h3>
+<p>When you're working on error recovery and want to understand why each continuation needs an explicit reason.</p>
+<hr>
+<blockquote>
+<p>This bridge note answers one narrow but important question:</p>
+<p><strong>Why does a high-completion agent need to know <em>why</em> a query continues into the next turn, instead of treating every <code>continue</code> as the same thing?</strong></p>
+</blockquote>
+<h2>Why This Note Exists</h2>
+<p>The mainline already teaches:</p>
+<ul>
+<li><code>s01</code>: the smallest loop</li>
+<li><code>s06</code>: compaction and context control</li>
+<li><code>s11</code>: error recovery</li>
+</ul>
+<p>That sequence is correct.</p>
+<p>The problem is what you often carry in your head after reading those chapters separately:</p>
+<blockquote>
+<p>"The loop continues because it continues."</p>
+</blockquote>
+<p>That is enough for a toy demo, but it breaks down quickly in a larger system.</p>
+<p>A query can continue for very different reasons:</p>
+<ul>
+<li>a tool just finished and the model needs the result</li>
+<li>the output hit a token limit and the model should continue</li>
+<li>compaction changed the active context and the system should retry</li>
+<li>the transport layer failed and backoff says "try again"</li>
+<li>a stop hook said the turn should not fully end yet</li>
+<li>a budget policy still allows the system to keep going</li>
+</ul>
+<p>If all of those collapse into one vague <code>continue</code>, three things get worse fast:</p>
+<ul>
+<li>logs stop being readable</li>
+<li>tests stop being precise</li>
+<li>the teaching mental model becomes blurry</li>
+</ul>
+<h2>Terms First</h2>
+<h3>What is a transition</h3>
+<p>Here, a transition means:</p>
+<blockquote>
+<p>the reason the previous turn became the next turn</p>
+</blockquote>
+<p>It is not the message content itself. It is the control-flow cause.</p>
+<h3>What is a continuation</h3>
+<p>A continuation means:</p>
+<blockquote>
+<p>this query is still alive and should keep advancing</p>
+</blockquote>
+<p>But continuation is not one thing. It is a family of reasons.</p>
+<h3>What is a query boundary</h3>
+<p>A query boundary is the edge between one turn and the next.</p>
+<p>Whenever the system crosses that boundary, it should know:</p>
+<ul>
+<li>why it is crossing</li>
+<li>what state was changed before the crossing</li>
+<li>how the next turn should interpret that change</li>
+</ul>
+<h2>The Minimum Mental Model</h2>
+<p>Do not picture a query as a single straight line.</p>
+<p>A better mental model is:</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">one query
+  = a chain of state transitions
+    with explicit continuation reasons
+</code></pre>
+<p>For example:</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">user input
+  ->
+model emits tool_use
+  ->
+tool finishes
+  ->
+tool_result_continuation
+  ->
+model output is truncated
+  ->
+max_tokens_recovery
+  ->
+compaction happens
+  ->
+compact_retry
+  ->
+final completion
+</code></pre>
+<p>That is why the real lesson is not:</p>
+<blockquote>
+<p>"the loop keeps spinning"</p>
+</blockquote>
+<p>The real lesson is:</p>
+<blockquote>
+<p>"the system is advancing through typed transition reasons"</p>
+</blockquote>
+<h2>Core Records</h2>
+<h3>1. <code>transition</code> inside query state</h3>
+<p>Even a teaching implementation should carry an explicit transition field:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">state = {
+    <span class="hljs-string">"messages"</span>: [...],
+    <span class="hljs-string">"turn_count"</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-string">"continuation_count"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">"has_attempted_compact"</span>: <span class="hljs-literal">False</span>,
+    <span class="hljs-string">"transition"</span>: <span class="hljs-literal">None</span>,
+}
+</code></pre>
+<p>This field is not decoration.</p>
+<p>It tells you:</p>
+<ul>
+<li>why this turn exists</li>
+<li>how the log should explain it</li>
+<li>what path a test should assert</li>
+</ul>
+<h3>2. <code>TransitionReason</code></h3>
+<p>A minimal teaching set can look like this:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">TRANSITIONS = (
+    <span class="hljs-string">"tool_result_continuation"</span>,
+    <span class="hljs-string">"max_tokens_recovery"</span>,
+    <span class="hljs-string">"compact_retry"</span>,
+    <span class="hljs-string">"transport_retry"</span>,
+    <span class="hljs-string">"stop_hook_continuation"</span>,
+    <span class="hljs-string">"budget_continuation"</span>,
+)
+</code></pre>
+<p>These reasons are not equivalent:</p>
+<ul>
+<li><code>tool_result_continuation</code>
+is normal loop progress</li>
+<li><code>max_tokens_recovery</code>
+is continuation after truncated output</li>
+<li><code>compact_retry</code>
+is continuation after context reshaping</li>
+<li><code>transport_retry</code>
+is continuation after infrastructure failure</li>
+<li><code>stop_hook_continuation</code>
+is continuation forced by external control logic</li>
+<li><code>budget_continuation</code>
+is continuation allowed by policy and remaining budget</li>
+</ul>
+<h3>3. Continuation budget</h3>
+<p>High-completion systems do not just continue. They limit continuation.</p>
+<p>Typical fields look like:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">state = {
+    <span class="hljs-string">"max_output_tokens_recovery_count"</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-string">"has_attempted_reactive_compact"</span>: <span class="hljs-literal">True</span>,
+}
+</code></pre>
+<p>The principle is:</p>
+<blockquote>
+<p>continuation is a controlled resource, not an infinite escape hatch</p>
+</blockquote>
+<h2>Minimum Implementation Steps</h2>
+<h3>Step 1: make every continue site explicit</h3>
+<p>Many beginner loops still look like this:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">continue</span>
+</code></pre>
+<p>Move one step forward:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"tool_result_continuation"</span>
+<span class="hljs-keyword">continue</span>
+</code></pre>
+<h3>Step 2: pair each continuation with its state patch</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">if</span> response.stop_reason == <span class="hljs-string">"tool_use"</span>:
+    state[<span class="hljs-string">"messages"</span>] = append_tool_results(...)
+    state[<span class="hljs-string">"turn_count"</span>] += <span class="hljs-number">1</span>
+    state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"tool_result_continuation"</span>
+    <span class="hljs-keyword">continue</span>
+
+<span class="hljs-keyword">if</span> response.stop_reason == <span class="hljs-string">"max_tokens"</span>:
+    state[<span class="hljs-string">"messages"</span>].append({
+        <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+        <span class="hljs-string">"content"</span>: CONTINUE_MESSAGE,
+    })
+    state[<span class="hljs-string">"max_output_tokens_recovery_count"</span>] += <span class="hljs-number">1</span>
+    state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"max_tokens_recovery"</span>
+    <span class="hljs-keyword">continue</span>
+</code></pre>
+<p>The important part is not "one more line of code."</p>
+<p>The important part is:</p>
+<blockquote>
+<p>before every continuation, the system knows both the reason and the state mutation</p>
+</blockquote>
+<h3>Step 3: separate normal progress from recovery</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">if</span> should_retry_transport(error):
+    time.sleep(backoff(...))
+    state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"transport_retry"</span>
+    <span class="hljs-keyword">continue</span>
+
+<span class="hljs-keyword">if</span> should_recompact(error):
+    state[<span class="hljs-string">"messages"</span>] = compact_messages(state[<span class="hljs-string">"messages"</span>])
+    state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"compact_retry"</span>
+    <span class="hljs-keyword">continue</span>
+</code></pre>
+<p>Once you do this, "continue" stops being a vague action and becomes a typed control transition.</p>
+<h2>What to Test</h2>
+<p>Your teaching repo should make these assertions straightforward:</p>
+<ul>
+<li>a tool result writes <code>tool_result_continuation</code></li>
+<li>a truncated model output writes <code>max_tokens_recovery</code></li>
+<li>compaction retry does not silently reuse the old reason</li>
+<li>transport retry increments retry state and does not look like a normal turn</li>
+</ul>
+<p>If those paths are not easy to test, the model is probably still too implicit.</p>
+<h2>What Not to Over-Teach</h2>
+<p>You do not need to bury yourself in vendor-specific transport details or every corner-case enum.</p>
+<p>For a teaching repo, the core lesson is narrower:</p>
+<blockquote>
+<p>one query is a sequence of explicit transitions, and each transition should carry a reason, a state patch, and a budget rule</p>
+</blockquote>
+<p>That is the part you actually need if you want to rebuild a high-completion agent from zero.</p>
+<h2>Key Takeaway</h2>
+<p><strong>Every continuation needs a typed reason. Without one, logs blur, tests weaken, and the mental model collapses into "the loop keeps spinning."</strong></p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"en\",\"docs\",\"s00c-query-transition-model\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"en\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"s00c-query-transition-model\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"en\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"en\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/en\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"Back To Learning Path\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"Deep Dive\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"Query Transition Model\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"When This Page Helps\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"Why each continuation needs an explicit reason. Best read alongside s11 (Error Recovery).\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"Best Read Alongside\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s11\",{\"href\":\"/en/s11\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s11\",\" · \",\"Error Recovery\"]}],[\"$\",\"$L13\",\"s17\",{\"href\":\"/en/s17\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s17\",\" · \",\"Autonomous Agents\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"s00c-query-transition-model\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Query Transition Model\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Why each continuation needs an explicit reason. Best read alongside s11 (Error Recovery).\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

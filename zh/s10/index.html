@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s10</span><h1 class="text-2xl font-bold sm:text-3xl">系统提示词</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">系统加固</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">把输入组装成流水线<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">305<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>4<!-- --> <!-- -->个工具</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">模型看到的不是一坨固定 prompt，而是一条按阶段拼装的输入流水线。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学习</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">源码</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深入探索</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > s05 > s06 > s07 > s08 > s09 > [ s10 ] > s11 > s12 > s13 > s14 > s15 > s16 > s17 > s18 > s19</code></p>
+<blockquote class="hero-callout">
+<p><em>系统提示词不是一整块大字符串，而是一条可维护的组装流水线。</em></p>
+</blockquote>
+<h2>这一章为什么重要</h2>
+<p>很多初学者一开始会把 system prompt 写成一大段固定文本。</p>
+<p>这样在最小 demo 里当然能跑。</p>
+<p>但一旦系统开始长功能，你很快会遇到这些问题：</p>
+<ul>
+<li>工具列表会变</li>
+<li>skills 会变</li>
+<li>memory 会变</li>
+<li>当前目录、日期、模式会变</li>
+<li>某些提醒只在这一轮有效，不该永远塞进系统说明</li>
+</ul>
+<p>所以到了这个阶段，system prompt 不能再当成一块硬编码文本。</p>
+<p>它应该升级成：</p>
+<p><strong>由多个来源共同组装出来的一条流水线。</strong></p>
+<h2>建议联读</h2>
+<ul>
+<li>如果你还习惯把 prompt 看成“神秘大段文本”，先回 <a href="./s00a-query-control-plane.md"><code>s00a-query-control-plane.md</code></a>，重新确认模型输入在进模型前经历了哪些控制层。</li>
+<li>如果你想真正稳住“哪些内容先拼、哪些后拼”，建议把 <a href="./s10a-message-prompt-pipeline.md"><code>s10a-message-prompt-pipeline.md</code></a> 放在手边，这页就是本章最关键的桥。</li>
+<li>如果你开始把 system rules、工具说明、memory、runtime state 混成一个大块，先看 <a href="./data-structures.md"><code>data-structures.md</code></a>，把这些输入片段的来源重新拆开。</li>
+</ul>
+<h2>先解释几个名词</h2>
+<h3>什么是 system prompt</h3>
+<p>system prompt 是给模型的系统级说明。</p>
+<p>它通常负责告诉模型：</p>
+<ul>
+<li>你是谁</li>
+<li>你能做什么</li>
+<li>你应该遵守什么规则</li>
+<li>你现在处在什么环境里</li>
+</ul>
+<h3>什么是“组装流水线”</h3>
+<p>意思是：</p>
+<ul>
+<li>不同信息来自不同地方</li>
+<li>最后按顺序拼接成一份输入</li>
+</ul>
+<p>它不是一个死字符串，而是一条构建过程。</p>
+<h3>什么是动态信息</h3>
+<p>有些信息经常变化，例如：</p>
+<ul>
+<li>当前日期</li>
+<li>当前工作目录</li>
+<li>本轮新增的提醒</li>
+</ul>
+<p>这些信息不适合和所有稳定说明混在一起。</p>
+<h2>最小心智模型</h2>
+<p>最容易理解的方式，是把 system prompt 想成 6 段：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">1. 核心身份和行为说明
+2. 工具列表
+3. skills 元信息
+4. memory 内容
+5. CLAUDE.md 指令链
+6. 动态环境信息
+</code></pre>
+<p>然后按顺序拼起来：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">core
++ tools
++ skills
++ memory
++ claude_md
++ dynamic_context
+= final system prompt
+</code></pre>
+<h2>为什么不能把所有东西都硬塞进一个大字符串</h2>
+<p>因为这样会有三个问题：</p>
+<h3>1. 不好维护</h3>
+<p>你很难知道：</p>
+<ul>
+<li>哪一段来自哪里</li>
+<li>该修改哪一部分</li>
+<li>哪一段是固定说明，哪一段是临时上下文</li>
+</ul>
+<h3>2. 不好测试</h3>
+<p>如果 system prompt 是一大坨文本，你很难分别测试：</p>
+<ul>
+<li>工具说明生成得对不对</li>
+<li>memory 是否被正确拼进去</li>
+<li>CLAUDE.md 是否被正确读取</li>
+</ul>
+<h3>3. 不好做缓存和动态更新</h3>
+<p>一些稳定内容其实不需要每轮大变。<br>
+一些临时内容又只该活一轮。</p>
+<p>这就要求你把“稳定块”和“动态块”分开思考。</p>
+<h2>最小实现结构</h2>
+<h3>第一步：做一个 builder</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SystemPromptBuilder</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">build</span>(<span class="hljs-params">self</span>) -> <span class="hljs-built_in">str</span>:
+        parts = []
+        parts.append(<span class="hljs-variable language_">self</span>._build_core())
+        parts.append(<span class="hljs-variable language_">self</span>._build_tools())
+        parts.append(<span class="hljs-variable language_">self</span>._build_skills())
+        parts.append(<span class="hljs-variable language_">self</span>._build_memory())
+        parts.append(<span class="hljs-variable language_">self</span>._build_claude_md())
+        parts.append(<span class="hljs-variable language_">self</span>._build_dynamic())
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"\n\n"</span>.join(p <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> parts <span class="hljs-keyword">if</span> p)
+</code></pre>
+<p>这就是这一章最核心的设计。</p>
+<h3>第二步：每一段只负责一种来源</h3>
+<p>例如：</p>
+<ul>
+<li><code>_build_tools()</code> 只负责把工具说明生成出来</li>
+<li><code>_build_memory()</code> 只负责拿 memory</li>
+<li><code>_build_claude_md()</code> 只负责读指令文件</li>
+</ul>
+<p>这样每一段的职责就很清楚。</p>
+<h2>这一章最关键的结构化边界</h2>
+<h3>边界 1：稳定说明 vs 动态提醒</h3>
+<p>最重要的一组边界是：</p>
+<ul>
+<li>稳定的系统说明</li>
+<li>每轮临时变化的提醒</li>
+</ul>
+<p>这两类东西不应该混为一谈。</p>
+<h3>边界 2：system prompt vs system reminder</h3>
+<p>system prompt 适合放：</p>
+<ul>
+<li>身份</li>
+<li>规则</li>
+<li>工具</li>
+<li>长期约束</li>
+</ul>
+<p>system reminder 适合放：</p>
+<ul>
+<li>这一轮才临时需要的补充上下文</li>
+<li>当前变动的状态</li>
+</ul>
+<p>所以更清晰的做法是：</p>
+<ul>
+<li>主 system prompt 保持相对稳定</li>
+<li>每轮额外变化的内容，用单独的 reminder 方式追加</li>
+</ul>
+<h2>一个实用的教学版本</h2>
+<p>教学版可以先这样分：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">静态部分：
+- core
+- tools
+- skills
+- memory
+- CLAUDE.md
+
+动态部分：
+- date
+- cwd
+- model
+- current mode
+</code></pre>
+<p>如果你还想再清楚一点，可以加一个边界标记：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">=== DYNAMIC_BOUNDARY ===
+</code></pre>
+<p>它的作用不是神秘魔法。</p>
+<p>它只是提醒你：</p>
+<p><strong>上面更稳定，下面更容易变。</strong></p>
+<h2>CLAUDE.md 为什么要单独一段</h2>
+<p>因为它的角色不是“某一次任务的临时上下文”，而是更稳定的长期说明。</p>
+<p>教学仓里，最容易理解的链条是：</p>
+<ol>
+<li>用户全局级</li>
+<li>项目根目录级</li>
+<li>当前子目录级</li>
+</ol>
+<p>然后全部拼进去，而不是互相覆盖。</p>
+<p>这样读者更容易理解“规则来源可以分层叠加”这个思想。</p>
+<h2>memory 为什么要和 system prompt 有关系</h2>
+<p>因为 memory 的本质是：</p>
+<p><strong>把跨会话仍然有价值的信息，重新带回模型当前的工作环境。</strong></p>
+<p>如果保存了 memory，却从来不在系统输入中重新呈现，那它就等于没被真正用起来。</p>
+<p>所以 memory 最终一定要进入 prompt 组装链条。</p>
+<h2>初学者最容易混淆的点</h2>
+<h3>1. 把 system prompt 讲成一个固定字符串</h3>
+<p>这会让读者看不到系统是如何长大的。</p>
+<h3>2. 把所有变化信息都塞进 system prompt</h3>
+<p>这会把稳定说明和临时提醒搅在一起。</p>
+<h3>3. 把 CLAUDE.md、memory、skills 写成同一种东西</h3>
+<p>它们都可能进入 prompt，但来源和职责不同：</p>
+<ul>
+<li><code>skills</code>：可选能力或知识包</li>
+<li><code>memory</code>：跨会话记住的信息</li>
+<li><code>CLAUDE.md</code>：长期规则说明</li>
+</ul>
+<h2>教学边界</h2>
+<p>这一章先只建立一个核心心智：</p>
+<p><strong>prompt 不是一整块静态文本，而是一条被逐段组装出来的输入流水线。</strong></p>
+<p>所以这里先不要扩到太多外层细节：</p>
+<ul>
+<li>不要先讲复杂的 section 注册系统</li>
+<li>不要先讲缓存与预算</li>
+<li>不要先讲所有外部能力如何追加 prompt 说明</li>
+</ul>
+<p>只要读者已经能把稳定规则、动态提醒、memory、skills 这些来源看成不同输入段，而不是同一种“大 prompt”，这一章就已经讲到位了。</p>
+<h2>如果你开始分不清 prompt、message、reminder</h2>
+<p>这是非常正常的。</p>
+<p>因为到了这一章，系统输入已经不再只有一个 system prompt 了。<br>
+它至少会同时出现：</p>
+<ul>
+<li>system prompt blocks</li>
+<li>普通对话消息</li>
+<li>tool_result 消息</li>
+<li>memory attachment</li>
+<li>当前轮 reminder</li>
+</ul>
+<p>如果你开始有这类困惑：</p>
+<ul>
+<li>“这个信息到底该放 prompt 里，还是放 message 里？”</li>
+<li>“为什么 system prompt 不是全部输入？”</li>
+<li>“reminder 和长期规则到底差在哪？”</li>
+</ul>
+<p>建议继续看：</p>
+<ul>
+<li><a href="./s10a-message-prompt-pipeline.md"><code>s10a-message-prompt-pipeline.md</code></a></li>
+<li><a href="./entity-map.md"><code>entity-map.md</code></a></li>
+</ul>
+<h2>这章和后续章节的关系</h2>
+<p>这一章像一个汇合点：</p>
+<ul>
+<li><code>s05</code> skills 会汇进来</li>
+<li><code>s09</code> memory 会汇进来</li>
+<li><code>s07</code> 的当前模式也可能汇进来</li>
+<li><code>s19</code> MCP 以后也可能给 prompt 增加说明</li>
+</ul>
+<p>所以 <code>s10</code> 的价值不是“新加一个功能”，<br>
+而是“把前面长出来的功能组织成一份清楚的系统输入”。</p>
+<h2>学完这章后，你应该能回答</h2>
+<ul>
+<li>为什么 system prompt 不能只是一整块硬编码文本？</li>
+<li>为什么要把不同来源拆成独立 section？</li>
+<li>system prompt 和 system reminder 的边界是什么？</li>
+<li>memory、skills、CLAUDE.md 为什么都可能进入 prompt，但又不是一回事？</li>
+</ul>
+<hr>
+<p><strong>一句话记住：system prompt 的关键不是“写一段很长的话”，而是“把不同来源的信息按清晰边界组装起来”。</strong></p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s09/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">上一章</div><div class="font-medium">s09<!-- --> - <!-- -->记忆系统</div></div></a><a class="group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s11/"><div><div class="text-xs text-zinc-400">下一章</div><div class="font-medium">错误恢复<!-- --> - <!-- -->s11</div></div><span class="transition-transform group-hover:translate-x-1">→</span></a></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"s10\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s10\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T3501,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: assembly -- the system prompt is a pipeline, not a string.\n\"\"\"\ns10_system_prompt.py - System Prompt Construction\n\nThis chapter teaches one core idea:\nthe system prompt should be assembled from clear sections, not written as one\ngiant hardcoded blob.\n\nTeaching pipeline:\n  1. core instructions\n  2. tool listing\n  3. skill metadata\n  4. memory section\n  5. CLAUDE.md chain\n  6. dynamic context\n\nThe builder keeps stable information separate from information that changes\noften. A simple DYNAMIC_BOUNDARY marker makes that split visible.\n\nPer-turn reminders are even more dynamic. They are better injected as a\nseparate user-role system reminder than mixed blindly into the stable prompt.\n\nKey insight: \"Prompt construction is a pipeline with boundaries, not one\nbig string.\"\n\"\"\"\n\nimport datetime\nimport json\nimport os\nimport re\nimport subprocess\nfrom pathlib import Path\n\nfrom anthropic import Anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\n\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\n\nDYNAMIC_BOUNDARY = \"=== DYNAMIC_BOUNDARY ===\"\n\n\nclass SystemPromptBuilder:\n    \"\"\"\n    Assemble the system prompt from independent sections.\n\n    The teaching goal here is clarity:\n    each section has one source and one responsibility.\n\n    That makes the prompt easier to reason about, easier to test, and easier\n    to evolve as the agent grows new capabilities.\n    \"\"\"\n\n    def __init__(self, workdir: Path = None, tools: list = None):\n        self.workdir = workdir or WORKDIR\n        self.tools = tools or []\n        self.skills_dir = self.workdir / \"skills\"\n        self.memory_dir = self.workdir / \".memory\"\n\n    # -- Section 1: Core instructions --\n    def _build_core(self) -\u003e str:\n        return (\n            f\"You are a coding agent operating in {self.workdir}.\\n\"\n            \"Use the provided tools to explore, read, write, and edit files.\\n\"\n            \"Always verify before assuming. Prefer reading files over guessing.\"\n        )\n\n    # -- Section 2: Tool listings --\n    def _build_tool_listing(self) -\u003e str:\n        if not self.tools:\n            return \"\"\n        lines = [\"# Available tools\"]\n        for tool in self.tools:\n            props = tool.get(\"input_schema\", {}).get(\"properties\", {})\n            params = \", \".join(props.keys())\n            lines.append(f\"- {tool['name']}({params}): {tool['description']}\")\n        return \"\\n\".join(lines)\n\n    # -- Section 3: Skill metadata (layer 1 from s05 concept) --\n    def _build_skill_listing(self) -\u003e str:\n        if not self.skills_dir.exists():\n            return \"\"\n        skills = []\n        for skill_dir in sorted(self.skills_dir.iterdir()):\n            skill_md = skill_dir / \"SKILL.md\"\n            if not skill_md.exists():\n                continue\n            text = skill_md.read_text()\n            # Parse frontmatter for name + description\n            match = re.match(r\"^---\\s*\\n(.*?)\\n---\", text, re.DOTALL)\n            if not match:\n                continue\n            meta = {}\n            for line in match.group(1).splitlines():\n                if \":\" in line:\n                    k, _, v = line.partition(\":\")\n                    meta[k.strip()] = v.strip()\n            name = meta.get(\"name\", skill_dir.name)\n            desc = meta.get(\"description\", \"\")\n            skills.append(f\"- {name}: {desc}\")\n        if not skills:\n            return \"\"\n        return \"# Available skills\\n\" + \"\\n\".join(skills)\n\n    # -- Section 4: Memory content --\n    def _build_memory_section(self) -\u003e str:\n        if not self.memory_dir.exists():\n            return \"\"\n        memories = []\n        for md_file in sorted(self.memory_dir.glob(\"*.md\")):\n            if md_file.name == \"MEMORY.md\":\n                continue\n            text = md_file.read_text()\n            match = re.match(r\"^---\\s*\\n(.*?)\\n---\\s*\\n(.*)\", text, re.DOTALL)\n            if not match:\n                continue\n            header, body = match.group(1), match.group(2).strip()\n            meta = {}\n            for line in header.splitlines():\n                if \":\" in line:\n                    k, _, v = line.partition(\":\")\n                    meta[k.strip()] = v.strip()\n            name = meta.get(\"name\", md_file.stem)\n            mem_type = meta.get(\"type\", \"project\")\n            desc = meta.get(\"description\", \"\")\n            memories.append(f\"[{mem_type}] {name}: {desc}\\n{body}\")\n        if not memories:\n            return \"\"\n        return \"# Memories (persistent)\\n\\n\" + \"\\n\\n\".join(memories)\n\n    # -- Section 5: CLAUDE.md chain --\n    def _build_claude_md(self) -\u003e str:\n        \"\"\"\n        Load CLAUDE.md files in priority order (all are included):\n        1. ~/.claude/CLAUDE.md (user-global instructions)\n        2. \u003cproject-root\u003e/CLAUDE.md (project instructions)\n        3. \u003ccurrent-subdir\u003e/CLAUDE.md (directory-specific instructions)\n        \"\"\"\n        sources = []\n\n        # User-global\n        user_claude = Path.home() / \".claude\" / \"CLAUDE.md\"\n        if user_claude.exists():\n            sources.append((\"user global (~/.claude/CLAUDE.md)\", user_claude.read_text()))\n\n        # Project root\n        project_claude = self.workdir / \"CLAUDE.md\"\n        if project_claude.exists():\n            sources.append((\"project root (CLAUDE.md)\", project_claude.read_text()))\n\n        # Subdirectory -- in real CC, this walks from cwd up to project root\n        # Teaching: check cwd if different from workdir\n        cwd = Path.cwd()\n        if cwd != self.workdir:\n            subdir_claude = cwd / \"CLAUDE.md\"\n            if subdir_claude.exists():\n                sources.append((f\"subdir ({cwd.name}/CLAUDE.md)\", subdir_claude.read_text()))\n\n        if not sources:\n            return \"\"\n        parts = [\"# CLAUDE.md instructions\"]\n        for label, content in sources:\n            parts.append(f\"## From {label}\")\n            parts.append(content.strip())\n        return \"\\n\\n\".join(parts)\n\n    # -- Section 6: Dynamic context --\n    def _build_dynamic_context(self) -\u003e str:\n        lines = [\n            f\"Current date: {datetime.date.today().isoformat()}\",\n            f\"Working directory: {self.workdir}\",\n            f\"Model: {MODEL}\",\n            f\"Platform: {os.uname().sysname}\",\n        ]\n        return \"# Dynamic context\\n\" + \"\\n\".join(lines)\n\n    # -- Assemble all sections --\n    def build(self) -\u003e str:\n        \"\"\"\n        Assemble the full system prompt from all sections.\n\n        Static sections (1-5) are separated from dynamic (6) by\n        the DYNAMIC_BOUNDARY marker. In real CC, the static prefix\n        is cached across turns to save prompt tokens.\n        \"\"\"\n        sections = []\n\n        core = self._build_core()\n        if core:\n            sections.append(core)\n\n        tools = self._build_tool_listing()\n        if tools:\n            sections.append(tools)\n\n        skills = self._build_skill_listing()\n        if skills:\n            sections.append(skills)\n\n        memory = self._build_memory_section()\n        if memory:\n            sections.append(memory)\n\n        claude_md = self._build_claude_md()\n        if claude_md:\n            sections.append(claude_md)\n\n        # Static/dynamic boundary\n        sections.append(DYNAMIC_BOUNDARY)\n\n        dynamic = self._build_dynamic_context()\n        if dynamic:\n            sections.append(dynamic)\n\n        return \"\\n\\n\".join(sections)\n\n\ndef build_system_reminder(extra: str = None) -\u003e dict:\n    \"\"\"\n    Build a system-reminder user message for per-turn dynamic content.\n\n    The teaching version keeps reminders outside the stable system prompt so\n    short-lived context does not get mixed into the long-lived instructions.\n    \"\"\"\n    parts = []\n    if extra:\n        parts.append(extra)\n    if not parts:\n        return None\n    content = \"\u003csystem-reminder\u003e\\n\" + \"\\n\".join(parts) + \"\\n\u003c/system-reminder\u003e\"\n    return {\"role\": \"user\", \"content\": content}\n\n\n# -- Tool implementations --\ndef safe_path(p: str) -\u003e Path:\n    path = (WORKDIR / p).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {p}\")\n    return path\n\n\ndef run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\", \"\u003e /dev/\"]\n    if any(d in command for d in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        r = subprocess.run(command, shell=True, cwd=WORKDIR,\n                           capture_output=True, text=True, timeout=120)\n        out = (r.stdout + r.stderr).strip()\n        return out[:50000] if out else \"(no output)\"\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\n\ndef run_read(path: str, limit: int = None) -\u003e str:\n    try:\n        lines = safe_path(path).read_text().splitlines()\n        if limit and limit \u003c len(lines):\n            lines = lines[:limit] + [f\"... ({len(lines) - limit} more)\"]\n        return \"\\n\".join(lines)[:50000]\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef run_write(path: str, content: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        fp.parent.mkdir(parents=True, exist_ok=True)\n        fp.write_text(content)\n        return f\"Wrote {len(content)} bytes\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        content = fp.read_text()\n        if old_text not in content:\n            return f\"Error: Text not found in {path}\"\n        fp.write_text(content.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\nTOOL_HANDLERS = {\n    \"bash\":       lambda **kw: run_bash(kw[\"command\"]),\n    \"read_file\":  lambda **kw: run_read(kw[\"path\"], kw.get(\"limit\")),\n    \"write_file\": lambda **kw: run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\":  lambda **kw: run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n}\n\nTOOLS = [\n    {\"name\": \"bash\", \"description\": \"Run a shell command.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"limit\": {\"type\": \"integer\"}}, \"required\": [\"path\"]}},\n    {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n    {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n]\n\n# Global prompt builder\nprompt_builder = SystemPromptBuilder(workdir=WORKDIR, tools=TOOLS)\n\n\ndef agent_loop(messages: list):\n    \"\"\"\n    Agent loop with assembled system prompt.\n\n    The system prompt is rebuilt each iteration. In real CC, the static\n    prefix is cached and only the dynamic suffix changes per turn.\n    \"\"\"\n    while True:\n        system = prompt_builder.build()\n        response = client.messages.create(\n            model=MODEL, system=system, messages=messages,\n            tools=TOOLS, max_tokens=8000,\n        )\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n\n        if response.stop_reason != \"tool_use\":\n            return\n\n        results = []\n        for block in response.content:\n            if block.type != \"tool_use\":\n                continue\n            handler = TOOL_HANDLERS.get(block.name)\n            try:\n                output = handler(**(block.input or {})) if handler else f\"Unknown: {block.name}\"\n            except Exception as e:\n                output = f\"Error: {e}\"\n            print(f\"\u003e {block.name}: {str(output)[:200]}\")\n            results.append({\n                \"type\": \"tool_result\",\n                \"tool_use_id\": block.id,\n                \"content\": str(output),\n            })\n\n        messages.append({\"role\": \"user\", \"content\": results})\n\n\nif __name__ == \"__main__\":\n    # Show the assembled prompt at startup for educational purposes\n    full_prompt = prompt_builder.build()\n    section_count = full_prompt.count(\"\\n# \")\n    print(f\"[System prompt assembled: {len(full_prompt)} chars, ~{section_count} sections]\")\n\n    # /prompt command shows the full assembled prompt\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms10 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n\n        if query.strip() == \"/prompt\":\n            print(\"--- System Prompt ---\")\n            print(prompt_builder.build())\n            print(\"--- End ---\")\n            continue\n\n        if query.strip() == \"/sections\":\n            prompt = prompt_builder.build()\n            for line in prompt.splitlines():\n                if line.startswith(\"# \") or line == DYNAMIC_BOUNDARY:\n                    print(f\"  {line}\")\n            continue\n\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history)\n        response_content = history[-1][\"content\"]\n        if isinstance(response_content, list):\n            for block in response_content:\n                if hasattr(block, \"text\"):\n                    print(block.text)\n        print()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s10\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"系统提示词\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300\",\"children\":\"系统加固\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"把输入组装成流水线\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[305,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[4,\" \",\"个工具\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"模型看到的不是一坨固定 prompt，而是一条按阶段拼装的输入流水线。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s10\",\"diff\":{\"from\":\"s09\",\"to\":\"s10\",\"newClasses\":[\"SystemPromptBuilder\"],\"newFunctions\":[\"build_system_reminder\"],\"newTools\":[],\"locDelta\":-109},\"source\":\"$14\",\"filename\":\"s10_system_prompt.py\",\"guideData\":{\"focus\":\"先盯住 `PromptParts` 和输入组装顺序，而不是只盯一段大 prompt 字符串。\",\"confusion\":\"模型真正看到的是一条输入管道，不是单个神秘 system prompt 大文本。\",\"goal\":\"把系统规则、工具说明、动态上下文拆成可管理的输入片段。\"},\"bridgeDocs\":[{\"slug\":\"s10a-message-prompt-pipeline\",\"kind\":\"mechanism\",\"title\":\"消息与 Prompt 装配流水线\",\"summary\":{\"zh\":\"专门补消息、Prompt 片段和装配顺序，适合 s10 前后深入看。\",\"en\":\"The full input pipeline beyond system prompt. Best read alongside s10.\",\"ja\":\"message と prompt 片をどの順に組み立てるかを補う解説です。\"},\"fallbackLocale\":null},{\"slug\":\"s00a-query-control-plane\",\"kind\":\"mechanism\",\"title\":\"查询控制平面\",\"summary\":{\"zh\":\"把一次请求如何穿过控制平面讲完整，适合权限、Prompt、MCP 这些章节前后补看。\",\"en\":\"Why the simple loop needs a coordination layer as the system grows. Best read after Stage 1.\",\"ja\":\"1つの要求が control plane をどう通るかを通しで補う資料です。\"},\"fallbackLocale\":null}],\"locale\":\"zh\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/zh/s09\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"上一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s09\",\" - \",\"记忆系统\"]}]]}]]}],[\"$\",\"$L16\",null,{\"href\":\"/zh/s11\",\"className\":\"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"下一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"错误恢复\",\" - \",\"s11\"]}]]}],[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:translate-x-1\",\"children\":\"→\"}]]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>

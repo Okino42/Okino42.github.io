@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s13</span><h1 class="text-2xl font-bold sm:text-3xl">后台任务</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">任务运行时</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">把任务目标和运行槽位分开<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">287<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>6<!-- --> <!-- -->个工具</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">持久任务描述要完成什么，运行槽位描述谁在跑、跑到哪里；两者相关但不是一回事。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学习</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">源码</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深入探索</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > s05 > s06 > s07 > s08 > s09 > s10 > s11 > s12 > [ s13 ] > s14 > s15 > s16 > s17 > s18 > s19</code></p>
+<blockquote class="hero-callout">
+<p><em>慢命令可以在旁边等，主循环不必陪着发呆。</em></p>
+</blockquote>
+<h2>这一章要解决什么问题</h2>
+<p>前面几章里，工具调用基本都是：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">模型发起
+  ->
+立刻执行
+  ->
+立刻返回结果
+</code></pre>
+<p>这对短命令没有问题。<br>
+但一旦遇到这些慢操作，就会卡住：</p>
+<ul>
+<li><code>npm install</code></li>
+<li><code>pytest</code></li>
+<li><code>docker build</code></li>
+<li>大型代码生成或检查任务</li>
+</ul>
+<p>如果主循环一直同步等待，会出现两个坏处：</p>
+<ul>
+<li>模型在等待期间什么都做不了</li>
+<li>用户明明还想继续别的工作，却被整轮流程堵住</li>
+</ul>
+<p>所以这一章要解决的是：</p>
+<p><strong>把“慢执行”移到后台，让主循环继续推进别的事情。</strong></p>
+<h2>建议联读</h2>
+<ul>
+<li>如果你还没有彻底稳住“任务目标”和“执行槽位”是两层对象，先看 <a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a>。</li>
+<li>如果你开始分不清哪些状态该落在 <code>RuntimeTaskRecord</code>、哪些还应留在任务板，回看 <a href="./data-structures.md"><code>data-structures.md</code></a>。</li>
+<li>如果你开始把后台执行理解成“另一条主循环”，先看 <a href="./s02b-tool-execution-runtime.md"><code>s02b-tool-execution-runtime.md</code></a>，重新校正“并行的是执行与等待，不是主循环本身”。</li>
+</ul>
+<h2>先把几个词讲明白</h2>
+<h3>什么叫前台</h3>
+<p>前台指的是：</p>
+<blockquote>
+<p>主循环这轮发起以后，必须立刻等待结果的执行路径。</p>
+</blockquote>
+<h3>什么叫后台</h3>
+<p>后台不是神秘系统。<br>
+后台只是说：</p>
+<blockquote>
+<p>命令先在另一条执行线上跑，主循环先去做别的事。</p>
+</blockquote>
+<h3>什么叫通知队列</h3>
+<p>通知队列就是一条“稍后再告诉主循环”的收件箱。</p>
+<p>后台任务完成以后，不是直接把全文硬塞回模型，<br>
+而是先写一条摘要通知，等下一轮再统一带回去。</p>
+<h2>最小心智模型</h2>
+<p>这一章最关键的句子是：</p>
+<p><strong>主循环仍然只有一条，并行的是等待，不是主循环本身。</strong></p>
+<p>可以把结构画成这样：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">主循环
+  |
+  +-- background_run("pytest")
+  |      -> 立刻返回 task_id
+  |
+  +-- 继续别的工作
+  |
+  +-- 下一轮模型调用前
+         -> drain_notifications()
+         -> 把摘要注入 messages
+
+后台执行线
+  |
+  +-- 真正执行 pytest
+  +-- 完成后写入通知队列
+</code></pre>
+<p>如果读者能牢牢记住这张图，后面扩展成更复杂的异步系统也不会乱。</p>
+<h2>关键数据结构</h2>
+<h3>1. RuntimeTaskRecord</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">task = {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"a1b2c3d4"</span>,
+    <span class="hljs-string">"command"</span>: <span class="hljs-string">"pytest"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"running"</span>,
+    <span class="hljs-string">"started_at"</span>: <span class="hljs-number">1710000000.0</span>,
+    <span class="hljs-string">"result_preview"</span>: <span class="hljs-string">""</span>,
+    <span class="hljs-string">"output_file"</span>: <span class="hljs-string">""</span>,
+}
+</code></pre>
+<p>这些字段分别表示：</p>
+<ul>
+<li><code>id</code>：唯一标识</li>
+<li><code>command</code>：正在跑什么命令</li>
+<li><code>status</code>：运行中、完成、失败、超时</li>
+<li><code>started_at</code>：什么时候开始</li>
+<li><code>result_preview</code>：先给模型看的简短摘要</li>
+<li><code>output_file</code>：完整输出写到了哪里</li>
+</ul>
+<p>教学版再往前走一步时，建议把它直接落成两份文件：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">.runtime-tasks/
+  a1b2c3d4.json   # RuntimeTaskRecord
+  a1b2c3d4.log    # 完整输出
+</code></pre>
+<p>这样读者会更容易理解：</p>
+<ul>
+<li><code>json</code> 记录的是运行状态</li>
+<li><code>log</code> 保存的是完整产物</li>
+<li>通知只负责把 <code>preview</code> 带回主循环</li>
+</ul>
+<h3>2. Notification</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">notification = {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"background_completed"</span>,
+    <span class="hljs-string">"task_id"</span>: <span class="hljs-string">"a1b2c3d4"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"completed"</span>,
+    <span class="hljs-string">"preview"</span>: <span class="hljs-string">"tests passed"</span>,
+}
+</code></pre>
+<p>通知只负责做一件事：</p>
+<blockquote>
+<p>告诉主循环“有结果回来了，你要不要看”。</p>
+</blockquote>
+<p>它不是完整日志本体。</p>
+<h2>最小实现</h2>
+<h3>第一步：登记后台任务</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BackgroundManager</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-variable language_">self</span>.tasks = {}
+        <span class="hljs-variable language_">self</span>.notifications = []
+        <span class="hljs-variable language_">self</span>.lock = threading.Lock()
+</code></pre>
+<p>这里最少要有两块状态：</p>
+<ul>
+<li><code>tasks</code>：当前有哪些后台任务</li>
+<li><code>notifications</code>：哪些结果已经回来，等待主循环领取</li>
+</ul>
+<h3>第二步：启动后台执行线</h3>
+<p>“线程”这个词第一次见可能会有点紧张。<br>
+你可以先把它理解成：</p>
+<blockquote>
+<p>同一个程序里，另一条可以独立往前跑的执行线。</p>
+</blockquote>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, command: <span class="hljs-built_in">str</span></span>) -> <span class="hljs-built_in">str</span>:
+    task_id = new_id()
+    <span class="hljs-variable language_">self</span>.tasks[task_id] = {
+        <span class="hljs-string">"id"</span>: task_id,
+        <span class="hljs-string">"command"</span>: command,
+        <span class="hljs-string">"status"</span>: <span class="hljs-string">"running"</span>,
+    }
+
+    thread = threading.Thread(
+        target=<span class="hljs-variable language_">self</span>._execute,
+        args=(task_id, command),
+        daemon=<span class="hljs-literal">True</span>,
+    )
+    thread.start()
+    <span class="hljs-keyword">return</span> task_id
+</code></pre>
+<p>这一步最重要的不是线程本身，而是：</p>
+<p><strong>主循环拿到 <code>task_id</code> 后就可以先继续往前走。</strong></p>
+<h3>第三步：完成后写通知</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_execute</span>(<span class="hljs-params">self, task_id: <span class="hljs-built_in">str</span>, command: <span class="hljs-built_in">str</span></span>):
+    <span class="hljs-keyword">try</span>:
+        result = subprocess.run(..., timeout=<span class="hljs-number">300</span>)
+        status = <span class="hljs-string">"completed"</span>
+        preview = (result.stdout + result.stderr)[:<span class="hljs-number">500</span>]
+    <span class="hljs-keyword">except</span> subprocess.TimeoutExpired:
+        status = <span class="hljs-string">"timeout"</span>
+        preview = <span class="hljs-string">"command timed out"</span>
+
+    <span class="hljs-keyword">with</span> <span class="hljs-variable language_">self</span>.lock:
+        <span class="hljs-variable language_">self</span>.tasks[task_id][<span class="hljs-string">"status"</span>] = status
+        <span class="hljs-variable language_">self</span>.notifications.append({
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"background_completed"</span>,
+            <span class="hljs-string">"task_id"</span>: task_id,
+            <span class="hljs-string">"status"</span>: status,
+            <span class="hljs-string">"preview"</span>: preview,
+        })
+</code></pre>
+<p>这里体现的思想很重要：</p>
+<p><strong>后台执行负责产出结果，通知队列负责把结果送回主循环。</strong></p>
+<h3>第四步：下一轮前排空通知</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">before_model_call</span>(<span class="hljs-params">messages: <span class="hljs-built_in">list</span></span>):
+    notifications = bg.drain_notifications()
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> notifications:
+        <span class="hljs-keyword">return</span>
+
+    text = <span class="hljs-string">"\n"</span>.join(
+        <span class="hljs-string">f"[bg:<span class="hljs-subst">{n[<span class="hljs-string">'task_id'</span>]}</span>] <span class="hljs-subst">{n[<span class="hljs-string">'status'</span>]}</span> - <span class="hljs-subst">{n[<span class="hljs-string">'preview'</span>]}</span>"</span>
+        <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> notifications
+    )
+    messages.append({<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: text})
+</code></pre>
+<p>这样模型在下一轮就会知道：</p>
+<ul>
+<li>哪个后台任务完成了</li>
+<li>是成功、失败还是超时</li>
+<li>如果要看全文，该再去读文件</li>
+</ul>
+<h2>为什么完整输出不要直接塞回 prompt</h2>
+<p>这是本章必须讲透的点。</p>
+<p>如果后台任务输出几万行日志，你不能每次都把全文塞回上下文。<br>
+更稳的做法是：</p>
+<ol>
+<li>完整输出写磁盘</li>
+<li>通知里只放简短摘要</li>
+<li>模型真的要看全文时，再调用 <code>read_file</code></li>
+</ol>
+<p>这背后的心智很重要：</p>
+<p><strong>通知负责提醒，文件负责存原文。</strong></p>
+<h2>如何接到主循环里</h2>
+<p>从 <code>s13</code> 开始，主循环多出一个标准前置步骤：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">1. 先排空通知队列
+2. 再调用模型
+3. 普通工具照常同步执行
+4. 如果模型调用 background_run，就登记后台任务并立刻返回 task_id
+5. 下一轮再把后台结果带回模型
+</code></pre>
+<p>教学版最小工具建议先做两个：</p>
+<ul>
+<li><code>background_run</code></li>
+<li><code>background_check</code></li>
+</ul>
+<p>这样已经足够支撑最小异步执行闭环。</p>
+<h2>这一章和任务系统的边界</h2>
+<p>这是本章最容易和 <code>s12</code> 混掉的地方。</p>
+<h3><code>s12</code> 的 task 是什么</h3>
+<p><code>s12</code> 里的 <code>task</code> 是：</p>
+<blockquote>
+<p>工作目标</p>
+</blockquote>
+<p>它关心的是：</p>
+<ul>
+<li>要做什么</li>
+<li>谁依赖谁</li>
+<li>现在总体进度如何</li>
+</ul>
+<h3><code>s13</code> 的 background task 是什么</h3>
+<p>本章里的后台任务是：</p>
+<blockquote>
+<p>正在运行的执行单元</p>
+</blockquote>
+<p>它关心的是：</p>
+<ul>
+<li>哪个命令正在跑</li>
+<li>跑到什么状态</li>
+<li>结果什么时候回来</li>
+</ul>
+<p>所以最稳的记法是：</p>
+<ul>
+<li><code>task</code> 更像工作板</li>
+<li><code>background task</code> 更像运行中的作业</li>
+</ul>
+<p>两者相关，但不是同一个东西。</p>
+<h2>初学者最容易犯的错</h2>
+<h3>1. 以为“后台”就是更复杂的主循环</h3>
+<p>不是。<br>
+主循环仍然尽量保持单主线。</p>
+<h3>2. 只开线程，不登记状态</h3>
+<p>这样任务一多，你根本不知道：</p>
+<ul>
+<li>谁还在跑</li>
+<li>谁已经完成</li>
+<li>谁失败了</li>
+</ul>
+<h3>3. 把长日志全文塞进上下文</h3>
+<p>上下文很快就会被撑爆。</p>
+<h3>4. 把 <code>s12</code> 的工作目标和本章的运行任务混为一谈</h3>
+<p>这会让后面多 agent 和调度章节全部打结。</p>
+<h2>教学边界</h2>
+<p>这一章只需要先把一个最小运行时模式讲清楚：</p>
+<ul>
+<li>慢工作在后台跑</li>
+<li>主循环继续保持单主线</li>
+<li>结果通过通知路径在后面回到模型</li>
+</ul>
+<p>只要这条模式稳了，线程池、更多 worker 类型、更复杂的事件系统都可以后补。</p>
+<p>这章真正要让读者守住的是：</p>
+<p><strong>并行的是等待与执行槽位，不是主循环本身。</strong></p>
+<h2>学完这一章，你应该真正掌握什么</h2>
+<p>学完以后，你应该能独立复述下面几句话：</p>
+<ol>
+<li>主循环只有一条，并行的是等待，不是主循环本身。</li>
+<li>后台任务至少需要“任务表 + 通知队列”两块状态。</li>
+<li><code>background_run</code> 应该立刻返回 <code>task_id</code>，而不是同步卡住。</li>
+<li>通知只放摘要，完整输出放文件。</li>
+</ol>
+<p>如果这 4 句话都已经非常清楚，说明你已经掌握了后台任务系统的核心。</p>
+<h2>下一章学什么</h2>
+<p>这一章解决的是：</p>
+<blockquote>
+<p>慢命令如何在后台运行。</p>
+</blockquote>
+<p>下一章 <code>s14</code> 要解决的是：</p>
+<blockquote>
+<p>如果连“启动后台任务”这件事都不一定由当前用户触发，而是由时间触发，该怎么做。</p>
+</blockquote>
+<p>也就是从“异步运行”继续走向“定时触发”。</p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s12/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">上一章</div><div class="font-medium">s12<!-- --> - <!-- -->任务系统</div></div></a><a class="group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s14/"><div><div class="text-xs text-zinc-400">下一章</div><div class="font-medium">定时调度<!-- --> - <!-- -->s14</div></div><span class="transition-transform group-hover:translate-x-1">→</span></a></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"s13\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s13\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T3313,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: background execution -- the model thinks while the harness waits.\n\"\"\"\ns13_background_tasks.py - Background Tasks\n\nRun slow commands in background threads. Before each LLM call, the loop\ndrains a notification queue and hands finished results back to the model.\n\n    Main thread                Background thread\n    +-----------------+        +-----------------+\n    | agent loop      |        | task executes   |\n    | ...             |        | ...             |\n    | [LLM call] \u003c---+------- | enqueue(result) |\n    |  ^drain queue   |        +-----------------+\n    +-----------------+\n\n    Timeline:\n    Agent ----[spawn A]----[spawn B]----[other work]----\n                 |              |\n                 v              v\n              [A runs]      [B runs]\n                 |              |\n                 +-- notification queue --\u003e [results injected]\n\nBackground tasks here are runtime execution slots, not the durable task-board\nrecords introduced in s12.\n\"\"\"\n\nimport os\nimport json\nimport subprocess\nimport threading\nimport time\nimport uuid\nfrom pathlib import Path\n\nfrom anthropic import Anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\n\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nRUNTIME_DIR = WORKDIR / \".runtime-tasks\"\nRUNTIME_DIR.mkdir(exist_ok=True)\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\n\nSYSTEM = f\"You are a coding agent at {WORKDIR}. Use background_run for long-running commands.\"\n\nSTALL_THRESHOLD_S = 45  # seconds before a task is considered stalled\n\n\nclass NotificationQueue:\n    \"\"\"\n    Priority-based notification queue with same-key folding.\n\n    Folding means a newer message can replace an older message with the\n    same key, so the context is not flooded with stale updates.\n    \"\"\"\n\n    PRIORITIES = {\"immediate\": 0, \"high\": 1, \"medium\": 2, \"low\": 3}\n\n    def __init__(self):\n        self._queue = []  # list of (priority, key, message)\n        self._lock = threading.Lock()\n\n    def push(self, message: str, priority: str = \"medium\", key: str = None):\n        \"\"\"Add a message to the queue, folding if key matches an existing entry.\"\"\"\n        with self._lock:\n            if key:\n                # Fold: replace existing message with same key\n                self._queue = [(p, k, m) for p, k, m in self._queue if k != key]\n            self._queue.append((self.PRIORITIES.get(priority, 2), key, message))\n            self._queue.sort(key=lambda x: x[0])\n\n    def drain(self) -\u003e list[str]:\n        \"\"\"Return all pending messages in priority order and clear the queue.\"\"\"\n        with self._lock:\n            messages = [m for _, _, m in self._queue]\n            self._queue.clear()\n            return messages\n\n\n# -- BackgroundManager: threaded execution + notification queue --\nclass BackgroundManager:\n    def __init__(self):\n        self.dir = RUNTIME_DIR\n        self.tasks = {}  # task_id -\u003e {status, result, command, started_at}\n        self._notification_queue = []  # completed task results\n        self._lock = threading.Lock()\n\n    def _record_path(self, task_id: str) -\u003e Path:\n        return self.dir / f\"{task_id}.json\"\n\n    def _output_path(self, task_id: str) -\u003e Path:\n        return self.dir / f\"{task_id}.log\"\n\n    def _persist_task(self, task_id: str):\n        record = dict(self.tasks[task_id])\n        self._record_path(task_id).write_text(\n            json.dumps(record, indent=2, ensure_ascii=False)\n        )\n\n    def _preview(self, output: str, limit: int = 500) -\u003e str:\n        compact = \" \".join((output or \"(no output)\").split())\n        return compact[:limit]\n\n    def run(self, command: str) -\u003e str:\n        \"\"\"Start a background thread, return task_id immediately.\"\"\"\n        task_id = str(uuid.uuid4())[:8]\n        output_file = self._output_path(task_id)\n        self.tasks[task_id] = {\n            \"id\": task_id,\n            \"status\": \"running\",\n            \"result\": None,\n            \"command\": command,\n            \"started_at\": time.time(),\n            \"finished_at\": None,\n            \"result_preview\": \"\",\n            \"output_file\": str(output_file.relative_to(WORKDIR)),\n        }\n        self._persist_task(task_id)\n        thread = threading.Thread(\n            target=self._execute, args=(task_id, command), daemon=True\n        )\n        thread.start()\n        return (\n            f\"Background task {task_id} started: {command[:80]} \"\n            f\"(output_file={output_file.relative_to(WORKDIR)})\"\n        )\n\n    def _execute(self, task_id: str, command: str):\n        \"\"\"Thread target: run subprocess, capture output, push to queue.\"\"\"\n        try:\n            r = subprocess.run(\n                command, shell=True, cwd=WORKDIR,\n                capture_output=True, text=True, timeout=300\n            )\n            output = (r.stdout + r.stderr).strip()[:50000]\n            status = \"completed\"\n        except subprocess.TimeoutExpired:\n            output = \"Error: Timeout (300s)\"\n            status = \"timeout\"\n        except Exception as e:\n            output = f\"Error: {e}\"\n            status = \"error\"\n        final_output = output or \"(no output)\"\n        preview = self._preview(final_output)\n        output_path = self._output_path(task_id)\n        output_path.write_text(final_output)\n        self.tasks[task_id][\"status\"] = status\n        self.tasks[task_id][\"result\"] = final_output\n        self.tasks[task_id][\"finished_at\"] = time.time()\n        self.tasks[task_id][\"result_preview\"] = preview\n        self._persist_task(task_id)\n        with self._lock:\n            self._notification_queue.append({\n                \"task_id\": task_id,\n                \"status\": status,\n                \"command\": command[:80],\n                \"preview\": preview,\n                \"output_file\": str(output_path.relative_to(WORKDIR)),\n            })\n\n    def check(self, task_id: str = None) -\u003e str:\n        \"\"\"Check status of one task or list all.\"\"\"\n        if task_id:\n            t = self.tasks.get(task_id)\n            if not t:\n                return f\"Error: Unknown task {task_id}\"\n            visible = {\n                \"id\": t[\"id\"],\n                \"status\": t[\"status\"],\n                \"command\": t[\"command\"],\n                \"result_preview\": t.get(\"result_preview\", \"\"),\n                \"output_file\": t.get(\"output_file\", \"\"),\n            }\n            return json.dumps(visible, indent=2, ensure_ascii=False)\n        lines = []\n        for tid, t in self.tasks.items():\n            lines.append(\n                f\"{tid}: [{t['status']}] {t['command'][:60]} \"\n                f\"-\u003e {t.get('result_preview') or '(running)'}\"\n            )\n        return \"\\n\".join(lines) if lines else \"No background tasks.\"\n\n    def drain_notifications(self) -\u003e list:\n        \"\"\"Return and clear all pending completion notifications.\"\"\"\n        with self._lock:\n            notifs = list(self._notification_queue)\n            self._notification_queue.clear()\n        return notifs\n\n    def detect_stalled(self) -\u003e list[str]:\n        \"\"\"\n        Return task IDs that have been running longer than STALL_THRESHOLD_S.\n        \"\"\"\n        now = time.time()\n        stalled = []\n        for task_id, info in self.tasks.items():\n            if info[\"status\"] != \"running\":\n                continue\n            elapsed = now - info.get(\"started_at\", now)\n            if elapsed \u003e STALL_THRESHOLD_S:\n                stalled.append(task_id)\n        return stalled\n\n\nBG = BackgroundManager()\n\n\n# -- Tool implementations --\ndef safe_path(p: str) -\u003e Path:\n    path = (WORKDIR / p).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {p}\")\n    return path\n\ndef run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\", \"\u003e /dev/\"]\n    if any(d in command for d in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        r = subprocess.run(command, shell=True, cwd=WORKDIR,\n                           capture_output=True, text=True, timeout=120)\n        out = (r.stdout + r.stderr).strip()\n        return out[:50000] if out else \"(no output)\"\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\ndef run_read(path: str, limit: int = None) -\u003e str:\n    try:\n        lines = safe_path(path).read_text().splitlines()\n        if limit and limit \u003c len(lines):\n            lines = lines[:limit] + [f\"... ({len(lines) - limit} more)\"]\n        return \"\\n\".join(lines)[:50000]\n    except Exception as e:\n        return f\"Error: {e}\"\n\ndef run_write(path: str, content: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        fp.parent.mkdir(parents=True, exist_ok=True)\n        fp.write_text(content)\n        return f\"Wrote {len(content)} bytes\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\ndef run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        c = fp.read_text()\n        if old_text not in c:\n            return f\"Error: Text not found in {path}\"\n        fp.write_text(c.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\nTOOL_HANDLERS = {\n    \"bash\":             lambda **kw: run_bash(kw[\"command\"]),\n    \"read_file\":        lambda **kw: run_read(kw[\"path\"], kw.get(\"limit\")),\n    \"write_file\":       lambda **kw: run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\":        lambda **kw: run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n    \"background_run\":   lambda **kw: BG.run(kw[\"command\"]),\n    \"check_background\": lambda **kw: BG.check(kw.get(\"task_id\")),\n}\n\nTOOLS = [\n    {\"name\": \"bash\", \"description\": \"Run a shell command (blocking).\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"limit\": {\"type\": \"integer\"}}, \"required\": [\"path\"]}},\n    {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n    {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n    {\"name\": \"background_run\", \"description\": \"Run command in background thread. Returns task_id immediately.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"check_background\", \"description\": \"Check background task status. Omit task_id to list all.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"task_id\": {\"type\": \"string\"}}}},\n]\n\n\ndef agent_loop(messages: list):\n    while True:\n        # Drain background notifications and inject as a synthetic user/assistant\n        # transcript pair before the next model call (teaching demo behavior).\n        notifs = BG.drain_notifications()\n        if notifs and messages:\n            notif_text = \"\\n\".join(\n                f\"[bg:{n['task_id']}] {n['status']}: {n['preview']} \"\n                f\"(output_file={n['output_file']})\"\n                for n in notifs\n            )\n            messages.append({\"role\": \"user\", \"content\": f\"\u003cbackground-results\u003e\\n{notif_text}\\n\u003c/background-results\u003e\"})\n        response = client.messages.create(\n            model=MODEL, system=SYSTEM, messages=messages,\n            tools=TOOLS, max_tokens=8000,\n        )\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n        if response.stop_reason != \"tool_use\":\n            return\n        results = []\n        for block in response.content:\n            if block.type == \"tool_use\":\n                handler = TOOL_HANDLERS.get(block.name)\n                try:\n                    output = handler(**block.input) if handler else f\"Unknown tool: {block.name}\"\n                except Exception as e:\n                    output = f\"Error: {e}\"\n                print(f\"\u003e {block.name}:\")\n                print(str(output)[:200])\n                results.append({\"type\": \"tool_result\", \"tool_use_id\": block.id, \"content\": str(output)})\n        messages.append({\"role\": \"user\", \"content\": results})\n\n\nif __name__ == \"__main__\":\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms13 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history)\n        response_content = history[-1][\"content\"]\n        if isinstance(response_content, list):\n            for block in response_content:\n                if hasattr(block, \"text\"):\n                    print(block.text)\n        print()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s13\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"后台任务\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300\",\"children\":\"任务运行时\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"把任务目标和运行槽位分开\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[287,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[6,\" \",\"个工具\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"持久任务描述要完成什么，运行槽位描述谁在跑、跑到哪里；两者相关但不是一回事。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s13\",\"diff\":{\"from\":\"s12\",\"to\":\"s13\",\"newClasses\":[\"NotificationQueue\",\"BackgroundManager\"],\"newFunctions\":[],\"newTools\":[\"background_run\",\"check_background\"],\"locDelta\":60},\"source\":\"$14\",\"filename\":\"s13_background_tasks.py\",\"guideData\":{\"focus\":\"先盯住 `RuntimeTaskState` 和 `Notification` 的分工。\",\"confusion\":\"后台任务不是任务板节点，而是当前正在跑的一条执行槽位。\",\"goal\":\"让慢命令后台运行，并在下一轮把结果带回模型。\"},\"bridgeDocs\":[{\"slug\":\"s13a-runtime-task-model\",\"kind\":\"mechanism\",\"title\":\"运行时任务模型\",\"summary\":{\"zh\":\"把 task goal、runtime record、notification 三层边界一次讲清。\",\"en\":\"The most common Stage 3 confusion: two meanings of 'task'. Read between s12 and s13.\",\"ja\":\"作業目標・実行記録・通知の3層境界をまとめて補う資料です。\"},\"fallbackLocale\":null},{\"slug\":\"s02b-tool-execution-runtime\",\"kind\":\"mechanism\",\"title\":\"工具执行运行时\",\"summary\":{\"zh\":\"把工具并发、串行、进度消息、结果顺序和 context 合并这层运行时讲清楚。\",\"en\":\"How multiple tool calls in one turn get executed safely. Best read after s02.\",\"ja\":\"tool の並列実行と直列実行、progress 更新、結果順序、context 統合をまとめて補う資料です。\"},\"fallbackLocale\":null}],\"locale\":\"zh\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/zh/s12\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"上一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s12\",\" - \",\"任务系统\"]}]]}]]}],[\"$\",\"$L16\",null,{\"href\":\"/zh/s14\",\"className\":\"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"下一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"定时调度\",\" - \",\"s14\"]}]]}],[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:translate-x-1\",\"children\":\"→\"}]]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>

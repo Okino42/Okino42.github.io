@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>Code Reading Order</title><meta name="description" content="Shows which local `agents/*.py` files to open first and what state or functions to inspect before the code turns into noise."/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/en/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/en/reference/">Reference</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/en/compare/">Compare</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Core Loop</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">The Agent Loop</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">Tool Use</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">TodoWrite</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">Subagent</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">Skills</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">Context Compact</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">System Hardening</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">Permission System</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook System</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">Memory System</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">System Prompt</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">Error Recovery</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Task Runtime</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">Task System</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">Background Tasks</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">Cron Scheduler</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Multi-Agent Platform</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent Teams</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">Team Protocols</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">Autonomous Agents</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree Isolation</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/en/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP &amp; Plugin</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/en/"><span>←</span><span>Back To Learning Path</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">Deep Dive</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">Code Reading Order</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">When This Page Helps</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">Shows which local `agents/*.py` files to open first and what state or functions to inspect before the code turns into noise.</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">Best Read Alongside</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/en/s01/">s01<!-- --> · <!-- -->The Agent Loop</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/en/s07/">s07<!-- --> · <!-- -->Permission System</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/en/s12/">s12<!-- --> · <!-- -->Task System</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/en/s15/">s15<!-- --> · <!-- -->Agent Teams</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p><strong>Deep Dive</strong> -- Read this when you're about to open the Python agent files and want a strategy for reading them.</p>
+</blockquote>
+<p>This page is not about reading more code. It answers a narrower question: once the chapter order is stable, what is the cleanest order for reading this repository's code without scrambling your mental model again?</p>
+<h2>Conclusion First</h2>
+<p>Do not read the code like this:</p>
+<ul>
+<li>do not start with the longest file</li>
+<li>do not jump straight into the most "advanced" chapter</li>
+<li>do not open <code>web/</code> first and then guess the mainline</li>
+<li>do not treat all <code>agents/*.py</code> files like one flat source pool</li>
+</ul>
+<p>The stable rule is simple:</p>
+<p><strong>read the code in the same order as the curriculum.</strong></p>
+<p>Inside each chapter file, keep the same reading order:</p>
+<ol>
+<li>state structures</li>
+<li>tool definitions or registries</li>
+<li>the function that advances one turn</li>
+<li>the CLI entry last</li>
+</ol>
+<h2>Why This Page Exists</h2>
+<p>You will probably not get lost in the prose first. You will get lost when you finally open the code and immediately start scanning the wrong things.</p>
+<p>Typical mistakes:</p>
+<ul>
+<li>staring at the bottom half of a long file first</li>
+<li>reading a pile of <code>run_*</code> helpers before knowing where they connect</li>
+<li>jumping into late platform chapters and treating early chapters as "too simple"</li>
+<li>collapsing <code>task</code>, <code>runtime task</code>, <code>teammate</code>, and <code>worktree</code> back into one vague idea</li>
+</ul>
+<h2>Use The Same Reading Template For Every Agent File</h2>
+<p>For any <code>agents/sXX_*.py</code>, read in this order:</p>
+<h3>1. File header</h3>
+<p>Answer two questions before anything else:</p>
+<ul>
+<li>what is this chapter teaching</li>
+<li>what is it intentionally not teaching yet</li>
+</ul>
+<h3>2. State structures or manager classes</h3>
+<p>Look for things like:</p>
+<ul>
+<li><code>LoopState</code></li>
+<li><code>PlanningState</code></li>
+<li><code>CompactState</code></li>
+<li><code>TaskManager</code></li>
+<li><code>BackgroundManager</code></li>
+<li><code>TeammateManager</code></li>
+<li><code>WorktreeManager</code></li>
+</ul>
+<h3>3. Tool list or registry</h3>
+<p>Look for:</p>
+<ul>
+<li><code>TOOLS</code></li>
+<li><code>TOOL_HANDLERS</code></li>
+<li><code>build_tool_pool()</code></li>
+<li>the important <code>run_*</code> entrypoints</li>
+</ul>
+<h3>4. The turn-advancing function</h3>
+<p>Usually this is one of:</p>
+<ul>
+<li><code>run_one_turn(...)</code></li>
+<li><code>agent_loop(...)</code></li>
+<li>a chapter-specific <code>handle_*</code></li>
+</ul>
+<h3>5. CLI entry last</h3>
+<p><code>if __name__ == "__main__"</code> matters, but it should not be the first thing you study.</p>
+<h2>Stage 1: <code>s01-s06</code></h2>
+<p>This stage is the single-agent backbone taking shape.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Chapter</th><th>File</th><th>Read First</th><th>Then Read</th><th>Confirm Before Moving On</th></tr></thead><tbody><tr><td><code>s01</code></td><td><code>agents/s01_agent_loop.py</code></td><td><code>LoopState</code></td><td><code>TOOLS</code> -> <code>execute_tool_calls()</code> -> <code>run_one_turn()</code> -> <code>agent_loop()</code></td><td>You can trace <code>messages -> model -> tool_result -> next turn</code></td></tr><tr><td><code>s02</code></td><td><code>agents/s02_tool_use.py</code></td><td><code>safe_path()</code></td><td>tool handlers -> <code>TOOL_HANDLERS</code> -> <code>agent_loop()</code></td><td>You understand how tools grow without rewriting the loop</td></tr><tr><td><code>s03</code></td><td><code>agents/s03_todo_write.py</code></td><td>planning state types</td><td>todo handler path -> reminder injection -> <code>agent_loop()</code></td><td>You understand visible session planning state</td></tr><tr><td><code>s04</code></td><td><code>agents/s04_subagent.py</code></td><td><code>AgentTemplate</code></td><td><code>run_subagent()</code> -> parent <code>agent_loop()</code></td><td>You understand that subagents are mainly context isolation</td></tr><tr><td><code>s05</code></td><td><code>agents/s05_skill_loading.py</code></td><td>skill registry types</td><td>registry methods -> <code>agent_loop()</code></td><td>You understand discover light, load deep</td></tr><tr><td><code>s06</code></td><td><code>agents/s06_context_compact.py</code></td><td><code>CompactState</code></td><td>persist / micro compact / history compact -> <code>agent_loop()</code></td><td>You understand that compaction relocates detail instead of deleting continuity</td></tr></tbody></table></div>
+<h2>Stage 2: <code>s07-s11</code></h2>
+<p>This stage hardens the control plane around a working single agent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Chapter</th><th>File</th><th>Read First</th><th>Then Read</th><th>Confirm Before Moving On</th></tr></thead><tbody><tr><td><code>s07</code></td><td><code>agents/s07_permission_system.py</code></td><td>validator / manager</td><td>permission path -> <code>run_bash()</code> -> <code>agent_loop()</code></td><td>You understand gate before execute</td></tr><tr><td><code>s08</code></td><td><code>agents/s08_hook_system.py</code></td><td><code>HookManager</code></td><td>hook registration and dispatch -> <code>agent_loop()</code></td><td>You understand fixed extension points</td></tr><tr><td><code>s09</code></td><td><code>agents/s09_memory_system.py</code></td><td>memory managers</td><td>save path -> prompt build -> <code>agent_loop()</code></td><td>You understand memory as a long-term information layer</td></tr><tr><td><code>s10</code></td><td><code>agents/s10_system_prompt.py</code></td><td><code>SystemPromptBuilder</code></td><td>reminder builder -> <code>agent_loop()</code></td><td>You understand input assembly as a pipeline</td></tr><tr><td><code>s11</code></td><td><code>agents/s11_error_recovery.py</code></td><td>compact / backoff helpers</td><td>recovery branches -> <code>agent_loop()</code></td><td>You understand continuation after failure</td></tr></tbody></table></div>
+<h2>Stage 3: <code>s12-s14</code></h2>
+<p>This stage turns the harness into a work runtime.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Chapter</th><th>File</th><th>Read First</th><th>Then Read</th><th>Confirm Before Moving On</th></tr></thead><tbody><tr><td><code>s12</code></td><td><code>agents/s12_task_system.py</code></td><td><code>TaskManager</code></td><td>task create / dependency / unlock -> <code>agent_loop()</code></td><td>You understand durable work goals</td></tr><tr><td><code>s13</code></td><td><code>agents/s13_background_tasks.py</code></td><td><code>NotificationQueue</code> / <code>BackgroundManager</code></td><td>background registration -> notification drain -> <code>agent_loop()</code></td><td>You understand runtime slots</td></tr><tr><td><code>s14</code></td><td><code>agents/s14_cron_scheduler.py</code></td><td><code>CronLock</code> / <code>CronScheduler</code></td><td>cron match -> trigger -> <code>agent_loop()</code></td><td>You understand future start conditions</td></tr></tbody></table></div>
+<h2>Stage 4: <code>s15-s19</code></h2>
+<p>This stage is about platform boundaries.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>Chapter</th><th>File</th><th>Read First</th><th>Then Read</th><th>Confirm Before Moving On</th></tr></thead><tbody><tr><td><code>s15</code></td><td><code>agents/s15_agent_teams.py</code></td><td><code>MessageBus</code> / <code>TeammateManager</code></td><td>roster / inbox / loop -> <code>agent_loop()</code></td><td>You understand persistent teammates</td></tr><tr><td><code>s16</code></td><td><code>agents/s16_team_protocols.py</code></td><td><code>RequestStore</code> / <code>TeammateManager</code></td><td>request handlers -> <code>agent_loop()</code></td><td>You understand request-response plus <code>request_id</code></td></tr><tr><td><code>s17</code></td><td><code>agents/s17_autonomous_agents.py</code></td><td>claim and identity helpers</td><td>claim path -> resume path -> <code>agent_loop()</code></td><td>You understand idle check -> safe claim -> resume work</td></tr><tr><td><code>s18</code></td><td><code>agents/s18_worktree_task_isolation.py</code></td><td><code>TaskManager</code> / <code>WorktreeManager</code> / <code>EventBus</code></td><td>worktree lifecycle -> <code>agent_loop()</code></td><td>You understand goals versus execution lanes</td></tr><tr><td><code>s19</code></td><td><code>agents/s19_mcp_plugin.py</code></td><td>capability gate / MCP client / plugin loader / router</td><td>tool pool build -> route -> normalize -> <code>agent_loop()</code></td><td>You understand how external capability enters the same control plane</td></tr></tbody></table></div>
+<h2>Best Doc + Code Loop</h2>
+<p>For each chapter:</p>
+<ol>
+<li>read the chapter prose</li>
+<li>read the bridge note for that chapter</li>
+<li>open the matching <code>agents/sXX_*.py</code></li>
+<li>follow the order: state -> tools -> turn driver -> CLI entry</li>
+<li>run the demo once</li>
+<li>rewrite the smallest version from scratch</li>
+</ol>
+<h2>Key Takeaway</h2>
+<p><strong>Code reading order must obey teaching order: read boundaries first, then state, then the path that advances the loop.</strong></p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"en\",\"docs\",\"s00f-code-reading-order\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"en\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"s00f-code-reading-order\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"en\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"en\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/en\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"Back To Learning Path\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"Deep Dive\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"Code Reading Order\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"When This Page Helps\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"Shows which local `agents/*.py` files to open first and what state or functions to inspect before the code turns into noise.\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"Best Read Alongside\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s01\",{\"href\":\"/en/s01\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s01\",\" · \",\"The Agent Loop\"]}],[\"$\",\"$L13\",\"s07\",{\"href\":\"/en/s07\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s07\",\" · \",\"Permission System\"]}],[\"$\",\"$L13\",\"s12\",{\"href\":\"/en/s12\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s12\",\" · \",\"Task System\"]}],[\"$\",\"$L13\",\"s15\",{\"href\":\"/en/s15\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s15\",\" · \",\"Agent Teams\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"s00f-code-reading-order\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Code Reading Order\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Shows which local `agents/*.py` files to open first and what state or functions to inspect before the code turns into noise.\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

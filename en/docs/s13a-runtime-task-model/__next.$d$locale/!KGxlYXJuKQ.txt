@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[95914,["/_next/static/chunks/0ja5othizjcac.js","/_next/static/chunks/0uvn1_4nr7qfy.js"],"Sidebar"]
+3:I[39756,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"default"]
+4:I[37457,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"default"]
+0:{"rsc":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/0uvn1_4nr7qfy.js","async":true}]],["$","div",null,{"className":"flex gap-8","children":[["$","$L2",null,{}],["$","div",null,{"className":"min-w-0 flex-1","children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]}]]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"-ZSuvS_2uH_NHlo_ZQLZ-"}

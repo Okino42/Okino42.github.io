@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>一次请求生命周期</title><meta name="description" content="把一次请求从进入、执行到回写走完一遍，适合主线开始混时回头校正心智。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/zh/"><span>←</span><span>回到学习主线</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">桥接文档</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">一次请求生命周期</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">这页适合什么时候回看</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">把一次请求从进入、执行到回写走完一遍，适合主线开始混时回头校正心智。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">最适合和这些章节一起读</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s04/">s04<!-- --> · <!-- -->子代理</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s06/">s06<!-- --> · <!-- -->上下文压缩</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s11/">s11<!-- --> · <!-- -->错误恢复</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s14/">s14<!-- --> · <!-- -->定时调度</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p>这是一份桥接文档。<br>
+它不替代主线章节，而是把整套系统串成一条真正连续的执行链。</p>
+<p>它要回答的问题是：</p>
+<p><strong>用户的一句话，进入系统以后，到底是怎样一路流动、分发、执行、再回到主循环里的？</strong></p>
+</blockquote>
+<h2>为什么必须补这一篇</h2>
+<p>很多读者在按顺序看教程时，会逐章理解：</p>
+<ul>
+<li><code>s01</code> 讲循环</li>
+<li><code>s02</code> 讲工具</li>
+<li><code>s03</code> 讲规划</li>
+<li><code>s07</code> 讲权限</li>
+<li><code>s09</code> 讲 memory</li>
+<li><code>s12-s19</code> 讲任务、多 agent、MCP</li>
+</ul>
+<p>每章单看都能懂。</p>
+<p>但一旦开始自己实现，就会很容易卡住：</p>
+<ul>
+<li>这些模块到底谁先谁后？</li>
+<li>一条请求进来时，先走 prompt，还是先走 memory？</li>
+<li>工具执行前，权限和 hook 在哪一层？</li>
+<li>task、runtime task、teammate、worktree、MCP 到底是在一次请求里的哪个阶段介入？</li>
+</ul>
+<p>所以你需要一张“纵向流程图”。</p>
+<h2>先给一条最重要的总图</h2>
+<pre class="code-block" data-language="text"><code class="hljs language-text">用户请求
+  |
+  v
+Query State 初始化
+  |
+  v
+组装 system prompt / messages / reminders
+  |
+  v
+调用模型
+  |
+  +-- 普通回答 -------------------------------> 结束本次请求
+  |
+  +-- tool_use
+        |
+        v
+    Tool Router
+        |
+        +-- 权限判断
+        +-- Hook 拦截/注入
+        +-- 本地工具 / MCP / agent / task / team
+        |
+        v
+    执行结果
+        |
+        +-- 可能写入 task / runtime task / memory / worktree 状态
+        |
+        v
+    tool_result 写回 messages
+        |
+        v
+    Query State 更新
+        |
+        v
+    下一轮继续
+</code></pre>
+<p>你可以把整条链先理解成三层：</p>
+<ol>
+<li><code>Query Loop</code></li>
+<li><code>Tool Control Plane</code></li>
+<li><code>Platform State</code></li>
+</ol>
+<h2>第 1 段：用户请求进入查询控制平面</h2>
+<p>当用户说：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">修复 tests/test_auth.py 的失败，并告诉我原因
+</code></pre>
+<p>系统最先做的，不是立刻跑工具，而是先为这次请求建立一份查询状态。</p>
+<p>最小可以理解成：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">query_state = {
+    <span class="hljs-string">"messages"</span>: [{<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: user_text}],
+    <span class="hljs-string">"turn_count"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">"transition"</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">"tool_use_context"</span>: {...},
+}
+</code></pre>
+<p>这里的重点是：</p>
+<p><strong>这次请求不是“单次 API 调用”，而是一段可能包含很多轮的查询过程。</strong></p>
+<p>如果你对这一层还不够熟，先回看：</p>
+<ul>
+<li><a href="./s01-the-agent-loop.md"><code>s01-the-agent-loop.md</code></a></li>
+<li><a href="./s00a-query-control-plane.md"><code>s00a-query-control-plane.md</code></a></li>
+</ul>
+<h2>第 2 段：组装本轮真正送给模型的输入</h2>
+<p>主循环不会直接把原始 <code>messages</code> 裸发出去。</p>
+<p>在更完整的系统里，它通常会先组装：</p>
+<ul>
+<li>system prompt blocks</li>
+<li>规范化后的 messages</li>
+<li>memory section</li>
+<li>当前轮 reminder</li>
+<li>工具清单</li>
+</ul>
+<p>也就是说，真正发给模型的通常是：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">system prompt
++ normalized messages
++ tools
++ optional reminders / attachments
+</code></pre>
+<p>这里涉及的章节是：</p>
+<ul>
+<li><code>s09</code> memory</li>
+<li><code>s10</code> system prompt</li>
+<li><code>s10a</code> message &#x26; prompt pipeline</li>
+</ul>
+<p>这一段的核心心智是：</p>
+<p><strong>system prompt 不是全部输入，它只是输入管道中的一段。</strong></p>
+<h2>第 3 段：模型产出两类东西</h2>
+<p>模型这一轮的输出，最关键地分成两种：</p>
+<h3>第一种：普通回复</h3>
+<p>如果模型直接给出结论或说明，本次请求可能就结束了。</p>
+<h3>第二种：动作意图</h3>
+<p>也就是工具调用。</p>
+<p>例如：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">read_file("tests/test_auth.py")
+bash("pytest tests/test_auth.py -q")
+todo([...])
+load_skill("code-review")
+task_create(...)
+mcp__postgres__query(...)
+</code></pre>
+<p>这时候系统真正收到的，不只是“文本”，而是：</p>
+<blockquote>
+<p>模型想让真实世界发生某些动作。</p>
+</blockquote>
+<h2>第 4 段：工具路由层接管动作意图</h2>
+<p>一旦出现 <code>tool_use</code>，系统就进入工具控制平面。</p>
+<p>这一层至少要回答：</p>
+<ol>
+<li>这是什么工具？</li>
+<li>它应该路由到哪类能力来源？</li>
+<li>执行前要不要先过权限？</li>
+<li>hook 有没有要拦截或补充？</li>
+<li>它执行时能访问哪些共享状态？</li>
+</ol>
+<p>最小图可以这样看：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">tool_use
+  |
+  v
+Tool Router
+  |
+  +-- native tool handler
+  +-- MCP client
+  +-- agent/team/task handler
+</code></pre>
+<p>如果你对这一层不够清楚，回看：</p>
+<ul>
+<li><a href="./s02-tool-use.md"><code>s02-tool-use.md</code></a></li>
+<li><a href="./s02a-tool-control-plane.md"><code>s02a-tool-control-plane.md</code></a></li>
+</ul>
+<h2>第 5 段：权限系统决定“能不能执行”</h2>
+<p>不是所有动作意图都应该直接变成真实执行。</p>
+<p>例如：</p>
+<ul>
+<li>写文件</li>
+<li>跑 bash</li>
+<li>改工作目录</li>
+<li>调外部服务</li>
+</ul>
+<p>这时会先进入权限判断：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">deny rules
+  -> mode
+  -> allow rules
+  -> ask user
+</code></pre>
+<p>权限系统处理的是：</p>
+<blockquote>
+<p>这次动作是否允许发生。</p>
+</blockquote>
+<p>相关章节：</p>
+<ul>
+<li><a href="./s07-permission-system.md"><code>s07-permission-system.md</code></a></li>
+</ul>
+<h2>第 6 段：Hook 可以在边上做扩展</h2>
+<p>通过权限检查以后，系统还可能在工具执行前后跑 hook。</p>
+<p>你可以把 hook 理解成：</p>
+<blockquote>
+<p>不改主循环主干，也能插入自定义行为的扩展点。</p>
+</blockquote>
+<p>例如：</p>
+<ul>
+<li>执行前记录日志</li>
+<li>执行后做额外检查</li>
+<li>根据结果注入额外提醒</li>
+</ul>
+<p>相关章节：</p>
+<ul>
+<li><a href="./s08-hook-system.md"><code>s08-hook-system.md</code></a></li>
+</ul>
+<h2>第 7 段：真正执行动作，并影响不同层的状态</h2>
+<p>这是很多人最容易低估的一段。</p>
+<p>工具执行结果，不只是“一段文本输出”。</p>
+<p>它还可能修改系统别的状态层。</p>
+<h3>例子 1：规划状态</h3>
+<p>如果工具是 <code>todo</code>，它会更新的是当前会话计划。</p>
+<p>相关章节：</p>
+<ul>
+<li><a href="./s03-todo-write.md"><code>s03-todo-write.md</code></a></li>
+</ul>
+<h3>例子 2：持久任务图</h3>
+<p>如果工具是 <code>task_create</code> / <code>task_update</code>，它会修改磁盘上的任务板。</p>
+<p>相关章节：</p>
+<ul>
+<li><a href="./s12-task-system.md"><code>s12-task-system.md</code></a></li>
+</ul>
+<h3>例子 3：运行时任务</h3>
+<p>如果工具启动了后台 bash、后台 agent 或监控任务，它会创建 runtime task。</p>
+<p>相关章节：</p>
+<ul>
+<li><a href="./s13-background-tasks.md"><code>s13-background-tasks.md</code></a></li>
+<li><a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a></li>
+</ul>
+<h3>例子 4：多 agent / teammate</h3>
+<p>如果工具是 <code>delegate</code>、<code>spawn_agent</code> 一类，它会在平台层生成新的执行单元。</p>
+<p>相关章节：</p>
+<ul>
+<li><a href="./s15-agent-teams.md"><code>s15-agent-teams.md</code></a></li>
+<li><a href="./s16-team-protocols.md"><code>s16-team-protocols.md</code></a></li>
+<li><a href="./s17-autonomous-agents.md"><code>s17-autonomous-agents.md</code></a></li>
+</ul>
+<h3>例子 5：worktree</h3>
+<p>如果系统要为某个任务提供隔离工作目录，这会影响文件系统级执行环境。</p>
+<p>相关章节：</p>
+<ul>
+<li><a href="./s18-worktree-task-isolation.md"><code>s18-worktree-task-isolation.md</code></a></li>
+</ul>
+<h3>例子 6：MCP</h3>
+<p>如果调用的是外部 MCP 能力，那么执行主体可能根本不在本地 handler，而在外部能力端。</p>
+<p>相关章节：</p>
+<ul>
+<li><a href="./s19-mcp-plugin.md"><code>s19-mcp-plugin.md</code></a></li>
+<li><a href="./s19a-mcp-capability-layers.md"><code>s19a-mcp-capability-layers.md</code></a></li>
+</ul>
+<h2>第 8 段：执行结果被包装回消息流</h2>
+<p>不管执行落在哪一层，最后都要回到同一个位置：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">tool_result -> messages
+</code></pre>
+<p>这是整个系统最核心的闭环。</p>
+<p>因为无论工具背后多复杂，模型下一轮真正能继续工作的依据，仍然是：</p>
+<blockquote>
+<p>系统把执行结果重新写回了它可见的消息流。</p>
+</blockquote>
+<p>这也是为什么 <code>s01</code> 永远是根。</p>
+<h2>第 9 段：主循环根据结果决定下一轮是否继续</h2>
+<p>当 <code>tool_result</code> 写回以后，查询状态也会一起更新：</p>
+<ul>
+<li><code>messages</code> 变了</li>
+<li><code>turn_count</code> 增加了</li>
+<li><code>transition</code> 被记录成某种续行原因</li>
+</ul>
+<p>这时系统就进入下一轮。</p>
+<p>如果中间发生下面这些情况，控制平面还会继续介入：</p>
+<ul>
+<li>上下文太长，需要压缩</li>
+<li>输出被截断，需要续写</li>
+<li>请求失败，需要恢复</li>
+</ul>
+<p>相关章节：</p>
+<ul>
+<li><a href="./s06-context-compact.md"><code>s06-context-compact.md</code></a></li>
+<li><a href="./s11-error-recovery.md"><code>s11-error-recovery.md</code></a></li>
+</ul>
+<h2>第 10 段：哪些信息不会跟着一次请求一起结束</h2>
+<p>这也是非常容易混的地方。</p>
+<p>一次请求结束后，并不是所有状态都随之消失。</p>
+<h3>会跟着当前请求结束的</h3>
+<ul>
+<li>当前轮 messages 中的临时推进过程</li>
+<li>会话内 todo 状态</li>
+<li>当前轮 reminder</li>
+</ul>
+<h3>可能跨请求继续存在的</h3>
+<ul>
+<li>memory</li>
+<li>持久任务图</li>
+<li>runtime task 输出</li>
+<li>worktree</li>
+<li>MCP 连接状态</li>
+</ul>
+<p>所以你要逐渐学会区分：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">query-scope state
+session-scope state
+project-scope state
+platform-scope state
+</code></pre>
+<h2>用一个完整例子串一次</h2>
+<p>还是用这个请求：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">修复 tests/test_auth.py 的失败，并告诉我原因
+</code></pre>
+<p>系统可能会这样流动：</p>
+<ol>
+<li>用户请求进入 <code>QueryState</code></li>
+<li>system prompt + memory + tools 被组装好</li>
+<li>模型先调用 <code>todo</code>，写出三步计划</li>
+<li>模型调用 <code>read_file("tests/test_auth.py")</code></li>
+<li>工具路由到本地文件读取 handler</li>
+<li>读取结果包装成 <code>tool_result</code> 写回消息流</li>
+<li>下一轮模型调用 <code>bash("pytest tests/test_auth.py -q")</code></li>
+<li>权限系统判断这条命令是否可执行</li>
+<li>执行测试，输出太长则先落盘并留预览</li>
+<li>失败日志回到消息流</li>
+<li>模型再读实现文件并修改代码</li>
+<li>修改后再跑测试</li>
+<li>如果对话变长，<code>s06</code> 触发压缩</li>
+<li>如果任务被拆给子 agent，<code>s15-s17</code> 介入</li>
+<li>最后模型输出结论，本次请求结束</li>
+</ol>
+<p>你会发现：</p>
+<p><strong>整套系统再复杂，也始终没有脱离“输入 -> 动作意图 -> 执行 -> 结果写回 -> 下一轮”这条主骨架。</strong></p>
+<h2>读这篇时最该记住的三件事</h2>
+<h3>1. 所有模块都不是平铺摆在那里的</h3>
+<p>它们是在一次请求的不同阶段依次介入的。</p>
+<h3>2. 真正的闭环只有一个</h3>
+<p>那就是：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">tool_result 回到 messages
+</code></pre>
+<h3>3. 很多高级机制，本质上只是围绕这条闭环加的保护层</h3>
+<p>例如：</p>
+<ul>
+<li>权限是执行前保护层</li>
+<li>hook 是扩展层</li>
+<li>compact 是上下文预算保护层</li>
+<li>recovery 是出错后的恢复层</li>
+<li>task/team/worktree/MCP 是更大的平台能力层</li>
+</ul>
+<h2>一句话记住</h2>
+<p><strong>一次请求的完整生命周期，本质上就是：系统围绕同一条主循环，把不同模块按阶段接进来，最终持续把真实执行结果送回模型继续推理。</strong></p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"docs\",\"s00b-one-request-lifecycle\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"s00b-one-request-lifecycle\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/zh\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"回到学习主线\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"桥接文档\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"一次请求生命周期\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"这页适合什么时候回看\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"把一次请求从进入、执行到回写走完一遍，适合主线开始混时回头校正心智。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"最适合和这些章节一起读\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s04\",{\"href\":\"/zh/s04\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s04\",\" · \",\"子代理\"]}],[\"$\",\"$L13\",\"s06\",{\"href\":\"/zh/s06\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s06\",\" · \",\"上下文压缩\"]}],[\"$\",\"$L13\",\"s11\",{\"href\":\"/zh/s11\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s11\",\" · \",\"错误恢复\"]}],[\"$\",\"$L13\",\"s14\",{\"href\":\"/zh/s14\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s14\",\" · \",\"定时调度\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"s00b-one-request-lifecycle\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"一次请求生命周期\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"把一次请求从进入、执行到回写走完一遍，适合主线开始混时回头校正心智。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

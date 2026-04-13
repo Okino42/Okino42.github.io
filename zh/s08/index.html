@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s08</span><h1 class="text-2xl font-bold sm:text-3xl">Hook 系统</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">系统加固</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">不改主循环也能扩展<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">252<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>4<!-- --> <!-- -->个工具</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">Hook 让系统围绕主循环生长，而不是不断重写主循环本身。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学习</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">源码</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深入探索</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > s05 > s06 > s07 > [ s08 ] > s09 > s10 > s11 > s12 > s13 > s14 > s15 > s16 > s17 > s18 > s19</code></p>
+<blockquote class="hero-callout">
+<p><em>不改主循环代码，也能在关键时机插入额外行为。</em></p>
+</blockquote>
+<h2>这章要解决什么问题</h2>
+<p>到了 <code>s07</code>，我们已经能在工具执行前做权限判断。</p>
+<p>但很多真实需求并不属于“允许 / 拒绝”这条线，而属于：</p>
+<ul>
+<li>在某个固定时机顺手做一点事</li>
+<li>不改主循环主体，也能接入额外规则</li>
+<li>让用户或插件在系统边缘扩展能力</li>
+</ul>
+<p>例如：</p>
+<ul>
+<li>会话开始时打印欢迎信息</li>
+<li>工具执行前做一次额外检查</li>
+<li>工具执行后补一条审计日志</li>
+</ul>
+<p>如果每增加一个需求，你都去修改主循环，主循环就会越来越重，最后谁都不敢动。</p>
+<p>所以这一章要引入的机制是：</p>
+<p><strong>主循环只负责暴露“时机”，真正的附加行为交给 hook。</strong></p>
+<h2>建议联读</h2>
+<ul>
+<li>如果你还在把 hook 想成“往主循环里继续塞 if/else”，先回 <a href="./s02a-tool-control-plane.md"><code>s02a-tool-control-plane.md</code></a>，重新确认主循环和控制面的边界。</li>
+<li>如果你开始把主循环、tool handler、hook side effect 混成一层，建议先看 <a href="./entity-map.md"><code>entity-map.md</code></a>，把谁负责推进主状态、谁只是旁路观察分开。</li>
+<li>如果你准备继续读后面的 prompt、recovery、teams，可以把 <a href="./s00e-reference-module-map.md"><code>s00e-reference-module-map.md</code></a> 一起放在旁边，因为从这一章开始“控制面 + 侧车扩展”会反复一起出现。</li>
+</ul>
+<h2>什么是 hook</h2>
+<p>你可以把 <code>hook</code> 理解成一个“预留插口”。</p>
+<p>意思是：</p>
+<ol>
+<li>主系统运行到某个固定时机</li>
+<li>把当前上下文交给 hook</li>
+<li>hook 返回结果</li>
+<li>主系统再决定下一步怎么继续</li>
+</ol>
+<p>最重要的一句话是：</p>
+<p><strong>hook 让系统可扩展，但不要求主循环理解每个扩展需求。</strong></p>
+<p>主循环只需要知道三件事：</p>
+<ul>
+<li>现在是什么事件</li>
+<li>要把哪些上下文交出去</li>
+<li>收到结果以后怎么处理</li>
+</ul>
+<h2>最小心智模型</h2>
+<p>教学版先只讲 3 个事件：</p>
+<ul>
+<li><code>SessionStart</code></li>
+<li><code>PreToolUse</code></li>
+<li><code>PostToolUse</code></li>
+</ul>
+<p>这样做不是因为系统永远只有 3 个事件，<br>
+而是因为初学者先把这 3 个事件学明白，就已经能自己做出一套可用的 hook 机制。</p>
+<p>可以把它想成这条流程：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">主循环继续往前跑
+  |
+  +-- 到了某个预留时机
+  |
+  +-- 调用 hook runner
+  |
+  +-- 收到 hook 返回结果
+  |
+  +-- 决定继续、阻止、还是补充说明
+</code></pre>
+<h2>教学版统一返回约定</h2>
+<p>这一章最容易把人讲乱的地方，就是“不同 hook 事件的返回语义”。</p>
+<p>教学版建议先统一成下面这套规则：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>退出码</th><th>含义</th></tr></thead><tbody><tr><td><code>0</code></td><td>正常继续</td></tr><tr><td><code>1</code></td><td>阻止当前动作</td></tr><tr><td><code>2</code></td><td>注入一条补充消息，再继续</td></tr></tbody></table></div>
+<p>这套规则的价值不在于“最真实”，而在于“最容易学会”。</p>
+<p>因为它让你先记住 hook 最核心的 3 种作用：</p>
+<ul>
+<li>观察</li>
+<li>拦截</li>
+<li>补充</li>
+</ul>
+<p>等教学版跑通以后，再去做“不同事件采用不同语义”的细化，也不会乱。</p>
+<h2>关键数据结构</h2>
+<h3>1. HookEvent</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">event = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"PreToolUse"</span>,
+    <span class="hljs-string">"payload"</span>: {
+        <span class="hljs-string">"tool_name"</span>: <span class="hljs-string">"bash"</span>,
+        <span class="hljs-string">"input"</span>: {<span class="hljs-string">"command"</span>: <span class="hljs-string">"pytest"</span>},
+    },
+}
+</code></pre>
+<p>它回答的是：</p>
+<ul>
+<li>现在发生了什么事</li>
+<li>这件事的上下文是什么</li>
+</ul>
+<h3>2. HookResult</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">result = {
+    <span class="hljs-string">"exit_code"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"message"</span>: <span class="hljs-string">""</span>,
+}
+</code></pre>
+<p>它回答的是：</p>
+<ul>
+<li>hook 想不想阻止主流程</li>
+<li>要不要向模型补一条说明</li>
+</ul>
+<h3>3. HookRunner</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">HookRunner</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, event_name: <span class="hljs-built_in">str</span>, payload: <span class="hljs-built_in">dict</span></span>) -> <span class="hljs-built_in">dict</span>:
+        ...
+</code></pre>
+<p>主循环不直接关心“每个 hook 的细节实现”。<br>
+它只把事件交给统一的 runner。</p>
+<p>这就是这一章的关键抽象边界：</p>
+<p><strong>主循环知道事件名，hook runner 知道怎么调扩展逻辑。</strong></p>
+<h2>最小执行流程</h2>
+<p>先看最重要的 <code>PreToolUse</code> / <code>PostToolUse</code>：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">model 发起 tool_use
+    |
+    v
+run_hook("PreToolUse", ...)
+    |
+    +-- exit 1 -> 阻止工具执行
+    +-- exit 2 -> 先补一条消息给模型，再继续
+    +-- exit 0 -> 直接继续
+    |
+    v
+执行工具
+    |
+    v
+run_hook("PostToolUse", ...)
+    |
+    +-- exit 2 -> 追加补充说明
+    +-- exit 0 -> 正常结束
+</code></pre>
+<p>再加上 <code>SessionStart</code>，一整套最小 hook 机制就立住了。</p>
+<h2>最小实现</h2>
+<h3>第一步：准备一个事件到处理器的映射</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">HOOKS = {
+    <span class="hljs-string">"SessionStart"</span>: [on_session_start],
+    <span class="hljs-string">"PreToolUse"</span>: [pre_tool_guard],
+    <span class="hljs-string">"PostToolUse"</span>: [post_tool_log],
+}
+</code></pre>
+<p>这里先用“一个事件对应一组处理函数”的最小结构就够了。</p>
+<h3>第二步：统一运行 hook</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">run_hooks</span>(<span class="hljs-params">event_name: <span class="hljs-built_in">str</span>, payload: <span class="hljs-built_in">dict</span></span>) -> <span class="hljs-built_in">dict</span>:
+    <span class="hljs-keyword">for</span> handler <span class="hljs-keyword">in</span> HOOKS.get(event_name, []):
+        result = handler(payload)
+        <span class="hljs-keyword">if</span> result[<span class="hljs-string">"exit_code"</span>] <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>):
+            <span class="hljs-keyword">return</span> result
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">"exit_code"</span>: <span class="hljs-number">0</span>, <span class="hljs-string">"message"</span>: <span class="hljs-string">""</span>}
+</code></pre>
+<p>教学版里先用“谁先返回阻止/注入，谁就优先”的简单规则。</p>
+<h3>第三步：接进主循环</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">pre = run_hooks(<span class="hljs-string">"PreToolUse"</span>, {
+    <span class="hljs-string">"tool_name"</span>: block.name,
+    <span class="hljs-string">"input"</span>: block.<span class="hljs-built_in">input</span>,
+})
+
+<span class="hljs-keyword">if</span> pre[<span class="hljs-string">"exit_code"</span>] == <span class="hljs-number">1</span>:
+    results.append(blocked_tool_result(pre[<span class="hljs-string">"message"</span>]))
+    <span class="hljs-keyword">continue</span>
+
+<span class="hljs-keyword">if</span> pre[<span class="hljs-string">"exit_code"</span>] == <span class="hljs-number">2</span>:
+    messages.append({<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: pre[<span class="hljs-string">"message"</span>]})
+
+output = run_tool(...)
+
+post = run_hooks(<span class="hljs-string">"PostToolUse"</span>, {
+    <span class="hljs-string">"tool_name"</span>: block.name,
+    <span class="hljs-string">"input"</span>: block.<span class="hljs-built_in">input</span>,
+    <span class="hljs-string">"output"</span>: output,
+})
+</code></pre>
+<p>这一步最关键的不是代码量，而是心智：</p>
+<p><strong>hook 不是主循环的替代品，hook 是主循环在固定时机对外发出的调用。</strong></p>
+<h2>这一章的教学边界</h2>
+<p>如果你后面继续扩展平台，hook 事件面当然会继续扩大。</p>
+<p>常见扩展方向包括：</p>
+<ul>
+<li>生命周期事件：开始、结束、配置变化</li>
+<li>工具事件：执行前、执行后、失败后</li>
+<li>压缩事件：压缩前、压缩后</li>
+<li>多 agent 事件：子 agent 启动、任务完成、队友空闲</li>
+</ul>
+<p>但教学仓这里要守住一个原则：</p>
+<p><strong>先把 hook 的统一模型讲清，再慢慢增加事件种类。</strong></p>
+<p>不要一开始就把几十种事件、几十套返回语义全部灌给读者。</p>
+<h2>初学者最容易犯的错</h2>
+<h3>1. 把 hook 当成“到处插 if”</h3>
+<p>如果还是散落在主循环里写条件分支，那还不是真正的 hook 设计。</p>
+<h3>2. 没有统一的返回结构</h3>
+<p>今天返回字符串，明天返回布尔值，后天返回整数，最后主循环一定会变乱。</p>
+<h3>3. 一上来就把所有事件做全</h3>
+<p>教学顺序应该是：</p>
+<ol>
+<li>先学会 3 个事件</li>
+<li>再学会统一返回协议</li>
+<li>最后才扩事件面</li>
+</ol>
+<h3>4. 忘了说明“教学版统一语义”和“高完成度细化语义”的区别</h3>
+<p>如果这层不提前说清，读者后面看到更复杂实现时会以为前面学错了。</p>
+<p>其实不是学错了，而是：</p>
+<p><strong>先学统一模型，再学事件细化。</strong></p>
+<h2>学完这一章，你应该真正掌握什么</h2>
+<p>学完以后，你应该能自己清楚说出下面几句话：</p>
+<ol>
+<li>hook 的作用，是在固定时机扩展系统，而不是改写主循环。</li>
+<li>hook 至少需要“事件名 + payload + 返回结果”这三样东西。</li>
+<li>教学版可以先用统一的 <code>0 / 1 / 2</code> 返回约定。</li>
+<li><code>PreToolUse</code> 和 <code>PostToolUse</code> 已经足够支撑最核心的扩展能力。</li>
+</ol>
+<p>如果这 4 句话你已经能独立复述，说明这一章的核心心智已经建立起来了。</p>
+<h2>下一章学什么</h2>
+<p>这一章解决的是：</p>
+<blockquote>
+<p>在固定时机插入行为。</p>
+</blockquote>
+<p>下一章 <code>s09</code> 要解决的是：</p>
+<blockquote>
+<p>哪些信息应该跨会话留下，哪些不该留。</p>
+</blockquote>
+<p>也就是从“扩展点”进一步走向“持久状态”。</p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s07/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">上一章</div><div class="font-medium">s07<!-- --> - <!-- -->权限系统</div></div></a><a class="group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s09/"><div><div class="text-xs text-zinc-400">下一章</div><div class="font-medium">记忆系统<!-- --> - <!-- -->s09</div></div><span class="transition-transform group-hover:translate-x-1">→</span></a></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"s08\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s08\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T3063,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: extensibility -- injecting behavior without touching the loop.\n\"\"\"\ns08_hook_system.py - Hook System\n\nHooks are extension points around the main loop.\nThey let readers add behavior without rewriting the loop itself.\n\nTeaching version:\n  - SessionStart\n  - PreToolUse\n  - PostToolUse\n\nTeaching exit-code contract:\n  - 0 -\u003e continue\n  - 1 -\u003e block\n  - 2 -\u003e inject a message\n\nThis is intentionally simpler than a production system. The goal here is to\nteach the extension pattern clearly before introducing event-specific edge\ncases.\n\nKey insight: \"Extend the agent without touching the loop.\"\n\"\"\"\n\nimport json\nimport os\nimport subprocess\nfrom pathlib import Path\n\nfrom anthropic import Anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\n\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\n\n# The teaching version keeps only the three clearest events. More complete\n# systems can grow the event surface later.\n\nHOOK_EVENTS = (\"PreToolUse\", \"PostToolUse\", \"SessionStart\")\nHOOK_TIMEOUT = 30  # seconds\n# Real CC timeouts:\n#   TOOL_HOOK_EXECUTION_TIMEOUT_MS = 600000 (10 minutes for tool hooks)\n#   SESSION_END_HOOK_TIMEOUT_MS = 1500 (1.5 seconds for SessionEnd hooks)\n\n# Workspace trust marker. Hooks only run if this file exists (or SDK mode).\nTRUST_MARKER = WORKDIR / \".claude\" / \".claude_trusted\"\n\n\nclass HookManager:\n    \"\"\"\n    Load and execute hooks from .hooks.json configuration.\n\n    The hook manager does three simple jobs:\n    - load hook definitions\n    - run matching commands for an event\n    - aggregate block / message results for the caller\n    \"\"\"\n\n    def __init__(self, config_path: Path = None, sdk_mode: bool = False):\n        self.hooks = {\"PreToolUse\": [], \"PostToolUse\": [], \"SessionStart\": []}\n        self._sdk_mode = sdk_mode\n        config_path = config_path or (WORKDIR / \".hooks.json\")\n        if config_path.exists():\n            try:\n                config = json.loads(config_path.read_text())\n                for event in HOOK_EVENTS:\n                    self.hooks[event] = config.get(\"hooks\", {}).get(event, [])\n                print(f\"[Hooks loaded from {config_path}]\")\n            except Exception as e:\n                print(f\"[Hook config error: {e}]\")\n\n    def _check_workspace_trust(self) -\u003e bool:\n        \"\"\"\n        Check whether the current workspace is trusted.\n\n        The teaching version uses a simple trust marker file.\n        In SDK mode, trust is treated as implicit.\n        \"\"\"\n        if self._sdk_mode:\n            return True\n        return TRUST_MARKER.exists()\n\n    def run_hooks(self, event: str, context: dict = None) -\u003e dict:\n        \"\"\"\n        Execute all hooks for an event.\n\n        Returns: {\"blocked\": bool, \"messages\": list[str]}\n          - blocked: True if any hook returned exit code 1\n          - messages: stderr content from exit-code-2 hooks (to inject)\n        \"\"\"\n        result = {\"blocked\": False, \"messages\": []}\n\n        # Trust gate: refuse to run hooks in untrusted workspaces\n        if not self._check_workspace_trust():\n            return result\n\n        hooks = self.hooks.get(event, [])\n\n        for hook_def in hooks:\n            # Check matcher (tool name filter for PreToolUse/PostToolUse)\n            matcher = hook_def.get(\"matcher\")\n            if matcher and context:\n                tool_name = context.get(\"tool_name\", \"\")\n                if matcher != \"*\" and matcher != tool_name:\n                    continue\n\n            command = hook_def.get(\"command\", \"\")\n            if not command:\n                continue\n\n            # Build environment with hook context\n            env = dict(os.environ)\n            if context:\n                env[\"HOOK_EVENT\"] = event\n                env[\"HOOK_TOOL_NAME\"] = context.get(\"tool_name\", \"\")\n                env[\"HOOK_TOOL_INPUT\"] = json.dumps(\n                    context.get(\"tool_input\", {}), ensure_ascii=False)[:10000]\n                if \"tool_output\" in context:\n                    env[\"HOOK_TOOL_OUTPUT\"] = str(\n                        context[\"tool_output\"])[:10000]\n\n            try:\n                r = subprocess.run(\n                    command, shell=True, cwd=WORKDIR, env=env,\n                    capture_output=True, text=True, timeout=HOOK_TIMEOUT,\n                )\n\n                if r.returncode == 0:\n                    # Continue silently\n                    if r.stdout.strip():\n                        print(f\"  [hook:{event}] {r.stdout.strip()[:100]}\")\n\n                    # Optional structured stdout: small extension point that\n                    # keeps the teaching contract simple.\n                    try:\n                        hook_output = json.loads(r.stdout)\n                        if \"updatedInput\" in hook_output and context:\n                            context[\"tool_input\"] = hook_output[\"updatedInput\"]\n                        if \"additionalContext\" in hook_output:\n                            result[\"messages\"].append(\n                                hook_output[\"additionalContext\"])\n                        if \"permissionDecision\" in hook_output:\n                            result[\"permission_override\"] = (\n                                hook_output[\"permissionDecision\"])\n                    except (json.JSONDecodeError, TypeError):\n                        pass  # stdout was not JSON -- normal for simple hooks\n\n                elif r.returncode == 1:\n                    # Block execution\n                    result[\"blocked\"] = True\n                    reason = r.stderr.strip() or \"Blocked by hook\"\n                    result[\"block_reason\"] = reason\n                    print(f\"  [hook:{event}] BLOCKED: {reason[:200]}\")\n\n                elif r.returncode == 2:\n                    # Inject message\n                    msg = r.stderr.strip()\n                    if msg:\n                        result[\"messages\"].append(msg)\n                        print(f\"  [hook:{event}] INJECT: {msg[:200]}\")\n\n            except subprocess.TimeoutExpired:\n                print(f\"  [hook:{event}] Timeout ({HOOK_TIMEOUT}s)\")\n            except Exception as e:\n                print(f\"  [hook:{event}] Error: {e}\")\n\n        return result\n\n\n# -- Tool implementations (same as s02) --\ndef safe_path(p: str) -\u003e Path:\n    path = (WORKDIR / p).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {p}\")\n    return path\n\n\ndef run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\", \"\u003e /dev/\"]\n    if any(d in command for d in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        r = subprocess.run(command, shell=True, cwd=WORKDIR,\n                           capture_output=True, text=True, timeout=120)\n        out = (r.stdout + r.stderr).strip()\n        return out[:50000] if out else \"(no output)\"\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\n\ndef run_read(path: str, limit: int = None) -\u003e str:\n    try:\n        lines = safe_path(path).read_text().splitlines()\n        if limit and limit \u003c len(lines):\n            lines = lines[:limit] + [f\"... ({len(lines) - limit} more)\"]\n        return \"\\n\".join(lines)[:50000]\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef run_write(path: str, content: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        fp.parent.mkdir(parents=True, exist_ok=True)\n        fp.write_text(content)\n        return f\"Wrote {len(content)} bytes\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        content = fp.read_text()\n        if old_text not in content:\n            return f\"Error: Text not found in {path}\"\n        fp.write_text(content.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\nTOOL_HANDLERS = {\n    \"bash\":       lambda **kw: run_bash(kw[\"command\"]),\n    \"read_file\":  lambda **kw: run_read(kw[\"path\"], kw.get(\"limit\")),\n    \"write_file\": lambda **kw: run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\":  lambda **kw: run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n}\n\nTOOLS = [\n    {\"name\": \"bash\", \"description\": \"Run a shell command.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"limit\": {\"type\": \"integer\"}}, \"required\": [\"path\"]}},\n    {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n    {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n]\n\nSYSTEM = f\"You are a coding agent at {WORKDIR}. Use tools to solve tasks.\"\n\n\ndef agent_loop(messages: list, hooks: HookManager):\n    \"\"\"\n    The hook-aware agent loop.\n\n    The teaching version keeps only the clearest integration points:\n    SessionStart, PreToolUse, execute tool, PostToolUse.\n    \"\"\"\n    while True:\n        response = client.messages.create(\n            model=MODEL, system=SYSTEM, messages=messages,\n            tools=TOOLS, max_tokens=8000,\n        )\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n\n        if response.stop_reason != \"tool_use\":\n            return\n\n        results = []\n        for block in response.content:\n            if block.type != \"tool_use\":\n                continue\n\n            tool_input = dict(block.input or {})\n            ctx = {\"tool_name\": block.name, \"tool_input\": tool_input}\n\n            # -- PreToolUse hooks --\n            pre_result = hooks.run_hooks(\"PreToolUse\", ctx)\n\n            # Inject hook messages into results\n            for msg in pre_result.get(\"messages\", []):\n                results.append({\n                    \"type\": \"tool_result\", \"tool_use_id\": block.id,\n                    \"content\": f\"[Hook message]: {msg}\",\n                })\n\n            if pre_result.get(\"blocked\"):\n                reason = pre_result.get(\"block_reason\", \"Blocked by hook\")\n                output = f\"Tool blocked by PreToolUse hook: {reason}\"\n                results.append({\n                    \"type\": \"tool_result\", \"tool_use_id\": block.id,\n                    \"content\": output,\n                })\n                continue\n\n            # -- Execute tool --\n            handler = TOOL_HANDLERS.get(block.name)\n            try:\n                output = handler(**tool_input) if handler else f\"Unknown: {block.name}\"\n            except Exception as e:\n                output = f\"Error: {e}\"\n            print(f\"\u003e {block.name}: {str(output)[:200]}\")\n\n            # -- PostToolUse hooks --\n            ctx[\"tool_output\"] = output\n            post_result = hooks.run_hooks(\"PostToolUse\", ctx)\n\n            # Inject post-hook messages\n            for msg in post_result.get(\"messages\", []):\n                output += f\"\\n[Hook note]: {msg}\"\n\n            results.append({\n                \"type\": \"tool_result\", \"tool_use_id\": block.id,\n                \"content\": str(output),\n            })\n\n        messages.append({\"role\": \"user\", \"content\": results})\n\n\nif __name__ == \"__main__\":\n    hooks = HookManager()\n\n    # Fire SessionStart hooks\n    hooks.run_hooks(\"SessionStart\", {\"tool_name\": \"\", \"tool_input\": {}})\n\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms08 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history, hooks)\n        response_content = history[-1][\"content\"]\n        if isinstance(response_content, list):\n            for block in response_content:\n                if hasattr(block, \"text\"):\n                    print(block.text)\n        print()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s08\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"Hook 系统\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300\",\"children\":\"系统加固\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"不改主循环也能扩展\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[252,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[4,\" \",\"个工具\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"Hook 让系统围绕主循环生长，而不是不断重写主循环本身。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s08\",\"diff\":{\"from\":\"s07\",\"to\":\"s08\",\"newClasses\":[\"HookManager\"],\"newFunctions\":[],\"newTools\":[],\"locDelta\":-56},\"source\":\"$14\",\"filename\":\"s08_hook_system.py\",\"guideData\":{\"focus\":\"先盯住 `HookEvent`、`HookResult` 和固定触发时机。\",\"confusion\":\"hook 不是把逻辑塞回主循环，而是让主循环在固定时机对外发出插口。\",\"goal\":\"不重写主循环，也能在关键时机扩展行为。\"},\"bridgeDocs\":[{\"slug\":\"s02a-tool-control-plane\",\"kind\":\"mechanism\",\"title\":\"工具控制平面\",\"summary\":{\"zh\":\"专门补工具调用怎样进入统一执行面，适合权限、Hook、MCP 等章节一起看。\",\"en\":\"Why tools become a coordination layer, not just a lookup table. Best read after s02.\",\"ja\":\"ツール呼び出しが共通の実行面に入る流れを補う資料です。\"},\"fallbackLocale\":null},{\"slug\":\"entity-map\",\"kind\":\"map\",\"title\":\"对象与模块关系图\",\"summary\":{\"zh\":\"按对象和模块关系看系统，适合读到中后段时重新校准模块边界。\",\"en\":\"Use this when concepts start to blur. It tells you which layer each thing belongs to.\",\"ja\":\"オブジェクトとモジュール関係から全体を再確認する地図です。\"},\"fallbackLocale\":null}],\"locale\":\"zh\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/zh/s07\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"上一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s07\",\" - \",\"权限系统\"]}]]}]]}],[\"$\",\"$L16\",null,{\"href\":\"/zh/s09\",\"className\":\"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"下一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"记忆系统\",\" - \",\"s09\"]}]]}],[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:translate-x-1\",\"children\":\"→\"}]]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>

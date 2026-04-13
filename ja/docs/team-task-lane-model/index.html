@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="ja"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>チームメイト・タスク・レーンモデル</title><meta name="description" content="teammate・protocol request・task・runtime slot・worktree lane の 5 層境界を整理します。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/ja/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/reference/">リファレンス</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/compare/">比較</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">コアループ</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">エージェントループ</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">ツール使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">Todo 書き込み</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">サブエージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">スキル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">コンテキスト圧縮</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">システム強化</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">権限システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">記憶システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">システムプロンプト</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">エラー回復</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">タスクランタイム</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">タスクシステム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">バックグラウンドタスク</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">Cron スケジューラ</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">マルチエージェント基盤</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">エージェントチーム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">チームプロトコル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自律エージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 分離</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP とプラグイン</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/ja/"><span>←</span><span>学習パスへ戻る</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">補助ドキュメント</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">チームメイト・タスク・レーンモデル</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">このページへ戻るべき場面</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">teammate・protocol request・task・runtime slot・worktree lane の 5 層境界を整理します。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">いっしょに読むと効く章</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s15/">s15<!-- --> · <!-- -->エージェントチーム</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s16/">s16<!-- --> · <!-- -->チームプロトコル</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s17/">s17<!-- --> · <!-- -->自律エージェント</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s18/">s18<!-- --> · <!-- -->Worktree 分離</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p><code>s15-s18</code> に入ると、関数名よりも先に混ざりやすいものがあります。</p>
+<p>それは、</p>
+<p><strong>誰が働き、誰が調整し、何が目標を記録し、何が実行レーンを提供しているのか</strong></p>
+<p>という層の違いです。</p>
+</blockquote>
+<h2>この橋渡し資料が解決すること</h2>
+<p><code>s15-s18</code> を通して読むと、次の言葉が一つの曖昧な塊になりやすくなります。</p>
+<ul>
+<li>teammate</li>
+<li>protocol request</li>
+<li>task</li>
+<li>runtime task</li>
+<li>worktree</li>
+</ul>
+<p>全部「仕事が進む」ことに関係していますが、同じ層ではありません。</p>
+<p>ここを分けないと、後半が急に分かりにくくなります。</p>
+<ul>
+<li>teammate は task と同じなのか</li>
+<li><code>request_id</code> と <code>task_id</code> は何が違うのか</li>
+<li>worktree は runtime task の一種なのか</li>
+<li>task が終わっているのに、なぜ worktree が kept のままなのか</li>
+</ul>
+<p>この資料は、その層をきれいに分けるためのものです。</p>
+<h2>読む順番</h2>
+<ol>
+<li><a href="./s15-agent-teams.md"><code>s15-agent-teams.md</code></a> で長寿命 teammate を確認する</li>
+<li><a href="./s16-team-protocols.md"><code>s16-team-protocols.md</code></a> で追跡可能な request-response を確認する</li>
+<li><a href="./s17-autonomous-agents.md"><code>s17-autonomous-agents.md</code></a> で自律 claim を確認する</li>
+<li><a href="./s18-worktree-task-isolation.md"><code>s18-worktree-task-isolation.md</code></a> で隔離 execution lane を確認する</li>
+</ol>
+<p>用語が混ざってきたら、次も見直してください。</p>
+<ul>
+<li><a href="./entity-map.md"><code>entity-map.md</code></a></li>
+<li><a href="./data-structures.md"><code>data-structures.md</code></a></li>
+<li><a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a></li>
+</ul>
+<h2>まずはこの区別を固定する</h2>
+<pre class="code-block" data-language="text"><code class="hljs language-text">teammate
+  = 長期に協力する主体
+
+protocol request
+  = チーム内で追跡される調整要求
+
+task
+  = 何をやるべきか
+
+runtime task / execution slot
+  = 今まさに動いている実行単位
+
+worktree
+  = 他の変更とぶつからずに仕事を進める実行ディレクトリ
+</code></pre>
+<p>特に混ざりやすいのは最後の3つです。</p>
+<ul>
+<li><code>task</code></li>
+<li><code>runtime task</code></li>
+<li><code>worktree</code></li>
+</ul>
+<p>毎回、次の3つを別々に問い直してください。</p>
+<ul>
+<li>これは目標か</li>
+<li>これは実行中の単位か</li>
+<li>これは隔離された実行ディレクトリか</li>
+</ul>
+<h2>一番小さい図</h2>
+<pre class="code-block" data-language="text"><code class="hljs language-text">Team Layer
+  teammate: alice (frontend)
+
+Protocol Layer
+  request_id=req_01
+  kind=plan_approval
+  status=pending
+
+Work Graph Layer
+  task_id=12
+  subject="Implement login page"
+  owner="alice"
+  status="in_progress"
+
+Runtime Layer
+  runtime_id=rt_01
+  type=in_process_teammate
+  status=running
+
+Execution Lane Layer
+  worktree=login-page
+  path=.worktrees/login-page
+  status=active
+</code></pre>
+<p>この中で、仕事そのものの目標を表しているのは一つだけです。</p>
+<blockquote>
+<p><code>task_id=12</code></p>
+</blockquote>
+<p>他は、その目標のまわりで協調・実行・分離を支える層です。</p>
+<h2>1. Teammate: 誰が協力しているか</h2>
+<p><code>s15</code> で導入される層です。</p>
+<p>ここが答えること：</p>
+<ul>
+<li>長寿命 worker の名前</li>
+<li>役割</li>
+<li><code>working</code> / <code>idle</code> / <code>shutdown</code></li>
+<li>独立した inbox を持つか</li>
+</ul>
+<p>例：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">member = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"role"</span>: <span class="hljs-string">"frontend"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"idle"</span>,
+}
+</code></pre>
+<p>大事なのは「agent をもう1個増やす」ことではありません。</p>
+<blockquote>
+<p>繰り返し仕事を受け取れる長寿命の身元</p>
+</blockquote>
+<p>これが本質です。</p>
+<h2>2. Protocol Request: 何を調整しているか</h2>
+<p><code>s16</code> の層です。</p>
+<p>ここが答えること：</p>
+<ul>
+<li>誰が誰に依頼したか</li>
+<li>どんな種類の request か</li>
+<li>pending なのか、もう解決済みなのか</li>
+</ul>
+<p>例：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">request = {
+    <span class="hljs-string">"request_id"</span>: <span class="hljs-string">"a1b2c3d4"</span>,
+    <span class="hljs-string">"kind"</span>: <span class="hljs-string">"plan_approval"</span>,
+    <span class="hljs-string">"from"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"to"</span>: <span class="hljs-string">"lead"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
+}
+</code></pre>
+<p>これは普通の会話ではありません。</p>
+<blockquote>
+<p>状態更新を続けられる調整記録</p>
+</blockquote>
+<p>です。</p>
+<h2>3. Task: 何をやるのか</h2>
+<p>これは <code>s12</code> の durable work-graph task であり、<code>s17</code> で teammate が claim する対象です。</p>
+<p>ここが答えること：</p>
+<ul>
+<li>目標は何か</li>
+<li>誰が担当しているか</li>
+<li>何にブロックされているか</li>
+<li>進捗状態はどうか</li>
+</ul>
+<p>例：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">task = {
+    <span class="hljs-string">"id"</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"Implement login page"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"in_progress"</span>,
+    <span class="hljs-string">"owner"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"blockedBy"</span>: [],
+}
+</code></pre>
+<p>キーワードは：</p>
+<p><strong>目標</strong></p>
+<p>ディレクトリでも、protocol でも、process でもありません。</p>
+<h2>4. Runtime Task / Execution Slot: 今なにが走っているか</h2>
+<p>この層は <code>s13</code> の橋渡し資料ですでに説明されていますが、<code>s15-s18</code> ではさらに重要になります。</p>
+<p>例：</p>
+<ul>
+<li>background shell が走っている</li>
+<li>長寿命 teammate が今作業している</li>
+<li>monitor が外部状態を見ている</li>
+</ul>
+<p>これらは、</p>
+<blockquote>
+<p>実行中の slot</p>
+</blockquote>
+<p>として理解するのが一番きれいです。</p>
+<p>例：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">runtime = {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"rt_01"</span>,
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"in_process_teammate"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"running"</span>,
+    <span class="hljs-string">"work_graph_task_id"</span>: <span class="hljs-number">12</span>,
+}
+</code></pre>
+<p>大事な境界：</p>
+<ul>
+<li>1つの task から複数の runtime task が派生しうる</li>
+<li>runtime task は durable な目標そのものではなく、実行インスタンスである</li>
+</ul>
+<h2>5. Worktree: どこでやるのか</h2>
+<p><code>s18</code> で導入される execution lane 層です。</p>
+<p>ここが答えること：</p>
+<ul>
+<li>どの隔離ディレクトリを使うか</li>
+<li>どの task と結び付いているか</li>
+<li>その lane は <code>active</code> / <code>kept</code> / <code>removed</code> のどれか</li>
+</ul>
+<p>例：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">worktree = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"login-page"</span>,
+    <span class="hljs-string">"path"</span>: <span class="hljs-string">".worktrees/login-page"</span>,
+    <span class="hljs-string">"task_id"</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"active"</span>,
+}
+</code></pre>
+<p>キーワードは：</p>
+<p><strong>実行境界</strong></p>
+<p>task そのものではなく、その task を進めるための隔離レーンです。</p>
+<h2>層はどうつながるか</h2>
+<pre class="code-block" data-language="text"><code class="hljs language-text">teammate
+  protocol request で協調し
+  task を claim し
+  execution slot として走り
+  worktree lane の中で作業する
+</code></pre>
+<p>もっと具体的に言うなら：</p>
+<blockquote>
+<p><code>alice</code> が <code>task #12</code> を claim し、<code>login-page</code> worktree lane の中でそれを進める</p>
+</blockquote>
+<p>この言い方は、</p>
+<blockquote>
+<p>"alice is doing the login-page worktree task"</p>
+</blockquote>
+<p>のような曖昧な言い方よりずっと正確です。</p>
+<p>後者は次の3層を一つに潰してしまいます。</p>
+<ul>
+<li>teammate</li>
+<li>task</li>
+<li>worktree</li>
+</ul>
+<h2>よくある間違い</h2>
+<h3>1. teammate と task を同じものとして扱う</h3>
+<p>teammate は実行者、task は目標です。</p>
+<h3>2. <code>request_id</code> と <code>task_id</code> を同じ種類の ID だと思う</h3>
+<p>片方は調整、片方は目標です。</p>
+<h3>3. runtime slot を durable task だと思う</h3>
+<p>実行は終わっても、durable task は残ることがあります。</p>
+<h3>4. worktree を task そのものだと思う</h3>
+<p>worktree は execution lane でしかありません。</p>
+<h3>5. 「並列で動く」とだけ言って層の名前を出さない</h3>
+<p>良い教材は「agent がたくさんいる」で止まりません。</p>
+<p>次のように言える必要があります。</p>
+<blockquote>
+<p>teammate は長期協力を担い、request は調整を追跡し、task は目標を記録し、runtime slot は実行を担い、worktree は実行ディレクトリを隔離する。</p>
+</blockquote>
+<h2>読み終えたら言えるようになってほしいこと</h2>
+<ol>
+<li><code>s17</code> の自律 claim は <code>s12</code> の work-graph task を取るのであって、<code>s13</code> の runtime slot を取るのではない。</li>
+<li><code>s18</code> の worktree は task に execution lane を結び付けるのであって、task をディレクトリへ変えるのではない。</li>
+</ol></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"ja\",\"docs\",\"team-task-lane-model\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"ja\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"team-task-lane-model\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"ja\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"ja\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/ja\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"学習パスへ戻る\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"補助ドキュメント\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"チームメイト・タスク・レーンモデル\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"このページへ戻るべき場面\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"teammate・protocol request・task・runtime slot・worktree lane の 5 層境界を整理します。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"いっしょに読むと効く章\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s15\",{\"href\":\"/ja/s15\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s15\",\" · \",\"エージェントチーム\"]}],[\"$\",\"$L13\",\"s16\",{\"href\":\"/ja/s16\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s16\",\" · \",\"チームプロトコル\"]}],[\"$\",\"$L13\",\"s17\",{\"href\":\"/ja/s17\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s17\",\" · \",\"自律エージェント\"]}],[\"$\",\"$L13\",\"s18\",{\"href\":\"/ja/s18\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s18\",\" · \",\"Worktree 分離\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"team-task-lane-model\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"チームメイト・タスク・レーンモデル\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"teammate・protocol request・task・runtime slot・worktree lane の 5 層境界を整理します。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

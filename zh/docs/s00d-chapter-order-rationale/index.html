@@ -1,0 +1,419 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>为什么这样安排章节顺序</title><meta name="description" content="专门解释为什么课程要按现在这个顺序展开，适合读者刚进入主线或准备自己重排章节时回看。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/zh/"><span>←</span><span>回到学习主线</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">桥接文档</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">为什么这样安排章节顺序</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">这页适合什么时候回看</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">专门解释为什么课程要按现在这个顺序展开，适合读者刚进入主线或准备自己重排章节时回看。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">最适合和这些章节一起读</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s01/">s01<!-- --> · <!-- -->Agent 循环</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s12/">s12<!-- --> · <!-- -->任务系统</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s15/">s15<!-- --> · <!-- -->Agent 团队</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p>这份文档不讲某一个机制本身。<br>
+它专门回答一个更基础的问题：</p>
+<p><strong>为什么这套仓库要按现在这个顺序教，而不是按源码目录顺序、功能热闹程度，或者“哪里复杂先讲哪里”。</strong></p>
+</blockquote>
+<h2>先说结论</h2>
+<p>当前这套 <code>s01 -> s19</code> 的主线顺序，整体上是合理的。</p>
+<p>它最大的优点不是“覆盖面广”，而是：</p>
+<ul>
+<li>先建立最小闭环</li>
+<li>再补横切控制面</li>
+<li>再补持久化工作层</li>
+<li>最后才扩成多 agent 平台和外部能力总线</li>
+</ul>
+<p>这个顺序适合教学，因为它遵守的不是“源码文件先后”，而是：</p>
+<p><strong>机制依赖顺序。</strong></p>
+<p>也就是：</p>
+<ul>
+<li>后一章需要建立在前一章已经清楚的心智之上</li>
+<li>同一层的新概念尽量一起讲完</li>
+<li>不把高阶平台能力提前压给还没建立主闭环的读者</li>
+</ul>
+<p>如果要把这套课程改到更接近满分，一个很重要的标准不是“加更多内容”，而是：</p>
+<p><strong>让读者始终知道这一章为什么现在学，而不是上一章或下一章。</strong></p>
+<p>这份文档就是干这件事的。</p>
+<h2>这份顺序到底按什么排</h2>
+<p>不是按这些排：</p>
+<ul>
+<li>不是按逆向源码里文件顺序排</li>
+<li>不是按实现难度排</li>
+<li>不是按功能看起来酷不酷排</li>
+<li>不是按产品里出现得早不早排</li>
+</ul>
+<p>它真正按的是四条依赖线：</p>
+<ol>
+<li><code>主闭环依赖</code></li>
+<li><code>控制面依赖</code></li>
+<li><code>工作状态依赖</code></li>
+<li><code>平台边界依赖</code></li>
+</ol>
+<p>你可以先把整套课粗暴地看成下面这条线：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">先让 agent 能跑
+  -> 再让它不乱跑
+  -> 再让它能长期跑
+  -> 最后让它能分工跑、隔离跑、接外部能力跑
+</code></pre>
+<p>这才是当前章节顺序最核心的逻辑。</p>
+<h2>一张总图：章节之间真正的依赖关系</h2>
+<pre class="code-block" data-language="text"><code class="hljs language-text">s00 总览与地图
+  |
+  v
+s01 主循环
+  ->
+s02 工具执行
+  ->
+s03 会话计划
+  ->
+s04 子任务隔离
+  ->
+s05 按需知识注入
+  ->
+s06 上下文压缩
+
+s06 之后，单 agent 主骨架成立
+  |
+  v
+s07 权限闸门
+  ->
+s08 生命周期 Hook
+  ->
+s09 跨会话记忆
+  ->
+s10 Prompt / 输入装配
+  ->
+s11 恢复与续行
+
+s11 之后，单 agent 的高完成度控制面成立
+  |
+  v
+s12 持久任务图
+  ->
+s13 运行时后台槽位
+  ->
+s14 时间触发器
+
+s14 之后，工作系统从“聊天过程”升级成“可持续运行时”
+  |
+  v
+s15 持久队友
+  ->
+s16 协议化协作
+  ->
+s17 自治认领
+  ->
+s18 worktree 执行车道
+  ->
+s19 外部能力总线
+</code></pre>
+<p>如果你记不住所有章节，只记住每段结束后的“系统里多了什么”：</p>
+<ul>
+<li><code>s06</code> 结束：你有了能工作的单 agent</li>
+<li><code>s11</code> 结束：你有了更稳、更可控的单 agent</li>
+<li><code>s14</code> 结束：你有了能长期推进工作的运行时</li>
+<li><code>s19</code> 结束：你有了接近完整的平台边界</li>
+</ul>
+<h2>为什么 <code>s01-s06</code> 必须先成一整段</h2>
+<h3><code>s01</code> 必须最先</h3>
+<p>因为它定义的是：</p>
+<ul>
+<li>这套系统的最小入口</li>
+<li>每一轮到底怎么推进</li>
+<li>工具结果为什么能再次进入模型</li>
+</ul>
+<p>如果连这一条都没建立，后面所有内容都会变成“往空气里挂功能”。</p>
+<h3><code>s02</code> 必须紧跟 <code>s01</code></h3>
+<p>因为没有工具，agent 只是会说，不是真的会做。</p>
+<p>开发者第一次真正感受到“harness 在做什么”，往往就是在 <code>s02</code>：</p>
+<ul>
+<li>模型产出 <code>tool_use</code></li>
+<li>系统找到 handler</li>
+<li>执行工具</li>
+<li>回写 <code>tool_result</code></li>
+</ul>
+<p>这是整个仓库第一条真正的“行动回路”。</p>
+<h3><code>s03</code> 放在 <code>s04</code> 前面是对的</h3>
+<p>很多人会直觉上想先讲 subagent，因为它更“高级”。</p>
+<p>但教学上不该这样排。</p>
+<p>原因很简单：</p>
+<ul>
+<li><code>s03</code> 先解决“当前 agent 自己怎么不乱撞”</li>
+<li><code>s04</code> 再解决“哪些工作要交给别的执行者”</li>
+</ul>
+<p>如果主 agent 连本地计划都没有，就提前进入子 agent，读者只会觉得：</p>
+<ul>
+<li>为什么要委派</li>
+<li>委派和待办到底是什么关系</li>
+<li>哪些是主流程，哪些是探索性流程</li>
+</ul>
+<p>都不清楚。</p>
+<p>所以：</p>
+<p><strong>先有本地计划，再有上下文隔离委派。</strong></p>
+<h3><code>s05</code> 放在 <code>s06</code> 前面是对的</h3>
+<p>这两个章节很多人会低估。</p>
+<p>实际上它们解决的是同一类问题的前后两半：</p>
+<ul>
+<li><code>s05</code> 解决：知识不要一开始全塞进来</li>
+<li><code>s06</code> 解决：已经塞进来的上下文怎么控制体积</li>
+</ul>
+<p>如果先讲压缩，再讲技能加载，读者容易误会成：</p>
+<ul>
+<li>上下文膨胀主要靠“事后压缩”解决</li>
+</ul>
+<p>但更合理的心智应该是：</p>
+<ol>
+<li>先减少不必要进入上下文的东西</li>
+<li>再处理已经进入上下文、且必须继续保留的东西</li>
+</ol>
+<p>所以 <code>s05 -> s06</code> 的顺序很合理。</p>
+<h2>为什么 <code>s07-s11</code> 应该成一整段“控制面加固”</h2>
+<p>这五章看起来分散，实际上它们共同在回答同一个问题：</p>
+<p><strong>主循环已经能跑了，但要怎样才能跑得稳、跑得可控、跑得更像一个完整系统。</strong></p>
+<h3><code>s07</code> 权限必须早于 <code>s08</code> Hook</h3>
+<p>因为权限是在问：</p>
+<ul>
+<li>这件事能不能做</li>
+<li>这件事做到哪一步要停</li>
+<li>这件事要不要先问用户</li>
+</ul>
+<p>Hook 是在问：</p>
+<ul>
+<li>系统这个时刻要不要额外做点什么</li>
+</ul>
+<p>如果先讲 Hook，再讲权限，读者很容易误会：</p>
+<ul>
+<li>安全判断也只是某个 hook</li>
+</ul>
+<p>但实际上不是。</p>
+<p>更清楚的教学顺序应该是：</p>
+<ol>
+<li>先建立“执行前必须先过闸门”的概念</li>
+<li>再建立“主循环周围可以挂扩展点”的概念</li>
+</ol>
+<p>也就是：</p>
+<p><strong>先 gate，再 extend。</strong></p>
+<h3><code>s09</code> 记忆放在 <code>s10</code> Prompt 前面是对的</h3>
+<p>这是整套课程里很关键的一条顺序。</p>
+<p>很多人容易反过来讲，先讲 prompt，再讲 memory。</p>
+<p>但对开发者心智更友好的顺序其实是现在这样：</p>
+<ul>
+<li><code>s09</code> 先讲“长期信息从哪里来、哪些值得留下”</li>
+<li><code>s10</code> 再讲“这些来源最终怎样被组装进模型输入”</li>
+</ul>
+<p>也就是说：</p>
+<ul>
+<li><code>memory</code> 先回答“内容源是什么”</li>
+<li><code>prompt pipeline</code> 再回答“这些内容源怎么装配”</li>
+</ul>
+<p>如果反过来，读者会在 <code>s10</code> 里不断追问：</p>
+<ul>
+<li>为什么这里会有 memory block</li>
+<li>这块内容到底是谁准备的</li>
+<li>它和 messages、CLAUDE.md、skills 的边界在哪里</li>
+</ul>
+<p>所以这一条顺序不要乱换。</p>
+<h3><code>s11</code> 放在这一段结尾很合理</h3>
+<p>因为恢复与续行不是单独一层业务功能，而是：</p>
+<ul>
+<li>对前面所有输入、执行、状态、权限、压缩分支的总回收</li>
+</ul>
+<p>它天然适合做“控制面阶段的收口章”。</p>
+<p>只有当读者已经知道：</p>
+<ul>
+<li>一轮输入怎么组装</li>
+<li>执行时会走哪些分支</li>
+<li>发生什么状态变化</li>
+</ul>
+<p>他才真正看得懂恢复系统在恢复什么。</p>
+<h2>为什么 <code>s12-s14</code> 必须先讲“任务图”，再讲“后台运行”，最后讲“定时触发”</h2>
+<p>这是后半程最容易排错的一段。</p>
+<h3><code>s12</code> 必须先于 <code>s13</code></h3>
+<p>因为 <code>s12</code> 解决的是：</p>
+<ul>
+<li>事情本身是什么</li>
+<li>依赖关系是什么</li>
+<li>哪个工作节点已完成、未完成、阻塞中</li>
+</ul>
+<p>而 <code>s13</code> 解决的是：</p>
+<ul>
+<li>某个执行单元现在是不是正在后台跑</li>
+<li>跑到什么状态</li>
+<li>结果怎么回流</li>
+</ul>
+<p>也就是：</p>
+<ul>
+<li><code>task</code> 是工作目标</li>
+<li><code>runtime task</code> 是执行槽位</li>
+</ul>
+<p>如果没有 <code>s12</code> 先铺开 durable work graph，读者到了 <code>s13</code> 会把后台任务误当成任务系统本体。</p>
+<p>这会直接导致后面：</p>
+<ul>
+<li>cron 概念混乱</li>
+<li>teammate 认领概念混乱</li>
+<li>worktree lane 概念混乱</li>
+</ul>
+<p>所以这里一定要守住：</p>
+<p><strong>先有目标，再有执行体。</strong></p>
+<h3><code>s14</code> 必须紧跟 <code>s13</code></h3>
+<p>因为 cron 本质上不是又一种任务。</p>
+<p>它只是回答：</p>
+<p><strong>如果现在不是用户当场触发，而是由时间触发一次执行，该怎么接到现有运行时里。</strong></p>
+<p>也就是说：</p>
+<ul>
+<li>没有 runtime slot，cron 没地方发车</li>
+<li>没有 task graph，cron 不知道在触发什么工作</li>
+</ul>
+<p>所以最合理顺序一定是：</p>
+<p><code>task graph -> runtime slot -> schedule trigger</code></p>
+<h2>为什么 <code>s15-s19</code> 要按“队友 -> 协议 -> 自治 -> 隔离车道 -> 外部能力”排</h2>
+<p>这一段如果顺序乱了，读者最容易开始觉得：</p>
+<ul>
+<li>队友、协议、任务、worktree、MCP 全都像“高级功能堆叠”</li>
+</ul>
+<p>但其实它们之间有很强的前后依赖。</p>
+<h3><code>s15</code> 先定义“谁在系统里长期存在”</h3>
+<p>这一章先把对象立起来：</p>
+<ul>
+<li>队友是谁</li>
+<li>他们有没有身份</li>
+<li>他们是不是可以持续存在</li>
+</ul>
+<p>如果连 actor 都还没清楚，协议对象就无从谈起。</p>
+<h3><code>s16</code> 再定义“这些 actor 之间按什么规则说话”</h3>
+<p>协议层不应该早于 actor 层。</p>
+<p>因为协议不是凭空存在的。</p>
+<p>它一定是服务于：</p>
+<ul>
+<li>请求谁</li>
+<li>谁审批</li>
+<li>谁响应</li>
+<li>如何回执</li>
+</ul>
+<p>所以：</p>
+<p><strong>先有队友，再有协议。</strong></p>
+<h3><code>s17</code> 再进入“队友自己找活”</h3>
+<p>自治不是“又多一种 agent 功能”。</p>
+<p>自治其实是建立在前两章之上的：</p>
+<ul>
+<li>前提 1：队友是长期存在的</li>
+<li>前提 2：队友之间有可追踪的协作规则</li>
+</ul>
+<p>只有这两个前提都建立了，自治认领才不会讲成一团雾。</p>
+<h3><code>s18</code> 为什么在 <code>s19</code> 前面</h3>
+<p>因为在平台层里，worktree 是执行隔离边界，MCP 是能力边界。</p>
+<p>对开发者自己手搓系统来说，更应先搞清：</p>
+<ul>
+<li>多个执行者如何不互相踩目录</li>
+<li>一个任务与一个执行车道如何绑定</li>
+</ul>
+<p>这些是“本地多执行者平台”先要解决的问题。</p>
+<p>把这个问题讲完后，再去讲：</p>
+<ul>
+<li>外部 server</li>
+<li>外部 tool</li>
+<li>capability route</li>
+</ul>
+<p>开发者才不会把“MCP 很强”误解成“本地平台边界可以先不管”。</p>
+<h3><code>s19</code> 放最后是对的</h3>
+<p>因为它本质上是平台边界的最外层。</p>
+<p>它关心的是：</p>
+<ul>
+<li>本地系统之外的能力如何并入</li>
+<li>外部 server 和本地 tool 如何统一纳入 capability bus</li>
+</ul>
+<p>这个东西只有在前面这些边界都已经清楚后，读者才真的能吸收：</p>
+<ul>
+<li>本地 actor</li>
+<li>本地 work lane</li>
+<li>本地 task / runtime state</li>
+<li>外部 capability provider</li>
+</ul>
+<p>分别是什么。</p>
+<h2>五种最容易让课程变差的“错误重排”</h2>
+<h3>错误 1：把 <code>s04</code> 提到 <code>s03</code> 前面</h3>
+<p>坏处：</p>
+<ul>
+<li>读者先学会“把活丢出去”</li>
+<li>却还没学会“本地怎么规划”</li>
+</ul>
+<p>最后 subagent 只会变成“遇事就开新 agent”的逃避按钮。</p>
+<h3>错误 2：把 <code>s10</code> 提到 <code>s09</code> 前面</h3>
+<p>坏处：</p>
+<ul>
+<li>输入装配先讲了</li>
+<li>但输入源的边界还没立住</li>
+</ul>
+<p>结果 prompt pipeline 会看起来像一堆神秘字符串拼接。</p>
+<h3>错误 3：把 <code>s13</code> 提到 <code>s12</code> 前面</h3>
+<p>坏处：</p>
+<ul>
+<li>读者会把后台执行槽位误认成工作任务本体</li>
+<li>后面 cron、自治认领、worktree 都会越来越混</li>
+</ul>
+<h3>错误 4：把 <code>s17</code> 提到 <code>s15</code> 或 <code>s16</code> 前面</h3>
+<p>坏处：</p>
+<ul>
+<li>还没定义持久队友</li>
+<li>也还没定义结构化协作规则</li>
+<li>就先讲自治认领</li>
+</ul>
+<p>最后“自治”会被理解成模糊的自动轮询魔法。</p>
+<h3>错误 5：把 <code>s19</code> 提到 <code>s18</code> 前面</h3>
+<p>坏处：</p>
+<ul>
+<li>读者会先被外部能力系统吸引注意力</li>
+<li>却还没真正看清本地多执行者平台怎么稳定成立</li>
+</ul>
+<p>这会让整个课程后半程“看起来很大”，但“落到自己实现时没有抓手”。</p>
+<h2>如果你自己手搓，可以在哪些地方先停</h2>
+<p>这套课不是说一定要一次把 <code>s01-s19</code> 全做完。</p>
+<p>更稳的实现节奏是：</p>
+<h3>里程碑 A：先做到 <code>s06</code></h3>
+<p>你已经有：</p>
+<ul>
+<li>主循环</li>
+<li>工具</li>
+<li>计划</li>
+<li>子任务隔离</li>
+<li>技能按需注入</li>
+<li>上下文压缩</li>
+</ul>
+<p>这已经足够做出一个“能用的单 agent 原型”。</p>
+<h3>里程碑 B：再做到 <code>s11</code></h3>
+<p>你多了：</p>
+<ul>
+<li>权限</li>
+<li>Hook</li>
+<li>Memory</li>
+<li>Prompt pipeline</li>
+<li>错误恢复</li>
+</ul>
+<p>到这里，单 agent 系统已经接近“高完成度教学实现”。</p>
+<h3>里程碑 C：做到 <code>s14</code></h3>
+<p>你多了：</p>
+<ul>
+<li>durable task</li>
+<li>background runtime slot</li>
+<li>cron trigger</li>
+</ul>
+<p>到这里，系统开始脱离“只会跟着当前会话走”的状态。</p>
+<h3>里程碑 D：做到 <code>s19</code></h3>
+<p>这时再进入：</p>
+<ul>
+<li>persistent teammate</li>
+<li>protocol</li>
+<li>autonomy</li>
+<li>worktree lane</li>
+<li>MCP / plugin</li>
+</ul>
+<p>这时你手里才是接近完整的平台结构。</p>
+<h2>维护者在重排章节前该问自己什么</h2>
+<p>如果你准备改顺序，先问下面这些问题：</p>
+<ol>
+<li>这一章依赖的前置概念，前面有没有已经讲清？</li>
+<li>这次重排会不会让两个同名但不同层的概念更容易混？</li>
+<li>这一章新增的是“目标状态”“运行状态”“执行者”还是“外部能力”？</li>
+<li>如果把它提前，读者会不会只记住名词，反而抓不到最小实现？</li>
+<li>这次重排是在服务开发者实现路径，还是只是在模仿某个源码目录顺序？</li>
+<li>读者按当前章节学完以后，本地代码到底该按什么顺序打开，这条代码阅读顺序有没有一起讲清？</li>
+</ol>
+<p>如果第 5 个问题的答案偏向后者，那大概率不该改。</p>
+<h2>一句话记住</h2>
+<p><strong>好的章节顺序，不是把所有机制排成一列，而是让每一章都像前一章自然长出来的下一层。</strong></p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"docs\",\"s00d-chapter-order-rationale\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"s00d-chapter-order-rationale\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/zh\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"回到学习主线\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"桥接文档\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"为什么这样安排章节顺序\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"这页适合什么时候回看\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"专门解释为什么课程要按现在这个顺序展开，适合读者刚进入主线或准备自己重排章节时回看。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"最适合和这些章节一起读\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s01\",{\"href\":\"/zh/s01\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s01\",\" · \",\"Agent 循环\"]}],[\"$\",\"$L13\",\"s12\",{\"href\":\"/zh/s12\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s12\",\" · \",\"任务系统\"]}],[\"$\",\"$L13\",\"s15\",{\"href\":\"/zh/s15\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s15\",\" · \",\"Agent 团队\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"s00d-chapter-order-rationale\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"为什么这样安排章节顺序\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"专门解释为什么课程要按现在这个顺序展开，适合读者刚进入主线或准备自己重排章节时回看。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

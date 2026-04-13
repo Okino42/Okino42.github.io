@@ -1,0 +1,391 @@
+1:"$Sreact.fragment"
+2:I[3167,["/_next/static/chunks/0ja5othizjcac.js","/_next/static/chunks/0uvn1_4nr7qfy.js","/_next/static/chunks/063.oyz5446.o.js","/_next/static/chunks/02kk5ekh_4.z~.js","/_next/static/chunks/0-ogocbeyjdd4.js","/_next/static/chunks/0_nawkytun4a5.js","/_next/static/chunks/078.wnui.p.5c.js","/_next/static/chunks/12~1n90oe7pm9.js"],"VersionDetailClient"]
+c:I[22016,["/_next/static/chunks/0ja5othizjcac.js","/_next/static/chunks/0uvn1_4nr7qfy.js","/_next/static/chunks/063.oyz5446.o.js","/_next/static/chunks/02kk5ekh_4.z~.js","/_next/static/chunks/0-ogocbeyjdd4.js","/_next/static/chunks/0_nawkytun4a5.js","/_next/static/chunks/078.wnui.p.5c.js","/_next/static/chunks/12~1n90oe7pm9.js"],""]
+d:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"OutletBoundary"]
+e:"$Sreact.suspense"
+3:T2d79,#!/usr/bin/env python3
+# Harness: compression -- keep the active context small enough to keep working.
+"""
+s06_context_compact.py - Context Compact
+
+This teaching version keeps the compact model intentionally small:
+
+1. Large tool output is persisted to disk and replaced with a preview marker.
+2. Older tool results are micro-compacted into short placeholders.
+3. When the whole conversation gets too large, the agent summarizes it and
+   continues from that summary.
+
+The goal is not to model every production branch. The goal is to make the
+active-context idea explicit and teachable.
+"""
+
+import json
+import os
+import subprocess
+import time
+from dataclasses import dataclass, field
+from pathlib import Path
+
+from anthropic import Anthropic
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
+
+if os.getenv("ANTHROPIC_BASE_URL"):
+    os.environ.pop("ANTHROPIC_AUTH_TOKEN", None)
+
+WORKDIR = Path.cwd()
+client = Anthropic(base_url=os.getenv("ANTHROPIC_BASE_URL"))
+MODEL = os.environ["MODEL_ID"]
+
+SYSTEM = (
+    f"You are a coding agent at {WORKDIR}. "
+    "Keep working step by step, and use compact if the conversation gets too long."
+)
+
+CONTEXT_LIMIT = 50000
+KEEP_RECENT_TOOL_RESULTS = 3
+PERSIST_THRESHOLD = 30000
+PREVIEW_CHARS = 2000
+TRANSCRIPT_DIR = WORKDIR / ".transcripts"
+TOOL_RESULTS_DIR = WORKDIR / ".task_outputs" / "tool-results"
+
+
+@dataclass
+class CompactState:
+    has_compacted: bool = False
+    last_summary: str = ""
+    recent_files: list[str] = field(default_factory=list)
+
+
+def estimate_context_size(messages: list) -> int:
+    return len(str(messages))
+
+
+def track_recent_file(state: CompactState, path: str) -> None:
+    if path in state.recent_files:
+        state.recent_files.remove(path)
+    state.recent_files.append(path)
+    if len(state.recent_files) > 5:
+        state.recent_files[:] = state.recent_files[-5:]
+
+
+def safe_path(path_str: str) -> Path:
+    path = (WORKDIR / path_str).resolve()
+    if not path.is_relative_to(WORKDIR):
+        raise ValueError(f"Path escapes workspace: {path_str}")
+    return path
+
+
+def persist_large_output(tool_use_id: str, output: str) -> str:
+    if len(output) <= PERSIST_THRESHOLD:
+        return output
+
+    TOOL_RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    stored_path = TOOL_RESULTS_DIR / f"{tool_use_id}.txt"
+    if not stored_path.exists():
+        stored_path.write_text(output)
+
+    preview = output[:PREVIEW_CHARS]
+    rel_path = stored_path.relative_to(WORKDIR)
+    return (
+        "<persisted-output>\n"
+        f"Full output saved to: {rel_path}\n"
+        "Preview:\n"
+        f"{preview}\n"
+        "</persisted-output>"
+    )
+
+
+def collect_tool_result_blocks(messages: list) -> list[tuple[int, int, dict]]:
+    blocks = []
+    for message_index, message in enumerate(messages):
+        content = message.get("content")
+        if message.get("role") != "user" or not isinstance(content, list):
+            continue
+        for block_index, block in enumerate(content):
+            if isinstance(block, dict) and block.get("type") == "tool_result":
+                blocks.append((message_index, block_index, block))
+    return blocks
+
+
+def micro_compact(messages: list) -> list:
+    tool_results = collect_tool_result_blocks(messages)
+    if len(tool_results) <= KEEP_RECENT_TOOL_RESULTS:
+        return messages
+
+    for _, _, block in tool_results[:-KEEP_RECENT_TOOL_RESULTS]:
+        content = block.get("content", "")
+        if not isinstance(content, str) or len(content) <= 120:
+            continue
+        block["content"] = "[Earlier tool result compacted. Re-run the tool if you need full detail.]"
+    return messages
+
+
+def write_transcript(messages: list) -> Path:
+    TRANSCRIPT_DIR.mkdir(parents=True, exist_ok=True)
+    path = TRANSCRIPT_DIR / f"transcript_{int(time.time())}.jsonl"
+    with path.open("w") as handle:
+        for message in messages:
+            handle.write(json.dumps(message, default=str) + "\n")
+    return path
+
+
+def summarize_history(messages: list) -> str:
+    conversation = json.dumps(messages, default=str)[:80000]
+    prompt = (
+        "Summarize this coding-agent conversation so work can continue.\n"
+        "Preserve:\n"
+        "1. The current goal\n"
+        "2. Important findings and decisions\n"
+        "3. Files read or changed\n"
+        "4. Remaining work\n"
+        "5. User constraints and preferences\n"
+        "Be compact but concrete.\n\n"
+        f"{conversation}"
+    )
+    response = client.messages.create(
+        model=MODEL,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=2000,
+    )
+    return response.content[0].text.strip()
+
+
+def compact_history(messages: list, state: CompactState, focus: str | None = None) -> list:
+    transcript_path = write_transcript(messages)
+    print(f"[transcript saved: {transcript_path}]")
+
+    summary = summarize_history(messages)
+    if focus:
+        summary += f"\n\nFocus to preserve next: {focus}"
+    if state.recent_files:
+        recent_lines = "\n".join(f"- {path}" for path in state.recent_files)
+        summary += f"\n\nRecent files to reopen if needed:\n{recent_lines}"
+
+    state.has_compacted = True
+    state.last_summary = summary
+
+    return [{
+        "role": "user",
+        "content": (
+            "This conversation was compacted so the agent can continue working.\n\n"
+            f"{summary}"
+        ),
+    }]
+
+
+def run_bash(command: str, tool_use_id: str) -> str:
+    dangerous = ["rm -rf /", "sudo", "shutdown", "reboot", "> /dev/"]
+    if any(item in command for item in dangerous):
+        return "Error: Dangerous command blocked"
+    try:
+        result = subprocess.run(
+            command,
+            shell=True,
+            cwd=WORKDIR,
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+    except subprocess.TimeoutExpired:
+        return "Error: Timeout (120s)"
+
+    output = (result.stdout + result.stderr).strip() or "(no output)"
+    return persist_large_output(tool_use_id, output)
+
+
+def run_read(path: str, tool_use_id: str, state: CompactState, limit: int | None = None) -> str:
+    try:
+        track_recent_file(state, path)
+        lines = safe_path(path).read_text().splitlines()
+        if limit and limit < len(lines):
+            lines = lines[:limit] + [f"... ({len(lines) - limit} more lines)"]
+        output = "\n".join(lines)
+        return persist_large_output(tool_use_id, output)
+    except Exception as exc:
+        return f"Error: {exc}"
+
+
+def run_write(path: str, content: str) -> str:
+    try:
+        file_path = safe_path(path)
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+        file_path.write_text(content)
+        return f"Wrote {len(content)} bytes to {path}"
+    except Exception as exc:
+        return f"Error: {exc}"
+
+
+def run_edit(path: str, old_text: str, new_text: str) -> str:
+    try:
+        file_path = safe_path(path)
+        content = file_path.read_text()
+        if old_text not in content:
+            return f"Error: Text not found in {path}"
+        file_path.write_text(content.replace(old_text, new_text, 1))
+        return f"Edited {path}"
+    except Exception as exc:
+        return f"Error: {exc}"
+
+
+TOOLS = [
+    {
+        "name": "bash",
+        "description": "Run a shell command.",
+        "input_schema": {
+            "type": "object",
+            "properties": {"command": {"type": "string"}},
+            "required": ["command"],
+        },
+    },
+    {
+        "name": "read_file",
+        "description": "Read file contents.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "path": {"type": "string"},
+                "limit": {"type": "integer"},
+            },
+            "required": ["path"],
+        },
+    },
+    {
+        "name": "write_file",
+        "description": "Write content to a file.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "path": {"type": "string"},
+                "content": {"type": "string"},
+            },
+            "required": ["path", "content"],
+        },
+    },
+    {
+        "name": "edit_file",
+        "description": "Replace exact text in a file once.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "path": {"type": "string"},
+                "old_text": {"type": "string"},
+                "new_text": {"type": "string"},
+            },
+            "required": ["path", "old_text", "new_text"],
+        },
+    },
+    {
+        "name": "compact",
+        "description": "Summarize earlier conversation so work can continue in a smaller context.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "focus": {"type": "string"},
+            },
+        },
+    },
+]
+
+
+def extract_text(content) -> str:
+    if not isinstance(content, list):
+        return ""
+    texts = []
+    for block in content:
+        text = getattr(block, "text", None)
+        if text:
+            texts.append(text)
+    return "\n".join(texts).strip()
+
+
+def execute_tool(block, state: CompactState) -> str:
+    if block.name == "bash":
+        return run_bash(block.input["command"], block.id)
+    if block.name == "read_file":
+        return run_read(block.input["path"], block.id, state, block.input.get("limit"))
+    if block.name == "write_file":
+        return run_write(block.input["path"], block.input["content"])
+    if block.name == "edit_file":
+        return run_edit(block.input["path"], block.input["old_text"], block.input["new_text"])
+    if block.name == "compact":
+        return "Compacting conversation..."
+    return f"Unknown tool: {block.name}"
+
+
+def agent_loop(messages: list, state: CompactState) -> None:
+    while True:
+        messages[:] = micro_compact(messages)
+
+        if estimate_context_size(messages) > CONTEXT_LIMIT:
+            print("[auto compact]")
+            messages[:] = compact_history(messages, state)
+
+        response = client.messages.create(
+            model=MODEL,
+            system=SYSTEM,
+            messages=messages,
+            tools=TOOLS,
+            max_tokens=8000,
+        )
+        messages.append({"role": "assistant", "content": response.content})
+
+        if response.stop_reason != "tool_use":
+            return
+
+        results = []
+        manual_compact = False
+        compact_focus = None
+        for block in response.content:
+            if block.type != "tool_use":
+                continue
+
+            output = execute_tool(block, state)
+            if block.name == "compact":
+                manual_compact = True
+                compact_focus = (block.input or {}).get("focus")
+
+            print(f"> {block.name}: {str(output)[:200]}")
+            results.append({
+                "type": "tool_result",
+                "tool_use_id": block.id,
+                "content": str(output),
+            })
+
+        messages.append({"role": "user", "content": results})
+
+        if manual_compact:
+            print("[manual compact]")
+            messages[:] = compact_history(messages, state, focus=compact_focus)
+
+
+if __name__ == "__main__":
+    history = []
+    compact_state = CompactState()
+
+    while True:
+        try:
+            query = input("\033[36ms06 >> \033[0m")
+        except (EOFError, KeyboardInterrupt):
+            break
+        if query.strip().lower() in ("q", "exit", ""):
+            break
+
+        history.append({"role": "user", "content": query})
+        agent_loop(history, compact_state)
+
+        final_text = extract_text(history[-1]["content"])
+        if final_text:
+            print(final_text)
+        print()
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-3xl space-y-6 py-4","children":[["$","header",null,{"className":"space-y-2","children":[["$","div",null,{"className":"flex flex-wrap items-center gap-3","children":[["$","span",null,{"className":"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800","children":"s06"}],["$","h1",null,{"className":"text-2xl font-bold sm:text-3xl","children":"Context Compact"}],["$","span",null,{"className":"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300","children":"Core Loop"}]]}],["$","p",null,{"className":"text-sm text-zinc-500 dark:text-zinc-400","children":["Keep Active Context Small and Stable",["$","span",null,{"className":"mx-2 text-zinc-300 dark:text-zinc-600","children":"|"}],["$","span",null,{"className":"font-mono","children":[308," LOC"]}],["$","span",null,{"className":"mx-2 text-zinc-300 dark:text-zinc-600","children":"|"}],["$","span",null,{"children":[5," ","tools"]}]]}],["$","blockquote",null,{"className":"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400","children":"Compaction isn't deleting history -- it's relocating detail so the agent can keep working."}]]}],["$","$L2",null,{"version":"s06","diff":{"from":"s05","to":"s06","newClasses":["CompactState"],"newFunctions":["estimate_context_size","track_recent_file","persist_large_output","collect_tool_result_blocks","micro_compact","write_transcript","summarize_history","compact_history","execute_tool"],"newTools":["compact"],"locDelta":64},"source":"$3","filename":"s06_context_compact.py","guideData":{"focus":"Focus on the three layers: persisted output, micro compact, and summary compact.","confusion":"Compaction is not about deleting history. It is about moving detail out of the active window while keeping continuity.","goal":"Build a minimal compaction system that keeps long sessions usable."},"bridgeDocs":[{"slug":"data-structures","kind":"map","title":"Data Structure Map","summary":{"zh":"把核心记录结构放在一起看，适合任务、运行时、多 Agent 章节反复对照。","en":"Every important record in one place. Use when you lose track of where state lives.","ja":"主要な record 構造を横断的に見直すための資料です。"},"fallbackLocale":null},{"slug":"s00b-one-request-lifecycle","kind":"mechanism","title":"One Request Lifecycle","summary":{"zh":"把一次请求从进入、执行到回写走完一遍，适合主线开始混时回头校正心智。","en":"Traces one request from entry to write-back. Best read after Stage 2 when pieces need connecting.","ja":"1回の要求を入口から write-back まで通して確認する補助資料です。"},"fallbackLocale":null}],"locale":"en"}],"$L4"]}],["$L5","$L6","$L7","$L8","$L9","$La"],"$Lb"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"-ZSuvS_2uH_NHlo_ZQLZ-"}
+4:["$","nav",null,{"className":"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700","children":[["$","$Lc",null,{"href":"/en/s05","className":"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white","children":[["$","span",null,{"className":"transition-transform group-hover:-translate-x-1","children":"←"}],["$","div",null,{"children":[["$","div",null,{"className":"text-xs text-zinc-400","children":"Previous"}],["$","div",null,{"className":"font-medium","children":["s05"," - ","Skills"]}]]}]]}],["$","$Lc",null,{"href":"/en/s07","className":"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white","children":[["$","div",null,{"children":[["$","div",null,{"className":"text-xs text-zinc-400","children":"Next"}],["$","div",null,{"className":"font-medium","children":["Permission System"," - ","s07"]}]]}],["$","span",null,{"className":"transition-transform group-hover:translate-x-1","children":"→"}]]}]]}]
+5:["$","script","script-0",{"src":"/_next/static/chunks/063.oyz5446.o.js","async":true}]
+6:["$","script","script-1",{"src":"/_next/static/chunks/02kk5ekh_4.z~.js","async":true}]
+7:["$","script","script-2",{"src":"/_next/static/chunks/0-ogocbeyjdd4.js","async":true}]
+8:["$","script","script-3",{"src":"/_next/static/chunks/0_nawkytun4a5.js","async":true}]
+9:["$","script","script-4",{"src":"/_next/static/chunks/078.wnui.p.5c.js","async":true}]
+a:["$","script","script-5",{"src":"/_next/static/chunks/12~1n90oe7pm9.js","async":true}]
+b:["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
+f:null

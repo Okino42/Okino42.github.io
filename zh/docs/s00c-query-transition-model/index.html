@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>Query 续行模型</title><meta name="description" content="专门讲一条 query 为什么继续下一轮，适合恢复、压缩、预算、hook 开始缠在一起时回看。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/zh/"><span>←</span><span>回到学习主线</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">桥接文档</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">Query 续行模型</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">这页适合什么时候回看</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">专门讲一条 query 为什么继续下一轮，适合恢复、压缩、预算、hook 开始缠在一起时回看。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">最适合和这些章节一起读</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s11/">s11<!-- --> · <!-- -->错误恢复</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s17/">s17<!-- --> · <!-- -->自主代理</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p>这篇桥接文档专门解决一个问题：</p>
+<p><strong>为什么一个只会 <code>continue</code> 的 agent，不足以支撑完整系统，而必须显式知道“为什么继续到下一轮”？</strong></p>
+</blockquote>
+<h2>这一篇为什么要存在</h2>
+<p>主线里：</p>
+<ul>
+<li><code>s01</code> 先教你最小循环</li>
+<li><code>s06</code> 开始教上下文压缩</li>
+<li><code>s11</code> 开始教错误恢复</li>
+</ul>
+<p>这些都对。<br>
+但如果你只分别学这几章，脑子里很容易还是停留在一种过于粗糙的理解：</p>
+<blockquote>
+<p>“反正 <code>continue</code> 了就继续呗。”</p>
+</blockquote>
+<p>这在最小 demo 里能跑。<br>
+但当系统开始长出恢复、压缩和外部控制以后，这样理解会很快失灵。</p>
+<p>因为系统继续下一轮的原因其实很多，而且这些原因不是一回事：</p>
+<ul>
+<li>工具刚执行完，要把结果喂回模型</li>
+<li>输出被截断了，要续写</li>
+<li>上下文刚压缩完，要重试</li>
+<li>运输层刚超时了，要退避后重试</li>
+<li>stop hook 要求当前 turn 先不要结束</li>
+<li>token budget 还允许继续推进</li>
+</ul>
+<p>如果你不把这些“继续原因”从一开始拆开，后面会出现三个大问题：</p>
+<ul>
+<li>日志看不清</li>
+<li>测试不好写</li>
+<li>教学心智会越来越模糊</li>
+</ul>
+<h2>先解释几个名词</h2>
+<h3>什么叫 transition</h3>
+<p>这里的 <code>transition</code>，你可以先把它理解成：</p>
+<blockquote>
+<p>上一轮为什么转移到了下一轮。</p>
+</blockquote>
+<p>它不是“消息内容”，而是“流程原因”。</p>
+<h3>什么叫 continuation</h3>
+<p>continuation 就是：</p>
+<blockquote>
+<p>这条 query 当前还没有结束，要继续推进。</p>
+</blockquote>
+<p>但 continuation 不止一种。</p>
+<h3>什么叫 query boundary</h3>
+<p>query boundary 就是一轮和下一轮之间的边界。</p>
+<p>每次跨过这个边界，系统最好都知道：</p>
+<ul>
+<li>这次为什么继续</li>
+<li>这次继续前有没有修改状态</li>
+<li>这次继续后应该怎么读主循环</li>
+</ul>
+<h2>最小心智模型</h2>
+<p>先不要把 query 想成一条线。</p>
+<p>更接近真实情况的理解是：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">一条 query
+  = 一组“继续原因”串起来的状态转移
+</code></pre>
+<p>例如：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">用户输入
+  ->
+模型产生 tool_use
+  ->
+工具执行完
+  ->
+tool_result_continuation
+  ->
+模型输出过长
+  ->
+max_tokens_recovery
+  ->
+压缩后继续
+  ->
+compact_retry
+  ->
+最终结束
+</code></pre>
+<p>这样看，你会更容易理解：</p>
+<p><strong>系统不是单纯在 while loop 里转圈，而是在一串显式的转移原因里推进。</strong></p>
+<h2>关键数据结构</h2>
+<h3>1. QueryState 里的 <code>transition</code></h3>
+<p>最小版建议就把这类字段显式放进状态里：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">state = {
+    <span class="hljs-string">"messages"</span>: [...],
+    <span class="hljs-string">"turn_count"</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-string">"has_attempted_compact"</span>: <span class="hljs-literal">False</span>,
+    <span class="hljs-string">"continuation_count"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">"transition"</span>: <span class="hljs-literal">None</span>,
+}
+</code></pre>
+<p>这里的 <code>transition</code> 不是可有可无。</p>
+<p>它的意义是：</p>
+<ul>
+<li>当前这轮为什么会出现</li>
+<li>下一轮日志应该怎么解释</li>
+<li>测试时应该断言哪条路径被走到</li>
+</ul>
+<h3>2. TransitionReason</h3>
+<p>教学版最小可以先这样分：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">TRANSITIONS = (
+    <span class="hljs-string">"tool_result_continuation"</span>,
+    <span class="hljs-string">"max_tokens_recovery"</span>,
+    <span class="hljs-string">"compact_retry"</span>,
+    <span class="hljs-string">"transport_retry"</span>,
+    <span class="hljs-string">"stop_hook_continuation"</span>,
+    <span class="hljs-string">"budget_continuation"</span>,
+)
+</code></pre>
+<p>这几种原因的本质不一样：</p>
+<ul>
+<li><code>tool_result_continuation</code>
+是正常主线继续</li>
+<li><code>max_tokens_recovery</code>
+是输出被截断后的恢复继续</li>
+<li><code>compact_retry</code>
+是上下文处理后的恢复继续</li>
+<li><code>transport_retry</code>
+是基础设施抖动后的恢复继续</li>
+<li><code>stop_hook_continuation</code>
+是外部控制逻辑阻止本轮结束</li>
+<li><code>budget_continuation</code>
+是系统主动利用预算继续推进</li>
+</ul>
+<h3>3. Continuation Budget</h3>
+<p>更完整的 query 状态不只会说“继续”，还会限制：</p>
+<ul>
+<li>最多续写几次</li>
+<li>最多压缩后重试几次</li>
+<li>某类恢复是不是已经尝试过</li>
+</ul>
+<p>例如：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">state = {
+    <span class="hljs-string">"max_output_tokens_recovery_count"</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-string">"has_attempted_reactive_compact"</span>: <span class="hljs-literal">True</span>,
+}
+</code></pre>
+<p>这些字段的本质都是：</p>
+<blockquote>
+<p>continuation 不是无限制的。</p>
+</blockquote>
+<h2>最小实现</h2>
+<h3>第一步：把 continue site 显式化</h3>
+<p>很多初学者写主循环时，所有继续逻辑都长这样：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">continue</span>
+</code></pre>
+<p>教学版应该往前走一步：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"tool_result_continuation"</span>
+<span class="hljs-keyword">continue</span>
+</code></pre>
+<h3>第二步：不同继续原因，配不同状态修改</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">if</span> response.stop_reason == <span class="hljs-string">"tool_use"</span>:
+    state[<span class="hljs-string">"messages"</span>] = append_tool_results(...)
+    state[<span class="hljs-string">"turn_count"</span>] += <span class="hljs-number">1</span>
+    state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"tool_result_continuation"</span>
+    <span class="hljs-keyword">continue</span>
+
+<span class="hljs-keyword">if</span> response.stop_reason == <span class="hljs-string">"max_tokens"</span>:
+    state[<span class="hljs-string">"messages"</span>].append({
+        <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+        <span class="hljs-string">"content"</span>: CONTINUE_MESSAGE,
+    })
+    state[<span class="hljs-string">"max_output_tokens_recovery_count"</span>] += <span class="hljs-number">1</span>
+    state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"max_tokens_recovery"</span>
+    <span class="hljs-keyword">continue</span>
+</code></pre>
+<p>重点不是“多写一行”。</p>
+<p>重点是：</p>
+<p><strong>每次继续之前，你都要知道自己做了什么状态更新，以及为什么继续。</strong></p>
+<h3>第三步：把恢复继续和正常继续分开</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">if</span> should_retry_transport(error):
+    time.sleep(backoff(...))
+    state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"transport_retry"</span>
+    <span class="hljs-keyword">continue</span>
+
+<span class="hljs-keyword">if</span> should_recompact(error):
+    state[<span class="hljs-string">"messages"</span>] = compact_messages(state[<span class="hljs-string">"messages"</span>])
+    state[<span class="hljs-string">"transition"</span>] = <span class="hljs-string">"compact_retry"</span>
+    <span class="hljs-keyword">continue</span>
+</code></pre>
+<p>这时候你就开始得到一条非常清楚的控制链：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">继续
+  不再是一个动作
+  而是一类带原因的转移
+</code></pre>
+<h2>一张真正应该建立的图</h2>
+<pre class="code-block" data-language="text"><code class="hljs language-text">query loop
+  |
+  +-- tool executed --------------------> transition = tool_result_continuation
+  |
+  +-- output truncated -----------------> transition = max_tokens_recovery
+  |
+  +-- compact just happened -----------> transition = compact_retry
+  |
+  +-- network / transport retry -------> transition = transport_retry
+  |
+  +-- stop hook blocked termination ---> transition = stop_hook_continuation
+  |
+  +-- budget says keep going ----------> transition = budget_continuation
+</code></pre>
+<h2>它和逆向仓库主脉络为什么对得上</h2>
+<p>如果你去看更完整系统的查询入口，会发现它真正难的地方从来不是：</p>
+<ul>
+<li>再调一次模型</li>
+</ul>
+<p>而是：</p>
+<ul>
+<li>什么时候该继续</li>
+<li>继续前改哪份状态</li>
+<li>继续属于哪一种路径</li>
+</ul>
+<p>所以这篇桥接文档讲的，不是额外装饰，而是完整 query engine 的主骨架之一。</p>
+<h2>它和主线章节怎么接</h2>
+<ul>
+<li><code>s01</code> 让你先把 loop 跑起来</li>
+<li><code>s06</code> 让你知道为什么上下文管理会介入继续路径</li>
+<li><code>s11</code> 让你知道为什么恢复路径不是一种</li>
+<li>这篇则把“继续原因”统一抬成显式状态</li>
+</ul>
+<p>所以你可以把它理解成：</p>
+<blockquote>
+<p>给前后几章之间补上一条“为什么继续”的统一主线。</p>
+</blockquote>
+<h2>初学者最容易犯的错</h2>
+<h3>1. 只有 <code>continue</code>，没有 <code>transition</code></h3>
+<p>这样日志和测试都会越来越难看。</p>
+<h3>2. 把所有继续都当成一种</h3>
+<p>这样会把：</p>
+<ul>
+<li>正常主线继续</li>
+<li>错误恢复继续</li>
+<li>压缩后重试</li>
+</ul>
+<p>全部混成一锅。</p>
+<h3>3. 没有 continuation budget</h3>
+<p>没有预算，系统就会在某些坏路径里无限试下去。</p>
+<h3>4. 把 <code>transition</code> 写进消息文本，而不是流程状态</h3>
+<p>消息是给模型看的。<br>
+<code>transition</code> 是给系统自己看的。</p>
+<h3>5. 压缩、恢复、hook 都发生了，却没有统一的查询状态</h3>
+<p>这会导致控制逻辑散落在很多局部变量里，越长越乱。</p>
+<h2>教学边界</h2>
+<p>这篇最重要的，不是一次枚举完所有 transition 名字，而是先让你守住三件事：</p>
+<ul>
+<li><code>continue</code> 最好总能对应一个显式的 <code>transition reason</code></li>
+<li>正常继续、恢复继续、压缩后重试，不应该被混成同一种路径</li>
+<li>continuation 需要预算和状态，而不是无限重来</li>
+</ul>
+<p>只要这三点成立，你就已经能把 <code>s01 / s06 / s11</code> 真正串成一条完整主线。<br>
+更细的 transition taxonomy、预算策略和日志分类，可以放到你把最小 query 状态机写稳以后再补。</p>
+<h2>读完这一篇你应该能说清楚</h2>
+<p>至少能完整说出这句话：</p>
+<blockquote>
+<p>一条 query 不是简单 while loop，而是一串显式 continuation reason 驱动的状态转移。</p>
+</blockquote>
+<p>如果这句话你已经能稳定说清，那么你再回头看 <code>s11</code>、<code>s19</code>，心智会顺很多。</p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"docs\",\"s00c-query-transition-model\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"s00c-query-transition-model\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/zh\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"回到学习主线\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"桥接文档\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"Query 续行模型\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"这页适合什么时候回看\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"专门讲一条 query 为什么继续下一轮，适合恢复、压缩、预算、hook 开始缠在一起时回看。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"最适合和这些章节一起读\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s11\",{\"href\":\"/zh/s11\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s11\",\" · \",\"错误恢复\"]}],[\"$\",\"$L13\",\"s17\",{\"href\":\"/zh/s17\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s17\",\" · \",\"自主代理\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"s00c-query-transition-model\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Query 续行模型\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"专门讲一条 query 为什么继续下一轮，适合恢复、压缩、预算、hook 开始缠在一起时回看。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

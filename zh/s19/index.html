@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s19</span><h1 class="text-2xl font-bold sm:text-3xl">MCP 与插件</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">多 Agent 平台</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">外部能力总线<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">463<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>4<!-- --> <!-- -->个工具</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">外部能力系统不该是外挂；它们应和原生工具一起处在同一控制面上。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学习</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">源码</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深入探索</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > s05 > s06 > s07 > s08 > s09 > s10 > s11 > s12 > s13 > s14 > s15 > s16 > s17 > s18 > [ s19 ]</code></p>
+<blockquote class="hero-callout">
+<p><em>工具不必都写死在主程序里。外部进程也可以把能力接进你的 agent。</em></p>
+</blockquote>
+<h2>这一章到底在讲什么</h2>
+<p>前面所有章节里，工具基本都写在你自己的 Python 代码里。</p>
+<p>这当然是最适合教学的起点。</p>
+<p>但真实系统走到一定阶段以后，会很自然地遇到这个需求：</p>
+<blockquote>
+<p>“能不能让外部程序也把工具接进来，而不用每次都改主程序？”</p>
+</blockquote>
+<p>这就是 MCP 要解决的问题。</p>
+<h2>先用最简单的话解释 MCP</h2>
+<p>你可以先把 MCP 理解成：</p>
+<p><strong>一套让 agent 和外部工具程序对话的统一协议。</strong></p>
+<p>在教学版里，不必一开始就背很多协议细节。<br>
+你只要先抓住这条主线：</p>
+<ol>
+<li>启动一个外部工具服务进程</li>
+<li>问它“你有哪些工具”</li>
+<li>当模型要用它的工具时，把请求转发给它</li>
+<li>再把结果带回 agent 主循环</li>
+</ol>
+<p>这已经够理解 80% 的核心机制了。</p>
+<h2>为什么这一章放在最后</h2>
+<p>因为 MCP 不是主循环的起点，而是主循环稳定之后的扩展层。</p>
+<p>如果你还没真正理解：</p>
+<ul>
+<li>agent loop</li>
+<li>tool call</li>
+<li>permission</li>
+<li>task</li>
+<li>worktree</li>
+</ul>
+<p>那 MCP 只会看起来像又一套复杂接口。</p>
+<p>但当你已经有了前面的心智，再看 MCP，你会发现它本质上只是：</p>
+<p><strong>把“工具来源”从“本地硬编码”升级成“外部可插拔”。</strong></p>
+<h2>建议联读</h2>
+<ul>
+<li>如果你只把 MCP 理解成“远程 tools”，先看 <a href="./s19a-mcp-capability-layers.md"><code>s19a-mcp-capability-layers.md</code></a>，把 tools、resources、prompts、plugin 中介层一起放回平台边界里。</li>
+<li>如果你想确认外部能力为什么仍然要回到同一条执行面，回看 <a href="./s02b-tool-execution-runtime.md"><code>s02b-tool-execution-runtime.md</code></a>。</li>
+<li>如果你开始把“query 控制平面”和“外部能力路由”完全分开理解，建议配合看 <a href="./s00a-query-control-plane.md"><code>s00a-query-control-plane.md</code></a>。</li>
+</ul>
+<h2>最小心智模型</h2>
+<pre class="code-block" data-language="text"><code class="hljs language-text">LLM
+  |
+  | asks to call a tool
+  v
+Agent tool router
+  |
+  +-- native tool  -> 本地 Python handler
+  |
+  +-- MCP tool     -> 外部 MCP server
+                        |
+                        v
+                    return result
+</code></pre>
+<h2>最小系统里最重要的三件事</h2>
+<h3>1. 有一个 MCP client</h3>
+<p>它负责：</p>
+<ul>
+<li>启动外部进程</li>
+<li>发送请求</li>
+<li>接收响应</li>
+</ul>
+<h3>2. 有一个工具名前缀规则</h3>
+<p>这是为了避免命名冲突。</p>
+<p>最常见的做法是：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">mcp__{server}__{tool}
+</code></pre>
+<p>比如：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">mcp__postgres__query
+mcp__browser__open_tab
+</code></pre>
+<p>这样一眼就知道：</p>
+<ul>
+<li>这是 MCP 工具</li>
+<li>它来自哪个 server</li>
+<li>它原始工具名是什么</li>
+</ul>
+<h3>3. 有一个统一路由器</h3>
+<p>路由器只做一件事：</p>
+<ul>
+<li>如果是本地工具，就交给本地 handler</li>
+<li>如果是 MCP 工具，就交给 MCP client</li>
+</ul>
+<h2>Plugin 又是什么</h2>
+<p>如果 MCP 解决的是“外部工具怎么通信”，<br>
+那 plugin 解决的是“这些外部工具配置怎么被发现”。</p>
+<p>最小 plugin 可以非常简单：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">.claude-plugin/
+  plugin.json
+</code></pre>
+<p>里面写：</p>
+<ul>
+<li>插件名</li>
+<li>版本</li>
+<li>它提供哪些 MCP server</li>
+<li>每个 server 的启动命令是什么</li>
+</ul>
+<h2>最小配置长什么样</h2>
+<pre class="code-block" data-language="json"><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"my-db-tools"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"mcpServers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"postgres"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"command"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"npx"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"args"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"-y"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"@modelcontextprotocol/server-postgres"</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>这个配置并不复杂。</p>
+<p>它本质上只是在告诉主程序：</p>
+<blockquote>
+<p>“如果你想接这个 server，就用这条命令把它拉起来。”</p>
+</blockquote>
+<h2>最小实现步骤</h2>
+<h3>第一步：写一个 <code>MCPClient</code></h3>
+<p>它至少要有三个能力：</p>
+<ul>
+<li><code>connect()</code></li>
+<li><code>list_tools()</code></li>
+<li><code>call_tool()</code></li>
+</ul>
+<h3>第二步：把外部工具标准化成 agent 能看懂的工具定义</h3>
+<p>也就是说，把 MCP server 暴露的工具，转成 agent 工具池里的统一格式。</p>
+<h3>第三步：加前缀</h3>
+<p>这样主程序就能区分：</p>
+<ul>
+<li>本地工具</li>
+<li>外部工具</li>
+</ul>
+<h3>第四步：写一个 router</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">if</span> tool_name.startswith(<span class="hljs-string">"mcp__"</span>):
+    <span class="hljs-keyword">return</span> mcp_router.call(tool_name, arguments)
+<span class="hljs-keyword">else</span>:
+    <span class="hljs-keyword">return</span> native_handler(arguments)
+</code></pre>
+<h3>第五步：仍然走同一条权限管道</h3>
+<p>这是非常关键的一点：</p>
+<p><strong>MCP 工具虽然来自外部，但不能绕开 permission。</strong></p>
+<p>不然你等于在系统边上开了个安全后门。</p>
+<p>如果你想把这一层再收得更稳，最好再把结果也标准化回同一条总线：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"mcp"</span>,
+    <span class="hljs-string">"server"</span>: <span class="hljs-string">"figma"</span>,
+    <span class="hljs-string">"tool"</span>: <span class="hljs-string">"inspect"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"ok"</span>,
+    <span class="hljs-string">"preview"</span>: <span class="hljs-string">"..."</span>,
+}
+</code></pre>
+<p>这表示：</p>
+<ul>
+<li>路由前要过共享权限闸门</li>
+<li>路由后不论本地还是远程，结果都要转成主循环看得懂的统一格式</li>
+</ul>
+<h2>如何接到整个系统里</h2>
+<p>如果你读到这里还觉得 MCP 像“外挂”，通常是因为没有把它放回整条主回路里。</p>
+<p>更完整的接法应该看成：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">启动时
+  ->
+PluginLoader 找到 manifest
+  ->
+得到 server 配置
+  ->
+MCP client 连接 server
+  ->
+list_tools 并标准化名字
+  ->
+和 native tools 一起合并进同一个工具池
+
+运行时
+  ->
+LLM 产出 tool_use
+  ->
+统一权限闸门
+  ->
+native route 或 mcp route
+  ->
+结果标准化
+  ->
+tool_result 回到同一个主循环
+</code></pre>
+<p>这段流程里最关键的不是“外部”两个字，而是：</p>
+<p><strong>进入方式不同，但进入后必须回到同一条控制面和执行面。</strong></p>
+<h2>Plugin、MCP Server、MCP Tool 不要混成一层</h2>
+<p>这是初学者最容易在本章里打结的地方。</p>
+<p>可以直接按下面三层记：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>层级</th><th>它是什么</th><th>它负责什么</th></tr></thead><tbody><tr><td>plugin manifest</td><td>一份配置声明</td><td>告诉系统要发现和启动哪些 server</td></tr><tr><td>MCP server</td><td>一个外部进程 / 连接对象</td><td>对外暴露一组能力</td></tr><tr><td>MCP tool</td><td>server 暴露的一项具体调用能力</td><td>真正被模型点名调用</td></tr></tbody></table></div>
+<p>换成一句最短的话说：</p>
+<ul>
+<li>plugin 负责“发现”</li>
+<li>server 负责“连接”</li>
+<li>tool 负责“调用”</li>
+</ul>
+<p>只要这三层还分得清，MCP 这章的主体心智就不会乱。</p>
+<h2>这一章最关键的数据结构</h2>
+<h3>1. server 配置</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">{
+    <span class="hljs-string">"command"</span>: <span class="hljs-string">"npx"</span>,
+    <span class="hljs-string">"args"</span>: [<span class="hljs-string">"-y"</span>, <span class="hljs-string">"..."</span>],
+    <span class="hljs-string">"env"</span>: {}
+}
+</code></pre>
+<h3>2. 标准化后的工具定义</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">{
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"mcp__postgres__query"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Run a SQL query"</span>,
+    <span class="hljs-string">"input_schema"</span>: {...}
+}
+</code></pre>
+<h3>3. client 注册表</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">clients = {
+    <span class="hljs-string">"postgres"</span>: mcp_client_instance
+}
+</code></pre>
+<h2>初学者最容易被带偏的地方</h2>
+<h3>1. 一上来讲太多协议细节</h3>
+<p>这章最容易失控。</p>
+<p>因为一旦开始讲完整协议生态，很快会出现：</p>
+<ul>
+<li>transports</li>
+<li>auth</li>
+<li>resources</li>
+<li>prompts</li>
+<li>streaming</li>
+<li>connection recovery</li>
+</ul>
+<p>这些都存在，但不该挡住主线。</p>
+<p>主线只有一句话：</p>
+<p><strong>外部工具也能像本地工具一样接进 agent。</strong></p>
+<h3>2. 把 MCP 当成一套完全不同的工具系统</h3>
+<p>不是。</p>
+<p>它最终仍然应该汇入你原来的工具体系：</p>
+<ul>
+<li>一样要注册</li>
+<li>一样要出现在工具池里</li>
+<li>一样要过权限</li>
+<li>一样要返回 <code>tool_result</code></li>
+</ul>
+<h3>3. 忽略命名与路由</h3>
+<p>如果没有统一前缀和统一路由，系统会很快乱掉。</p>
+<h2>教学边界</h2>
+<p>这一章正文先停在 <code>tools-first</code> 是对的。</p>
+<p>因为教学主线最需要先讲清的是：</p>
+<ul>
+<li>外部能力怎样被发现</li>
+<li>怎样被统一命名和路由</li>
+<li>怎样继续经过同一条权限与 <code>tool_result</code> 回流</li>
+</ul>
+<p>只要这一层已经成立，读者就已经真正理解了：</p>
+<p><strong>MCP / plugin 不是外挂，而是接回同一控制面的外部能力入口。</strong></p>
+<p>transport、认证、resources、prompts、插件生命周期这些更大范围的内容，应该放到平台桥接资料里继续展开。</p>
+<h2>正文先停在 tools-first，平台层再看桥接文档</h2>
+<p>这一章的正文故意停在“外部工具如何接进 agent”这一层。<br>
+这是教学上的刻意取舍，不是缺失。</p>
+<p>如果你准备继续补平台边界，再去看：</p>
+<ul>
+<li><a href="./s19a-mcp-capability-layers.md"><code>s19a-mcp-capability-layers.md</code></a></li>
+</ul>
+<p>那篇会把 MCP 再往上补成一张平台地图，包括：</p>
+<ul>
+<li>server 配置作用域</li>
+<li>transport 类型</li>
+<li>连接状态：<code>connected / pending / needs-auth / failed / disabled</code></li>
+<li>tools 之外的 <code>resources / prompts / elicitation</code></li>
+<li>auth 该放在哪一层理解</li>
+</ul>
+<p>这样安排的好处是：</p>
+<ul>
+<li>正文不失焦</li>
+<li>读者又不会误以为 MCP 只有一个 <code>list_tools + call_tool</code></li>
+</ul>
+<h2>这一章和全仓库的关系</h2>
+<p>如果说前 18 章都在教你把系统内部搭起来，<br>
+那 <code>s19</code> 在教你：</p>
+<p><strong>如何把系统向外打开。</strong></p>
+<p>从这里开始，工具不再只来自你手写的 Python 文件，<br>
+还可以来自别的进程、别的系统、别的服务。</p>
+<p>这就是为什么它适合作为最后一章。</p>
+<h2>学完这章后，你应该能回答</h2>
+<ul>
+<li>MCP 的核心到底是什么？</li>
+<li>为什么它应该放在整个学习路径的最后？</li>
+<li>为什么 MCP 工具也必须走同一条权限与路由逻辑？</li>
+<li>plugin 和 MCP 分别解决什么问题？</li>
+</ul>
+<hr>
+<p><strong>一句话记住：MCP 的本质，不是协议名词堆砌，而是把外部工具安全、统一地接进你的 agent。</strong></p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s18/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">上一章</div><div class="font-medium">s18<!-- --> - <!-- -->Worktree 隔离</div></div></a><div></div></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"s19\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s19\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T4f9f,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: integration -- tools aren't just in your code.\n\"\"\"\ns19_mcp_plugin.py - MCP \u0026 Plugin System\n\nThis teaching chapter focuses on the smallest useful idea:\nexternal processes can expose tools, and your agent can treat them like\nnormal tools after a small amount of normalization.\n\nMinimal path:\n  1. start an MCP server process\n  2. ask it which tools it has\n  3. prefix and register those tools\n  4. route matching calls to that server\n\nPlugins add one more layer: discovery. A tiny manifest tells the agent which\nexternal server to start.\n\nKey insight: \"External tools should enter the same tool pipeline, not form a\ncompletely separate world.\" In practice that means shared permission checks\nand normalized tool_result payloads.\n\nRead this file in this order:\n1. CapabilityPermissionGate: external tools still go through the same control gate.\n2. MCPClient: how one server connection exposes tool specs and tool calls.\n3. PluginLoader: how manifests declare external servers.\n4. MCPToolRouter / build_tool_pool: how native and external tools merge into one pool.\n\nMost common confusion:\n- a plugin manifest is not an MCP server\n- an MCP server is not a single MCP tool\n- external capability does not bypass the native permission path\n\nTeaching boundary:\nthis file teaches the smallest useful stdio MCP path.\nMarketplace details, auth flows, reconnect logic, and non-tool capability layers\nare intentionally left to bridge docs and later extensions.\n\"\"\"\n\nimport json\nimport os\nimport subprocess\nimport threading\nfrom pathlib import Path\n\nfrom anthropic import Anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\n\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\nPERMISSION_MODES = (\"default\", \"auto\")\n\n\nclass CapabilityPermissionGate:\n    \"\"\"\n    Shared permission gate for native tools and external capabilities.\n\n    The teaching goal is simple: MCP does not bypass the control plane.\n    Native tools and MCP tools both become normalized capability intents first,\n    then pass through the same allow / ask policy.\n    \"\"\"\n\n    READ_PREFIXES = (\"read\", \"list\", \"get\", \"show\", \"search\", \"query\", \"inspect\")\n    HIGH_RISK_PREFIXES = (\"delete\", \"remove\", \"drop\", \"shutdown\")\n\n    def __init__(self, mode: str = \"default\"):\n        self.mode = mode if mode in PERMISSION_MODES else \"default\"\n\n    def normalize(self, tool_name: str, tool_input: dict) -\u003e dict:\n        if tool_name.startswith(\"mcp__\"):\n            _, server_name, actual_tool = tool_name.split(\"__\", 2)\n            source = \"mcp\"\n        else:\n            server_name = None\n            actual_tool = tool_name\n            source = \"native\"\n\n        lowered = actual_tool.lower()\n        if actual_tool == \"read_file\" or lowered.startswith(self.READ_PREFIXES):\n            risk = \"read\"\n        elif actual_tool == \"bash\":\n            command = tool_input.get(\"command\", \"\")\n            risk = \"high\" if any(\n                token in command for token in (\"rm -rf\", \"sudo\", \"shutdown\", \"reboot\")\n            ) else \"write\"\n        elif lowered.startswith(self.HIGH_RISK_PREFIXES):\n            risk = \"high\"\n        else:\n            risk = \"write\"\n\n        return {\n            \"source\": source,\n            \"server\": server_name,\n            \"tool\": actual_tool,\n            \"risk\": risk,\n        }\n\n    def check(self, tool_name: str, tool_input: dict) -\u003e dict:\n        intent = self.normalize(tool_name, tool_input)\n\n        if intent[\"risk\"] == \"read\":\n            return {\"behavior\": \"allow\", \"reason\": \"Read capability\", \"intent\": intent}\n\n        if self.mode == \"auto\" and intent[\"risk\"] != \"high\":\n            return {\n                \"behavior\": \"allow\",\n                \"reason\": \"Auto mode for non-high-risk capability\",\n                \"intent\": intent,\n            }\n\n        if intent[\"risk\"] == \"high\":\n            return {\n                \"behavior\": \"ask\",\n                \"reason\": \"High-risk capability requires confirmation\",\n                \"intent\": intent,\n            }\n\n        return {\n            \"behavior\": \"ask\",\n            \"reason\": \"State-changing capability requires confirmation\",\n            \"intent\": intent,\n        }\n\n    def ask_user(self, intent: dict, tool_input: dict) -\u003e bool:\n        preview = json.dumps(tool_input, ensure_ascii=False)[:200]\n        source = (\n            f\"{intent['source']}:{intent['server']}/{intent['tool']}\"\n            if intent.get(\"server\")\n            else f\"{intent['source']}:{intent['tool']}\"\n        )\n        print(f\"\\n  [Permission] {source} risk={intent['risk']}: {preview}\")\n        try:\n            answer = input(\"  Allow? (y/n): \").strip().lower()\n        except (EOFError, KeyboardInterrupt):\n            return False\n        return answer in (\"y\", \"yes\")\n\n\npermission_gate = CapabilityPermissionGate()\n\n\nclass MCPClient:\n    \"\"\"\n    Minimal MCP client over stdio.\n\n    This is enough to teach the core architecture without dragging readers\n    through every transport, auth flow, or marketplace detail up front.\n    \"\"\"\n\n    def __init__(self, server_name: str, command: str, args: list = None, env: dict = None):\n        self.server_name = server_name\n        self.command = command\n        self.args = args or []\n        self.env = {**os.environ, **(env or {})}\n        self.process = None\n        self._request_id = 0\n        self._tools = []  # cached tool list\n\n    def connect(self):\n        \"\"\"Start the MCP server process.\"\"\"\n        try:\n            self.process = subprocess.Popen(\n                [self.command] + self.args,\n                stdin=subprocess.PIPE,\n                stdout=subprocess.PIPE,\n                stderr=subprocess.PIPE,\n                env=self.env,\n                text=True,\n            )\n            # Send initialize request\n            self._send({\"method\": \"initialize\", \"params\": {\n                \"protocolVersion\": \"2024-11-05\",\n                \"capabilities\": {},\n                \"clientInfo\": {\"name\": \"teaching-agent\", \"version\": \"1.0\"},\n            }})\n            response = self._recv()\n            if response and \"result\" in response:\n                # Send initialized notification\n                self._send({\"method\": \"notifications/initialized\"})\n                return True\n        except FileNotFoundError:\n            print(f\"[MCP] Server command not found: {self.command}\")\n        except Exception as e:\n            print(f\"[MCP] Connection failed: {e}\")\n        return False\n\n    def list_tools(self) -\u003e list:\n        \"\"\"Fetch available tools from the server.\"\"\"\n        self._send({\"method\": \"tools/list\", \"params\": {}})\n        response = self._recv()\n        if response and \"result\" in response:\n            self._tools = response[\"result\"].get(\"tools\", [])\n        return self._tools\n\n    def call_tool(self, tool_name: str, arguments: dict) -\u003e str:\n        \"\"\"Execute a tool on the server.\"\"\"\n        self._send({\"method\": \"tools/call\", \"params\": {\n            \"name\": tool_name,\n            \"arguments\": arguments,\n        }})\n        response = self._recv()\n        if response and \"result\" in response:\n            content = response[\"result\"].get(\"content\", [])\n            return \"\\n\".join(c.get(\"text\", str(c)) for c in content)\n        if response and \"error\" in response:\n            return f\"MCP Error: {response['error'].get('message', 'unknown')}\"\n        return \"MCP Error: no response\"\n\n    def get_agent_tools(self) -\u003e list:\n        \"\"\"\n        Convert MCP tools to agent tool format.\n\n        Teaching version uses the same simple prefix idea:\n        mcp__{server_name}__{tool_name}\n        \"\"\"\n        agent_tools = []\n        for tool in self._tools:\n            prefixed_name = f\"mcp__{self.server_name}__{tool['name']}\"\n            agent_tools.append({\n                \"name\": prefixed_name,\n                \"description\": tool.get(\"description\", \"\"),\n                \"input_schema\": tool.get(\"inputSchema\", {\"type\": \"object\", \"properties\": {}}),\n                \"_mcp_server\": self.server_name,\n                \"_mcp_tool\": tool[\"name\"],\n            })\n        return agent_tools\n\n    def disconnect(self):\n        \"\"\"Shut down the server process.\"\"\"\n        if self.process:\n            try:\n                self._send({\"method\": \"shutdown\"})\n                self.process.terminate()\n                self.process.wait(timeout=5)\n            except Exception:\n                self.process.kill()\n            self.process = None\n\n    def _send(self, message: dict):\n        if not self.process or self.process.poll() is not None:\n            return\n        self._request_id += 1\n        envelope = {\"jsonrpc\": \"2.0\", \"id\": self._request_id, **message}\n        line = json.dumps(envelope) + \"\\n\"\n        try:\n            self.process.stdin.write(line)\n            self.process.stdin.flush()\n        except (BrokenPipeError, OSError):\n            pass\n\n    def _recv(self) -\u003e dict | None:\n        if not self.process or self.process.poll() is not None:\n            return None\n        try:\n            line = self.process.stdout.readline()\n            if line:\n                return json.loads(line)\n        except (json.JSONDecodeError, OSError):\n            pass\n        return None\n\n\nclass PluginLoader:\n    \"\"\"\n    Load plugins from .claude-plugin/ directories.\n\n    Teaching version implements the smallest useful plugin flow:\n    read a manifest, discover MCP server configs, and register them.\n    \"\"\"\n\n    def __init__(self, search_dirs: list = None):\n        self.search_dirs = search_dirs or [WORKDIR]\n        self.plugins = {}  # name -\u003e manifest\n\n    def scan(self) -\u003e list:\n        \"\"\"Scan directories for .claude-plugin/plugin.json manifests.\"\"\"\n        found = []\n        for search_dir in self.search_dirs:\n            plugin_dir = Path(search_dir) / \".claude-plugin\"\n            manifest_path = plugin_dir / \"plugin.json\"\n            if manifest_path.exists():\n                try:\n                    manifest = json.loads(manifest_path.read_text())\n                    name = manifest.get(\"name\", plugin_dir.parent.name)\n                    self.plugins[name] = manifest\n                    found.append(name)\n                except (json.JSONDecodeError, OSError) as e:\n                    print(f\"[Plugin] Failed to load {manifest_path}: {e}\")\n        return found\n\n    def get_mcp_servers(self) -\u003e dict:\n        \"\"\"\n        Extract MCP server configs from loaded plugins.\n        Returns {server_name: {command, args, env}}.\n        \"\"\"\n        servers = {}\n        for plugin_name, manifest in self.plugins.items():\n            for server_name, config in manifest.get(\"mcpServers\", {}).items():\n                servers[f\"{plugin_name}__{server_name}\"] = config\n        return servers\n\n\nclass MCPToolRouter:\n    \"\"\"\n    Routes tool calls to the correct MCP server.\n\n    MCP tools are prefixed mcp__{server}__{tool} and live alongside\n    native tools in the same tool pool. The router strips the prefix\n    and dispatches to the right MCPClient.\n    \"\"\"\n\n    def __init__(self):\n        self.clients = {}  # server_name -\u003e MCPClient\n\n    def register_client(self, client: MCPClient):\n        self.clients[client.server_name] = client\n\n    def is_mcp_tool(self, tool_name: str) -\u003e bool:\n        return tool_name.startswith(\"mcp__\")\n\n    def call(self, tool_name: str, arguments: dict) -\u003e str:\n        \"\"\"Route an MCP tool call to the correct server.\"\"\"\n        parts = tool_name.split(\"__\", 2)\n        if len(parts) != 3:\n            return f\"Error: Invalid MCP tool name: {tool_name}\"\n        _, server_name, actual_tool = parts\n        client = self.clients.get(server_name)\n        if not client:\n            return f\"Error: MCP server not found: {server_name}\"\n        return client.call_tool(actual_tool, arguments)\n\n    def get_all_tools(self) -\u003e list:\n        \"\"\"Collect tools from all connected MCP servers.\"\"\"\n        tools = []\n        for client in self.clients.values():\n            tools.extend(client.get_agent_tools())\n        return tools\n\n\n# -- Native tool implementations (same as s02) --\ndef safe_path(p: str) -\u003e Path:\n    path = (WORKDIR / p).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {p}\")\n    return path\n\ndef run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\", \"\u003e /dev/\"]\n    if any(d in command for d in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        r = subprocess.run(command, shell=True, cwd=WORKDIR,\n                           capture_output=True, text=True, timeout=120)\n        out = (r.stdout + r.stderr).strip()\n        return out[:50000] if out else \"(no output)\"\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\ndef run_read(path: str) -\u003e str:\n    try:\n        return safe_path(path).read_text()[:50000]\n    except Exception as e:\n        return f\"Error: {e}\"\n\ndef run_write(path: str, content: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        fp.parent.mkdir(parents=True, exist_ok=True)\n        fp.write_text(content)\n        return f\"Wrote {len(content)} bytes\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\ndef run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        content = fp.read_text()\n        if old_text not in content:\n            return f\"Error: Text not found in {path}\"\n        fp.write_text(content.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\nNATIVE_HANDLERS = {\n    \"bash\":       lambda **kw: run_bash(kw[\"command\"]),\n    \"read_file\":  lambda **kw: run_read(kw[\"path\"]),\n    \"write_file\": lambda **kw: run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\":  lambda **kw: run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n}\n\nNATIVE_TOOLS = [\n    {\"name\": \"bash\", \"description\": \"Run a shell command.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}}, \"required\": [\"path\"]}},\n    {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n    {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n]\n\n\n# -- MCP Tool Router (global) --\nmcp_router = MCPToolRouter()\nplugin_loader = PluginLoader()\n\n\ndef build_tool_pool() -\u003e list:\n    \"\"\"\n    Assemble the complete tool pool: native + MCP tools.\n\n    Native tools take precedence on name conflicts so the local core remains\n    predictable even after external tools are added.\n    \"\"\"\n    all_tools = list(NATIVE_TOOLS)\n    mcp_tools = mcp_router.get_all_tools()\n\n    native_names = {t[\"name\"] for t in all_tools}\n    for tool in mcp_tools:\n        if tool[\"name\"] not in native_names:\n            all_tools.append(tool)\n\n    return all_tools\n\n\ndef handle_tool_call(tool_name: str, tool_input: dict) -\u003e str:\n    \"\"\"Dispatch to native handler or MCP router.\"\"\"\n    if mcp_router.is_mcp_tool(tool_name):\n        return mcp_router.call(tool_name, tool_input)\n    handler = NATIVE_HANDLERS.get(tool_name)\n    if handler:\n        return handler(**tool_input)\n    return f\"Unknown tool: {tool_name}\"\n\n\ndef normalize_tool_result(tool_name: str, output: str, intent: dict | None = None) -\u003e str:\n    intent = intent or permission_gate.normalize(tool_name, {})\n    status = \"error\" if \"Error:\" in output or \"MCP Error:\" in output else \"ok\"\n    payload = {\n        \"source\": intent[\"source\"],\n        \"server\": intent.get(\"server\"),\n        \"tool\": intent[\"tool\"],\n        \"risk\": intent[\"risk\"],\n        \"status\": status,\n        \"preview\": output[:500],\n    }\n    return json.dumps(payload, indent=2, ensure_ascii=False)\n\n\ndef agent_loop(messages: list):\n    \"\"\"Agent loop with unified native + MCP tool pool.\"\"\"\n    tools = build_tool_pool()\n\n    while True:\n        system = (\n            f\"You are a coding agent at {WORKDIR}. Use tools to solve tasks.\\n\"\n            \"You have both native tools and MCP tools available.\\n\"\n            \"MCP tools are prefixed with mcp__{server}__{tool}.\\n\"\n            \"All capabilities pass through the same permission gate before execution.\"\n        )\n        response = client.messages.create(\n            model=MODEL, system=system, messages=messages,\n            tools=tools, max_tokens=8000,\n        )\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n\n        if response.stop_reason != \"tool_use\":\n            return\n\n        results = []\n        for block in response.content:\n            if block.type != \"tool_use\":\n                continue\n            decision = permission_gate.check(block.name, block.input or {})\n            try:\n                if decision[\"behavior\"] == \"deny\":\n                    output = f\"Permission denied: {decision['reason']}\"\n                elif decision[\"behavior\"] == \"ask\" and not permission_gate.ask_user(\n                    decision[\"intent\"], block.input or {}\n                ):\n                    output = f\"Permission denied by user: {decision['reason']}\"\n                else:\n                    output = handle_tool_call(block.name, block.input or {})\n            except Exception as e:\n                output = f\"Error: {e}\"\n            print(f\"\u003e {block.name}: {str(output)[:200]}\")\n            results.append({\n                \"type\": \"tool_result\",\n                \"tool_use_id\": block.id,\n                \"content\": normalize_tool_result(\n                    block.name,\n                    str(output),\n                    decision.get(\"intent\"),\n                ),\n            })\n\n        messages.append({\"role\": \"user\", \"content\": results})\n\n\n# Further upgrades you can add later:\n# - more transports\n# - auth / approval flows\n# - server reconnect and lifecycle management\n# - filtering external tools before they reach the model\n# - richer plugin installation and update handling\n\n\nif __name__ == \"__main__\":\n    # Scan for plugins\n    found = plugin_loader.scan()\n    if found:\n        print(f\"[Plugins loaded: {', '.join(found)}]\")\n        for server_name, config in plugin_loader.get_mcp_servers().items():\n            mcp_client = MCPClient(server_name, config.get(\"command\", \"\"), config.get(\"args\", []))\n            if mcp_client.connect():\n                mcp_client.list_tools()\n                mcp_router.register_client(mcp_client)\n                print(f\"[MCP] Connected to {server_name}\")\n\n    tool_count = len(build_tool_pool())\n    mcp_count = len(mcp_router.get_all_tools())\n    print(f\"[Tool pool: {tool_count} tools ({mcp_count} from MCP)]\")\n\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms19 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n\n        if query.strip() == \"/tools\":\n            for tool in build_tool_pool():\n                prefix = \"[MCP] \" if tool[\"name\"].startswith(\"mcp__\") else \"       \"\n                print(f\"  {prefix}{tool['name']}: {tool.get('description', '')[:60]}\")\n            continue\n\n        if query.strip() == \"/mcp\":\n            if mcp_router.clients:\n                for name, c in mcp_router.clients.items():\n                    tools = c.get_agent_tools()\n                    print(f\"  {name}: {len(tools)} tools\")\n            else:\n                print(\"  (no MCP servers connected)\")\n            continue\n\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history)\n        response_content = history[-1][\"content\"]\n        if isinstance(response_content, list):\n            for block in response_content:\n                if hasattr(block, \"text\"):\n                    print(block.text)\n        print()\n\n    # Cleanup MCP connections\n    for c in mcp_router.clients.values():\n        c.disconnect()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s19\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"MCP 与插件\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300\",\"children\":\"多 Agent 平台\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"外部能力总线\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[463,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[4,\" \",\"个工具\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"外部能力系统不该是外挂；它们应和原生工具一起处在同一控制面上。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s19\",\"diff\":{\"from\":\"s18\",\"to\":\"s19\",\"newClasses\":[\"CapabilityPermissionGate\",\"MCPClient\",\"PluginLoader\",\"MCPToolRouter\"],\"newFunctions\":[\"build_tool_pool\",\"handle_tool_call\",\"normalize_tool_result\"],\"newTools\":[],\"locDelta\":-101},\"source\":\"$14\",\"filename\":\"s19_mcp_plugin.py\",\"guideData\":{\"focus\":\"先盯住外部能力如何重新接回统一 router，而不是先掉进 transport 或认证细节。\",\"confusion\":\"MCP 不只是外部工具目录，但主线入口仍然应该先从 tools-first 去理解。\",\"goal\":\"把外部能力接进主系统，同时保持权限、路由和结果回流的一致性。\"},\"bridgeDocs\":[{\"slug\":\"s19a-mcp-capability-layers\",\"kind\":\"mechanism\",\"title\":\"MCP 能力层地图\",\"summary\":{\"zh\":\"把本地工具、插件、MCP server 如何接回同一 capability bus 讲完整。\",\"en\":\"MCP is more than external tools. This shows the full capability stack. Read alongside s19.\",\"ja\":\"native tool・plugin・MCP server が 1 つの capability bus へ戻る全体像を補います。\"},\"fallbackLocale\":null},{\"slug\":\"s02b-tool-execution-runtime\",\"kind\":\"mechanism\",\"title\":\"工具执行运行时\",\"summary\":{\"zh\":\"把工具并发、串行、进度消息、结果顺序和 context 合并这层运行时讲清楚。\",\"en\":\"How multiple tool calls in one turn get executed safely. Best read after s02.\",\"ja\":\"tool の並列実行と直列実行、progress 更新、結果順序、context 統合をまとめて補う資料です。\"},\"fallbackLocale\":null}],\"locale\":\"zh\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/zh/s18\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"上一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s18\",\" - \",\"Worktree 隔离\"]}]]}]]}],[\"$\",\"div\",null,{}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>

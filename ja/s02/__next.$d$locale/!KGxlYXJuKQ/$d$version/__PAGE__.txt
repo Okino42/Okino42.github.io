@@ -1,0 +1,224 @@
+1:"$Sreact.fragment"
+2:I[3167,["/_next/static/chunks/0ja5othizjcac.js","/_next/static/chunks/0uvn1_4nr7qfy.js","/_next/static/chunks/063.oyz5446.o.js","/_next/static/chunks/02kk5ekh_4.z~.js","/_next/static/chunks/0-ogocbeyjdd4.js","/_next/static/chunks/0_nawkytun4a5.js","/_next/static/chunks/078.wnui.p.5c.js","/_next/static/chunks/12~1n90oe7pm9.js"],"VersionDetailClient"]
+c:I[22016,["/_next/static/chunks/0ja5othizjcac.js","/_next/static/chunks/0uvn1_4nr7qfy.js","/_next/static/chunks/063.oyz5446.o.js","/_next/static/chunks/02kk5ekh_4.z~.js","/_next/static/chunks/0-ogocbeyjdd4.js","/_next/static/chunks/0_nawkytun4a5.js","/_next/static/chunks/078.wnui.p.5c.js","/_next/static/chunks/12~1n90oe7pm9.js"],""]
+d:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"OutletBoundary"]
+e:"$Sreact.suspense"
+3:T1ec1,#!/usr/bin/env python3
+# Harness: tool dispatch -- expanding what the model can reach.
+"""
+s02_tool_use.py - Tool dispatch + message normalization
+
+The agent loop from s01 didn't change. We added tools to the dispatch map,
+and a normalize_messages() function that cleans up the message list before
+each API call.
+
+Key insight: "The loop didn't change at all. I just added tools."
+"""
+
+import os
+import subprocess
+from pathlib import Path
+
+from anthropic import Anthropic
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
+
+if os.getenv("ANTHROPIC_BASE_URL"):
+    os.environ.pop("ANTHROPIC_AUTH_TOKEN", None)
+
+WORKDIR = Path.cwd()
+client = Anthropic(base_url=os.getenv("ANTHROPIC_BASE_URL"))
+MODEL = os.environ["MODEL_ID"]
+
+SYSTEM = f"You are a coding agent at {WORKDIR}. Use tools to solve tasks. Act, don't explain."
+
+
+def safe_path(p: str) -> Path:
+    path = (WORKDIR / p).resolve()
+    if not path.is_relative_to(WORKDIR):
+        raise ValueError(f"Path escapes workspace: {p}")
+    return path
+
+
+def run_bash(command: str) -> str:
+    dangerous = ["rm -rf /", "sudo", "shutdown", "reboot", "> /dev/"]
+    if any(d in command for d in dangerous):
+        return "Error: Dangerous command blocked"
+    try:
+        r = subprocess.run(command, shell=True, cwd=WORKDIR,
+                           capture_output=True, text=True, timeout=120)
+        out = (r.stdout + r.stderr).strip()
+        return out[:50000] if out else "(no output)"
+    except subprocess.TimeoutExpired:
+        return "Error: Timeout (120s)"
+
+
+def run_read(path: str, limit: int = None) -> str:
+    try:
+        text = safe_path(path).read_text()
+        lines = text.splitlines()
+        if limit and limit < len(lines):
+            lines = lines[:limit] + [f"... ({len(lines) - limit} more lines)"]
+        return "\n".join(lines)[:50000]
+    except Exception as e:
+        return f"Error: {e}"
+
+
+def run_write(path: str, content: str) -> str:
+    try:
+        fp = safe_path(path)
+        fp.parent.mkdir(parents=True, exist_ok=True)
+        fp.write_text(content)
+        return f"Wrote {len(content)} bytes to {path}"
+    except Exception as e:
+        return f"Error: {e}"
+
+
+def run_edit(path: str, old_text: str, new_text: str) -> str:
+    try:
+        fp = safe_path(path)
+        content = fp.read_text()
+        if old_text not in content:
+            return f"Error: Text not found in {path}"
+        fp.write_text(content.replace(old_text, new_text, 1))
+        return f"Edited {path}"
+    except Exception as e:
+        return f"Error: {e}"
+
+
+# -- Concurrency safety classification --
+# Read-only tools can safely run in parallel; mutating tools must be serialized.
+CONCURRENCY_SAFE = {"read_file"}
+CONCURRENCY_UNSAFE = {"write_file", "edit_file"}
+
+# -- The dispatch map: {tool_name: handler} --
+TOOL_HANDLERS = {
+    "bash":       lambda **kw: run_bash(kw["command"]),
+    "read_file":  lambda **kw: run_read(kw["path"], kw.get("limit")),
+    "write_file": lambda **kw: run_write(kw["path"], kw["content"]),
+    "edit_file":  lambda **kw: run_edit(kw["path"], kw["old_text"], kw["new_text"]),
+}
+
+TOOLS = [
+    {"name": "bash", "description": "Run a shell command.",
+     "input_schema": {"type": "object", "properties": {"command": {"type": "string"}}, "required": ["command"]}},
+    {"name": "read_file", "description": "Read file contents.",
+     "input_schema": {"type": "object", "properties": {"path": {"type": "string"}, "limit": {"type": "integer"}}, "required": ["path"]}},
+    {"name": "write_file", "description": "Write content to file.",
+     "input_schema": {"type": "object", "properties": {"path": {"type": "string"}, "content": {"type": "string"}}, "required": ["path", "content"]}},
+    {"name": "edit_file", "description": "Replace exact text in file.",
+     "input_schema": {"type": "object", "properties": {"path": {"type": "string"}, "old_text": {"type": "string"}, "new_text": {"type": "string"}}, "required": ["path", "old_text", "new_text"]}},
+]
+
+
+def normalize_messages(messages: list) -> list:
+    """Clean up messages before sending to the API.
+
+    Three jobs:
+    1. Strip internal metadata fields the API doesn't understand
+    2. Ensure every tool_use has a matching tool_result (insert placeholder if missing)
+    3. Merge consecutive same-role messages (API requires strict alternation)
+    """
+    cleaned = []
+    for msg in messages:
+        clean = {"role": msg["role"]}
+        if isinstance(msg.get("content"), str):
+            clean["content"] = msg["content"]
+        elif isinstance(msg.get("content"), list):
+            clean["content"] = [
+                {k: v for k, v in block.items()
+                 if not k.startswith("_")}
+                for block in msg["content"]
+                if isinstance(block, dict)
+            ]
+        else:
+            clean["content"] = msg.get("content", "")
+        cleaned.append(clean)
+
+    # Collect existing tool_result IDs
+    existing_results = set()
+    for msg in cleaned:
+        if isinstance(msg.get("content"), list):
+            for block in msg["content"]:
+                if isinstance(block, dict) and block.get("type") == "tool_result":
+                    existing_results.add(block.get("tool_use_id"))
+
+    # Find orphaned tool_use blocks and insert placeholder results
+    for msg in cleaned:
+        if msg["role"] != "assistant" or not isinstance(msg.get("content"), list):
+            continue
+        for block in msg["content"]:
+            if not isinstance(block, dict):
+                continue
+            if block.get("type") == "tool_use" and block.get("id") not in existing_results:
+                cleaned.append({"role": "user", "content": [
+                    {"type": "tool_result", "tool_use_id": block["id"],
+                     "content": "(cancelled)"}
+                ]})
+
+    # Merge consecutive same-role messages
+    if not cleaned:
+        return cleaned
+    merged = [cleaned[0]]
+    for msg in cleaned[1:]:
+        if msg["role"] == merged[-1]["role"]:
+            prev = merged[-1]
+            prev_c = prev["content"] if isinstance(prev["content"], list) \
+                else [{"type": "text", "text": str(prev["content"])}]
+            curr_c = msg["content"] if isinstance(msg["content"], list) \
+                else [{"type": "text", "text": str(msg["content"])}]
+            prev["content"] = prev_c + curr_c
+        else:
+            merged.append(msg)
+    return merged
+
+
+def agent_loop(messages: list):
+    while True:
+        response = client.messages.create(
+            model=MODEL, system=SYSTEM,
+            messages=normalize_messages(messages),
+            tools=TOOLS, max_tokens=8000,
+        )
+        messages.append({"role": "assistant", "content": response.content})
+        if response.stop_reason != "tool_use":
+            return
+        results = []
+        for block in response.content:
+            if block.type == "tool_use":
+                handler = TOOL_HANDLERS.get(block.name)
+                output = handler(**block.input) if handler else f"Unknown tool: {block.name}"
+                print(f"> {block.name}:")
+                print(output[:200])
+                results.append({"type": "tool_result", "tool_use_id": block.id, "content": output})
+        messages.append({"role": "user", "content": results})
+
+
+if __name__ == "__main__":
+    history = []
+    while True:
+        try:
+            query = input("\033[36ms02 >> \033[0m")
+        except (EOFError, KeyboardInterrupt):
+            break
+        if query.strip().lower() in ("q", "exit", ""):
+            break
+        history.append({"role": "user", "content": query})
+        agent_loop(history)
+        response_content = history[-1]["content"]
+        if isinstance(response_content, list):
+            for block in response_content:
+                if hasattr(block, "text"):
+                    print(block.text)
+        print()
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-3xl space-y-6 py-4","children":[["$","header",null,{"className":"space-y-2","children":[["$","div",null,{"className":"flex flex-wrap items-center gap-3","children":[["$","span",null,{"className":"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800","children":"s02"}],["$","h1",null,{"className":"text-2xl font-bold sm:text-3xl","children":"ツール使用"}],["$","span",null,{"className":"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300","children":"コアループ"}]]}],["$","p",null,{"className":"text-sm text-zinc-500 dark:text-zinc-400","children":["意図を実行へルーティングする",["$","span",null,{"className":"mx-2 text-zinc-300 dark:text-zinc-600","children":"|"}],["$","span",null,{"className":"font-mono","children":[169," LOC"]}],["$","span",null,{"className":"mx-2 text-zinc-300 dark:text-zinc-600","children":"|"}],["$","span",null,{"children":[4," ","ツール"]}]]}],["$","blockquote",null,{"className":"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400","children":"主ループを複雑にしなくても、きれいなルーティング層を置けばツール能力は増やせます。"}]]}],["$","$L2",null,{"version":"s02","diff":{"from":"s01","to":"s02","newClasses":[],"newFunctions":["safe_path","run_read","run_write","run_edit","normalize_messages"],"newTools":["read_file","write_file","edit_file"],"locDelta":39},"source":"$3","filename":"s02_tool_use.py","guideData":{"focus":"`ToolSpec`、dispatch map、`tool_result` の対応関係を先に見る。","confusion":"schema は実行関数そのものではありません。片方はモデル向けの説明、もう片方は実装側の handler です。","goal":"主ループを変えずに新しいツールを追加できるようになる。"},"bridgeDocs":[{"slug":"s02a-tool-control-plane","kind":"mechanism","title":"ツール制御プレーン","summary":{"zh":"专门补工具调用怎样进入统一执行面，适合权限、Hook、MCP 等章节一起看。","en":"Why tools become a coordination layer, not just a lookup table. Best read after s02.","ja":"ツール呼び出しが共通の実行面に入る流れを補う資料です。"},"fallbackLocale":null},{"slug":"s02b-tool-execution-runtime","kind":"mechanism","title":"ツール実行ランタイム","summary":{"zh":"把工具并发、串行、进度消息、结果顺序和 context 合并这层运行时讲清楚。","en":"How multiple tool calls in one turn get executed safely. Best read after s02.","ja":"tool の並列実行と直列実行、progress 更新、結果順序、context 統合をまとめて補う資料です。"},"fallbackLocale":null}],"locale":"ja"}],"$L4"]}],["$L5","$L6","$L7","$L8","$L9","$La"],"$Lb"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"-ZSuvS_2uH_NHlo_ZQLZ-"}
+4:["$","nav",null,{"className":"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700","children":[["$","$Lc",null,{"href":"/ja/s01","className":"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white","children":[["$","span",null,{"className":"transition-transform group-hover:-translate-x-1","children":"←"}],["$","div",null,{"children":[["$","div",null,{"className":"text-xs text-zinc-400","children":"前の章"}],["$","div",null,{"className":"font-medium","children":["s01"," - ","エージェントループ"]}]]}]]}],["$","$Lc",null,{"href":"/ja/s03","className":"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white","children":[["$","div",null,{"children":[["$","div",null,{"className":"text-xs text-zinc-400","children":"次の章"}],["$","div",null,{"className":"font-medium","children":["Todo 書き込み"," - ","s03"]}]]}],["$","span",null,{"className":"transition-transform group-hover:translate-x-1","children":"→"}]]}]]}]
+5:["$","script","script-0",{"src":"/_next/static/chunks/063.oyz5446.o.js","async":true}]
+6:["$","script","script-1",{"src":"/_next/static/chunks/02kk5ekh_4.z~.js","async":true}]
+7:["$","script","script-2",{"src":"/_next/static/chunks/0-ogocbeyjdd4.js","async":true}]
+8:["$","script","script-3",{"src":"/_next/static/chunks/0_nawkytun4a5.js","async":true}]
+9:["$","script","script-4",{"src":"/_next/static/chunks/078.wnui.p.5c.js","async":true}]
+a:["$","script","script-5",{"src":"/_next/static/chunks/12~1n90oe7pm9.js","async":true}]
+b:["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
+f:null

@@ -1,0 +1,189 @@
+1:"$Sreact.fragment"
+2:I[39756,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"default"]
+3:I[37457,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"default"]
+5:I[95914,["/_next/static/chunks/0ja5othizjcac.js","/_next/static/chunks/0uvn1_4nr7qfy.js"],"Sidebar"]
+7:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+b:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"ViewportBoundary"]
+d:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"MetadataBoundary"]
+f:I[68027,[],"default",1]
+:HL["/_next/static/chunks/11kc7k3w-u.3l.css","style"]
+0:{"P":null,"c":["","en","s01",""],"q":"","i":false,"f":[[["",{"children":[["locale","en","d",null],{"children":["(learn)",{"children":[["version","s01","d",null],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",16]}],[["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/11kc7k3w-u.3l.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/0ja5othizjcac.js","async":true,"nonce":"$undefined"}]],"$L4"]}],{"children":[["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/0uvn1_4nr7qfy.js","async":true,"nonce":"$undefined"}]],["$","div",null,{"className":"flex gap-8","children":[["$","$L5",null,{}],["$","div",null,{"className":"min-w-0 flex-1","children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L6",[["$","script","script-0",{"src":"/_next/static/chunks/063.oyz5446.o.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/02kk5ekh_4.z~.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0-ogocbeyjdd4.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/0_nawkytun4a5.js","async":true,"nonce":"$undefined"}],["$","script","script-4",{"src":"/_next/static/chunks/078.wnui.p.5c.js","async":true,"nonce":"$undefined"}],["$","script","script-5",{"src":"/_next/static/chunks/12~1n90oe7pm9.js","async":true,"nonce":"$undefined"}]],["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]]}],{},null,false,null]},null,false,"$@a"]},null,false,null]},null,false,null]},null,false,"$@a"],["$","$1","h",{"children":[null,["$","$Lb",null,{"children":"$Lc"}],["$","div",null,{"hidden":true,"children":["$","$Ld",null,{"children":["$","$8",null,{"name":"Next.Metadata","children":"$Le"}]}]}],null]}],false]],"m":"$undefined","G":["$f",[]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"-ZSuvS_2uH_NHlo_ZQLZ-"}
+10:[]
+a:"$W10"
+11:I[33499,["/_next/static/chunks/0ja5othizjcac.js"],"I18nProvider"]
+12:I[45872,["/_next/static/chunks/0ja5othizjcac.js"],"Header"]
+13:I[3167,["/_next/static/chunks/0ja5othizjcac.js","/_next/static/chunks/0uvn1_4nr7qfy.js","/_next/static/chunks/063.oyz5446.o.js","/_next/static/chunks/02kk5ekh_4.z~.js","/_next/static/chunks/0-ogocbeyjdd4.js","/_next/static/chunks/0_nawkytun4a5.js","/_next/static/chunks/078.wnui.p.5c.js","/_next/static/chunks/12~1n90oe7pm9.js"],"VersionDetailClient"]
+4:["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":[["$","head",null,{"children":["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n          (function() {\n            var theme = localStorage.getItem('theme');\n            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {\n              document.documentElement.classList.add('dark');\n            }\n          })();\n        "}}]}],["$","body",null,{"className":"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased","children":["$","$L11",null,{"locale":"en","children":[["$","$L12",null,{}],["$","main",null,{"className":"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8","children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]}]]}]
+14:T1170,#!/usr/bin/env python3
+# Harness: the loop -- keep feeding real tool results back into the model.
+"""
+s01_agent_loop.py - The Agent Loop
+
+This file teaches the smallest useful coding-agent pattern:
+
+    user message
+      -> model reply
+      -> if tool_use: execute tools
+      -> write tool_result back to messages
+      -> continue
+
+It intentionally keeps the loop small, but still makes the loop state explicit
+so later chapters can grow from the same structure.
+"""
+
+import os
+import subprocess
+from dataclasses import dataclass
+
+try:
+    import readline
+    # #143 UTF-8 backspace fix for macOS libedit
+    readline.parse_and_bind('set bind-tty-special-chars off')
+    readline.parse_and_bind('set input-meta on')
+    readline.parse_and_bind('set output-meta on')
+    readline.parse_and_bind('set convert-meta off')
+    readline.parse_and_bind('set enable-meta-keybindings on')
+except ImportError:
+    pass
+
+from anthropic import Anthropic
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
+
+if os.getenv("ANTHROPIC_BASE_URL"):
+    os.environ.pop("ANTHROPIC_AUTH_TOKEN", None)
+
+client = Anthropic(base_url=os.getenv("ANTHROPIC_BASE_URL"))
+MODEL = os.environ["MODEL_ID"]
+
+SYSTEM = (
+    f"You are a coding agent at {os.getcwd()}. "
+    "Use bash to inspect and change the workspace. Act first, then report clearly."
+)
+
+TOOLS = [{
+    "name": "bash",
+    "description": "Run a shell command in the current workspace.",
+    "input_schema": {
+        "type": "object",
+        "properties": {"command": {"type": "string"}},
+        "required": ["command"],
+    },
+}]
+
+
+@dataclass
+class LoopState:
+    # The minimal loop state: history, loop count, and why we continue.
+    messages: list
+    turn_count: int = 1
+    transition_reason: str | None = None
+
+
+def run_bash(command: str) -> str:
+    dangerous = ["rm -rf /", "sudo", "shutdown", "reboot", "> /dev/"]
+    if any(item in command for item in dangerous):
+        return "Error: Dangerous command blocked"
+    try:
+        result = subprocess.run(
+            command,
+            shell=True,
+            cwd=os.getcwd(),
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+    except subprocess.TimeoutExpired:
+        return "Error: Timeout (120s)"
+    except (FileNotFoundError, OSError) as e:
+        return f"Error: {e}"
+
+    output = (result.stdout + result.stderr).strip()
+    return output[:50000] if output else "(no output)"
+
+
+def extract_text(content) -> str:
+    if not isinstance(content, list):
+        return ""
+    texts = []
+    for block in content:
+        text = getattr(block, "text", None)
+        if text:
+            texts.append(text)
+    return "\n".join(texts).strip()
+
+
+def execute_tool_calls(response_content) -> list[dict]:
+    results = []
+    for block in response_content:
+        if block.type != "tool_use":
+            continue
+        command = block.input["command"]
+        print(f"\033[33m$ {command}\033[0m")
+        output = run_bash(command)
+        print(output[:200])
+        results.append({
+            "type": "tool_result",
+            "tool_use_id": block.id,
+            "content": output,
+        })
+    return results
+
+
+def run_one_turn(state: LoopState) -> bool:
+    response = client.messages.create(
+        model=MODEL,
+        system=SYSTEM,
+        messages=state.messages,
+        tools=TOOLS,
+        max_tokens=8000,
+    )
+    state.messages.append({"role": "assistant", "content": response.content})
+
+    if response.stop_reason != "tool_use":
+        state.transition_reason = None
+        return False
+
+    results = execute_tool_calls(response.content)
+    if not results:
+        state.transition_reason = None
+        return False
+
+    state.messages.append({"role": "user", "content": results})
+    state.turn_count += 1
+    state.transition_reason = "tool_result"
+    return True
+
+
+def agent_loop(state: LoopState) -> None:
+    while run_one_turn(state):
+        pass
+
+
+if __name__ == "__main__":
+    history = []
+    while True:
+        try:
+            query = input("\033[36ms01 >> \033[0m")
+        except (EOFError, KeyboardInterrupt):
+            break
+        if query.strip().lower() in ("q", "exit", ""):
+            break
+
+        history.append({"role": "user", "content": query})
+        state = LoopState(messages=history)
+        agent_loop(state)
+
+        final_text = extract_text(history[-1]["content"])
+        if final_text:
+            print(final_text)
+        print()
+6:["$","div",null,{"className":"mx-auto max-w-3xl space-y-6 py-4","children":[["$","header",null,{"className":"space-y-2","children":[["$","div",null,{"className":"flex flex-wrap items-center gap-3","children":[["$","span",null,{"className":"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800","children":"s01"}],["$","h1",null,{"className":"text-2xl font-bold sm:text-3xl","children":"The Agent Loop"}],["$","span",null,{"className":"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300","children":"Core Loop"}]]}],["$","p",null,{"className":"text-sm text-zinc-500 dark:text-zinc-400","children":["Minimal Closed Loop",["$","span",null,{"className":"mx-2 text-zinc-300 dark:text-zinc-600","children":"|"}],["$","span",null,{"className":"font-mono","children":[130," LOC"]}],["$","span",null,{"className":"mx-2 text-zinc-300 dark:text-zinc-600","children":"|"}],["$","span",null,{"children":[1," ","tools"]}]]}],["$","blockquote",null,{"className":"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400","children":"An agent is just a loop: send messages, execute tools, feed results back, repeat."}]]}],["$","$L13",null,{"version":"s01","diff":null,"source":"$14","filename":"s01_agent_loop.py","guideData":{"focus":"Focus first on how `messages`, `tool_use`, and `tool_result` close the loop.","confusion":"Do not confuse model reasoning with system action. The loop is what turns thought into work.","goal":"Be able to write a minimal but real agent loop by hand."},"bridgeDocs":[{"slug":"s00-architecture-overview","kind":"map","title":"Architecture Overview","summary":{"zh":"先看系统全貌，再回到当前章节，能更快分清这一层到底属于哪里。","en":"The big-picture map. Come back here whenever you feel lost about where a chapter fits.","ja":"全体像を先に見てから現在の章へ戻るための俯瞰図です。"},"fallbackLocale":null},{"slug":"s00d-chapter-order-rationale","kind":"map","title":"Why This Chapter Order","summary":{"zh":"专门解释为什么课程要按现在这个顺序展开，适合读者刚进入主线或准备自己重排章节时回看。","en":"Explains why the curriculum is ordered this way and what breaks when the sequence is rearranged.","ja":"なぜこの順序で学ぶのか、順番を崩すと何が混乱するのかを整理する資料です。"},"fallbackLocale":null},{"slug":"s00f-code-reading-order","kind":"map","title":"Code Reading Order","summary":{"zh":"专门告诉你本地 `agents/*.py` 该按什么顺序打开、每章先盯住哪类状态和函数，避免重新乱翻源码。","en":"Shows which local `agents/*.py` files to open first and what state or functions to inspect before the code turns into noise.","ja":"ローカルの `agents/*.py` をどの順で開き、各章でまずどの状態や関数を見るべきかを整理した読解ガイドです。"},"fallbackLocale":null},{"slug":"s00e-reference-module-map","kind":"map","title":"Reference Module Map","summary":{"zh":"把参考仓库里真正重要的模块簇，和当前课程章节一一对齐，专门用来验证章节顺序是否合理。","en":"Maps the reference repo's real module clusters onto the current curriculum to validate the chapter order.","ja":"参照リポジトリの高信号モジュール群と現在の教材章を対応付け、章順の妥当性を確認する地図です。"},"fallbackLocale":null},{"slug":"glossary","kind":"map","title":"Glossary","summary":{"zh":"术语一多就先回这里，统一名词边界，避免 task、runtime task、teammate 混在一起。","en":"Bookmark this. Come back whenever you hit an unfamiliar term.","ja":"用語が増えて混ざり始めたときに戻る境界整理用の用語集です。"},"fallbackLocale":null}],"locale":"en"}],"$L15"]}]
+16:I[22016,["/_next/static/chunks/0ja5othizjcac.js","/_next/static/chunks/0uvn1_4nr7qfy.js","/_next/static/chunks/063.oyz5446.o.js","/_next/static/chunks/02kk5ekh_4.z~.js","/_next/static/chunks/0-ogocbeyjdd4.js","/_next/static/chunks/0_nawkytun4a5.js","/_next/static/chunks/078.wnui.p.5c.js","/_next/static/chunks/12~1n90oe7pm9.js"],""]
+15:["$","nav",null,{"className":"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700","children":[["$","div",null,{}],["$","$L16",null,{"href":"/en/s02","className":"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white","children":[["$","div",null,{"children":[["$","div",null,{"className":"text-xs text-zinc-400","children":"Next"}],["$","div",null,{"className":"font-medium","children":["Tool Use"," - ","s02"]}]]}],["$","span",null,{"className":"transition-transform group-hover:translate-x-1","children":"→"}]]}]]}]
+c:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+17:I[27201,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"IconMark"]
+9:null
+e:[["$","title","0",{"children":"Learn Claude Code"}],["$","meta","1",{"name":"description","content":"19 chapters, 4 stages, from zero to a high-completion Claude Code-like agent"}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.0x3dzn~oxb6tn.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L17","3",{}]]

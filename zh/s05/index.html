@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s05</span><h1 class="text-2xl font-bold sm:text-3xl">技能系统</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">核心闭环</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">先轻发现，再深加载<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">244<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>5<!-- --> <!-- -->个工具</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">专门知识不该一开始全部塞进上下文，而该在需要时被轻量发现、按需展开。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学习</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">源码</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深入探索</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > [ s05 ] > s06 > s07 > s08 > s09 > s10 > s11 > s12 > s13 > s14 > s15 > s16 > s17 > s18 > s19</code></p>
+<blockquote class="hero-callout">
+<p><em>不是把所有知识永远塞进 prompt，而是在需要的时候再加载正确那一份。</em></p>
+</blockquote>
+<h2>这一章要解决什么问题</h2>
+<p>到了 <code>s04</code>，你的 agent 已经会：</p>
+<ul>
+<li>调工具</li>
+<li>做会话内规划</li>
+<li>把大任务分给子 agent</li>
+</ul>
+<p>接下来很自然会遇到另一个问题：</p>
+<blockquote>
+<p>不同任务需要的领域知识不一样。</p>
+</blockquote>
+<p>例如：</p>
+<ul>
+<li>做代码审查，需要一套审查清单</li>
+<li>做 Git 操作，需要一套提交约定</li>
+<li>做 MCP 集成，需要一套专门步骤</li>
+</ul>
+<p>如果你把这些知识包全部塞进 system prompt，就会出现两个问题：</p>
+<ol>
+<li>大部分 token 都浪费在当前用不到的说明上</li>
+<li>prompt 越来越臃肿，主线规则越来越不清楚</li>
+</ol>
+<p>所以这一章真正要做的是：</p>
+<p><strong>把“长期可选知识”从 system prompt 主体里拆出来，改成按需加载。</strong></p>
+<h2>先解释几个名词</h2>
+<h3>什么是 skill</h3>
+<p>这里的 <code>skill</code> 可以先简单理解成：</p>
+<blockquote>
+<p>一份围绕某类任务的可复用说明书。</p>
+</blockquote>
+<p>它通常会告诉 agent：</p>
+<ul>
+<li>什么时候该用它</li>
+<li>做这类任务时有哪些步骤</li>
+<li>有哪些注意事项</li>
+</ul>
+<h3>什么是 discovery</h3>
+<p><code>discovery</code> 指“发现有哪些 skill 可用”。</p>
+<p>这一层只需要很轻量的信息，例如：</p>
+<ul>
+<li>skill 名字</li>
+<li>一句描述</li>
+</ul>
+<h3>什么是 loading</h3>
+<p><code>loading</code> 指“把某个 skill 的完整正文真正读进来”。</p>
+<p>这一层才是昂贵的，因为它会把完整内容放进当前上下文。</p>
+<h2>最小心智模型</h2>
+<p>把这一章先理解成两层：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">第 1 层：轻量目录
+  - skill 名称
+  - skill 描述
+  - 让模型知道“有哪些可用”
+
+第 2 层：按需正文
+  - 只有模型真正需要时才加载
+  - 通过工具结果注入当前上下文
+</code></pre>
+<p>可以画成这样：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">system prompt
+  |
+  +-- Skills available:
+      - code-review: review checklist
+      - git-workflow: branch and commit guidance
+      - mcp-builder: build an MCP server
+</code></pre>
+<p>当模型判断自己需要某份知识时：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">load_skill("code-review")
+   |
+   v
+tool_result
+   |
+   v
+&#x3C;skill name="code-review">
+完整审查说明
+&#x3C;/skill>
+</code></pre>
+<p>这就是这一章最核心的设计。</p>
+<h2>关键数据结构</h2>
+<h3>1. SkillManifest</h3>
+<p>先准备一份很轻的元信息：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">{
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"code-review"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Checklist for reviewing code changes"</span>,
+}
+</code></pre>
+<p>它的作用只是让模型知道：</p>
+<blockquote>
+<p>这份 skill 存在，并且大概是干什么的。</p>
+</blockquote>
+<h3>2. SkillDocument</h3>
+<p>真正被加载时，再读取完整内容：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">{
+    <span class="hljs-string">"manifest"</span>: {...},
+    <span class="hljs-string">"body"</span>: <span class="hljs-string">"... full skill text ..."</span>,
+}
+</code></pre>
+<h3>3. SkillRegistry</h3>
+<p>你最好不要把 skill 散着读取。</p>
+<p>更清楚的方式是做一个统一注册表：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">registry = {
+    <span class="hljs-string">"code-review"</span>: SkillDocument(...),
+    <span class="hljs-string">"git-workflow"</span>: SkillDocument(...),
+}
+</code></pre>
+<p>它至少要能回答两个问题：</p>
+<ol>
+<li>有哪些 skill 可用</li>
+<li>某个 skill 的完整内容是什么</li>
+</ol>
+<h2>最小实现</h2>
+<h3>第一步：把每个 skill 放成一个目录</h3>
+<p>最小结构可以这样：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">skills/
+  code-review/
+    SKILL.md
+  git-workflow/
+    SKILL.md
+</code></pre>
+<h3>第二步：从 <code>SKILL.md</code> 里读取最小元信息</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SkillRegistry</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, skills_dir</span>):
+        <span class="hljs-variable language_">self</span>.skills = {}
+        <span class="hljs-variable language_">self</span>._load_all()
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_load_all</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-keyword">for</span> path <span class="hljs-keyword">in</span> skills_dir.rglob(<span class="hljs-string">"SKILL.md"</span>):
+            meta, body = parse_frontmatter(path.read_text())
+            name = meta.get(<span class="hljs-string">"name"</span>, path.parent.name)
+            <span class="hljs-variable language_">self</span>.skills[name] = {
+                <span class="hljs-string">"manifest"</span>: {
+                    <span class="hljs-string">"name"</span>: name,
+                    <span class="hljs-string">"description"</span>: meta.get(<span class="hljs-string">"description"</span>, <span class="hljs-string">""</span>),
+                },
+                <span class="hljs-string">"body"</span>: body,
+            }
+</code></pre>
+<p>这里的 <code>frontmatter</code> 你可以先简单理解成：</p>
+<blockquote>
+<p>放在正文前面的一小段结构化元数据。</p>
+</blockquote>
+<h3>第三步：把 skill 目录放进 system prompt</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">SYSTEM = <span class="hljs-string">f"""You are a coding agent.
+Skills available:
+<span class="hljs-subst">{SKILL_REGISTRY.describe_available()}</span>
+"""</span>
+</code></pre>
+<p>注意这里放的是<strong>目录信息</strong>，不是完整正文。</p>
+<h3>第四步：提供一个 <code>load_skill</code> 工具</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">TOOL_HANDLERS = {
+    <span class="hljs-string">"load_skill"</span>: <span class="hljs-keyword">lambda</span> **kw: SKILL_REGISTRY.load_full_text(kw[<span class="hljs-string">"name"</span>]),
+}
+</code></pre>
+<p>当模型调用它时，把完整 skill 正文作为 <code>tool_result</code> 返回。</p>
+<h3>第五步：让 skill 正文只在当前需要时进入上下文</h3>
+<p>这一步的核心思想就是：</p>
+<blockquote>
+<p>平时只展示“有哪些知识包”，真正工作时才把那一包展开。</p>
+</blockquote>
+<h2>skill、memory、CLAUDE.md 的边界</h2>
+<p>这三个概念很容易混。</p>
+<h3>skill</h3>
+<p>可选知识包。<br>
+只有在某类任务需要时才加载。</p>
+<h3>memory</h3>
+<p>跨会话仍然有价值的信息。<br>
+它是系统记住的东西，不是任务手册。</p>
+<h3>CLAUDE.md</h3>
+<p>更稳定、更长期的规则说明。<br>
+它通常比单个 skill 更“全局”。</p>
+<p>一个简单判断法：</p>
+<ul>
+<li>这是某类任务才需要的做法或知识：<code>skill</code></li>
+<li>这是需要长期记住的事实或偏好：<code>memory</code></li>
+<li>这是更稳定的全局规则：<code>CLAUDE.md</code></li>
+</ul>
+<h2>它如何接到主循环里</h2>
+<p>这一章以后，system prompt 不再只是一段固定身份说明。</p>
+<p>它开始长出一个很重要的新段落：</p>
+<ul>
+<li>可用技能目录</li>
+</ul>
+<p>而消息流里则会出现新的按需注入内容：</p>
+<ul>
+<li>某个 skill 的完整正文</li>
+</ul>
+<p>也就是说，系统输入现在开始分成两层：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">稳定层：
+  身份、规则、工具、skill 目录
+
+按需层：
+  当前真的加载进来的 skill 正文
+</code></pre>
+<p>这也是 <code>s10</code> 会继续系统化展开的东西。</p>
+<h2>初学者最容易犯的错</h2>
+<h3>1. 把所有 skill 正文永远塞进 system prompt</h3>
+<p>这样会让 prompt 很快臃肿到难以维护。</p>
+<h3>2. skill 目录信息写得太弱</h3>
+<p>如果只有名字，没有描述，模型就不知道什么时候该加载它。</p>
+<h3>3. 把 skill 当成“绝对规则”</h3>
+<p>skill 更像“可选工作手册”，不是所有轮次都必须用。</p>
+<h3>4. 把 skill 和 memory 混成一类</h3>
+<p>skill 解决的是“怎么做一类事”，memory 解决的是“记住长期事实”。</p>
+<h3>5. 一上来就讲太多多源加载细节</h3>
+<p>教学主线真正要先讲清的是：</p>
+<p><strong>轻量发现，重内容按需加载。</strong></p>
+<h2>教学边界</h2>
+<p>这章只要先守住两层就够了：</p>
+<ul>
+<li>轻量发现：先告诉模型有哪些 skill</li>
+<li>按需深加载：真正需要时再把正文放进输入</li>
+</ul>
+<p>所以这里不用提前扩到：</p>
+<ul>
+<li>多来源收集</li>
+<li>条件激活</li>
+<li>skill 参数化</li>
+<li>fork 式执行</li>
+<li>更复杂的 prompt 管道拼装</li>
+</ul>
+<p>如果读者已经明白“为什么不能把所有 skill 永远塞进 system prompt，而应该先列目录、再按需加载”，这章就已经讲到位了。</p>
+<h2>一句话记住</h2>
+<p><strong>Skill 系统的核心，不是“多一个工具”，而是“把可选知识从常驻 prompt 里拆出来，改成按需加载”。</strong></p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s04/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">上一章</div><div class="font-medium">s04<!-- --> - <!-- -->子代理</div></div></a><a class="group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s06/"><div><div class="text-xs text-zinc-400">下一章</div><div class="font-medium">上下文压缩<!-- --> - <!-- -->s06</div></div><span class="transition-transform group-hover:translate-x-1">→</span></a></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"s05\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s05\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T2220,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: on-demand knowledge -- discover skills cheaply, load them only when needed.\n\"\"\"\ns05_skill_loading.py - Skills\n\nThis chapter teaches a two-layer skill model:\n\n1. Put a cheap skill catalog in the system prompt.\n2. Load the full skill body only when the model asks for it.\n\nThat keeps the prompt small while still giving the model access to reusable,\ntask-specific guidance.\n\"\"\"\n\nimport os\nimport re\nimport subprocess\nfrom dataclasses import dataclass\nfrom pathlib import Path\n\nfrom anthropic import Anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\n\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\nSKILLS_DIR = WORKDIR / \"skills\"\n\n\n@dataclass\nclass SkillManifest:\n    name: str\n    description: str\n    path: Path\n\n\n@dataclass\nclass SkillDocument:\n    manifest: SkillManifest\n    body: str\n\n\nclass SkillRegistry:\n    def __init__(self, skills_dir: Path):\n        self.skills_dir = skills_dir\n        self.documents: dict[str, SkillDocument] = {}\n        self._load_all()\n\n    def _load_all(self) -\u003e None:\n        if not self.skills_dir.exists():\n            return\n\n        for path in sorted(self.skills_dir.rglob(\"SKILL.md\")):\n            meta, body = self._parse_frontmatter(path.read_text())\n            name = meta.get(\"name\", path.parent.name)\n            description = meta.get(\"description\", \"No description\")\n            manifest = SkillManifest(name=name, description=description, path=path)\n            self.documents[name] = SkillDocument(manifest=manifest, body=body.strip())\n\n    def _parse_frontmatter(self, text: str) -\u003e tuple[dict, str]:\n        match = re.match(r\"^---\\n(.*?)\\n---\\n(.*)\", text, re.DOTALL)\n        if not match:\n            return {}, text\n\n        meta = {}\n        for line in match.group(1).strip().splitlines():\n            if \":\" not in line:\n                continue\n            key, value = line.split(\":\", 1)\n            meta[key.strip()] = value.strip()\n        return meta, match.group(2)\n\n    def describe_available(self) -\u003e str:\n        if not self.documents:\n            return \"(no skills available)\"\n        lines = []\n        for name in sorted(self.documents):\n            manifest = self.documents[name].manifest\n            lines.append(f\"- {manifest.name}: {manifest.description}\")\n        return \"\\n\".join(lines)\n\n    def load_full_text(self, name: str) -\u003e str:\n        document = self.documents.get(name)\n        if not document:\n            known = \", \".join(sorted(self.documents)) or \"(none)\"\n            return f\"Error: Unknown skill '{name}'. Available skills: {known}\"\n\n        return (\n            f\"\u003cskill name=\\\"{document.manifest.name}\\\"\u003e\\n\"\n            f\"{document.body}\\n\"\n            \"\u003c/skill\u003e\"\n        )\n\n\nSKILL_REGISTRY = SkillRegistry(SKILLS_DIR)\n\nSYSTEM = f\"\"\"You are a coding agent at {WORKDIR}.\nUse load_skill when a task needs specialized instructions before you act.\n\nSkills available:\n{SKILL_REGISTRY.describe_available()}\n\"\"\"\n\n\ndef safe_path(path_str: str) -\u003e Path:\n    path = (WORKDIR / path_str).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {path_str}\")\n    return path\n\n\ndef run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\", \"\u003e /dev/\"]\n    if any(item in command for item in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        result = subprocess.run(\n            command,\n            shell=True,\n            cwd=WORKDIR,\n            capture_output=True,\n            text=True,\n            timeout=120,\n        )\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\n    output = (result.stdout + result.stderr).strip()\n    return output[:50000] if output else \"(no output)\"\n\n\ndef run_read(path: str, limit: int | None = None) -\u003e str:\n    try:\n        lines = safe_path(path).read_text().splitlines()\n        if limit and limit \u003c len(lines):\n            lines = lines[:limit] + [f\"... ({len(lines) - limit} more lines)\"]\n        return \"\\n\".join(lines)[:50000]\n    except Exception as exc:\n        return f\"Error: {exc}\"\n\n\ndef run_write(path: str, content: str) -\u003e str:\n    try:\n        file_path = safe_path(path)\n        file_path.parent.mkdir(parents=True, exist_ok=True)\n        file_path.write_text(content)\n        return f\"Wrote {len(content)} bytes to {path}\"\n    except Exception as exc:\n        return f\"Error: {exc}\"\n\n\ndef run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        file_path = safe_path(path)\n        content = file_path.read_text()\n        if old_text not in content:\n            return f\"Error: Text not found in {path}\"\n        file_path.write_text(content.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as exc:\n        return f\"Error: {exc}\"\n\n\nTOOL_HANDLERS = {\n    \"bash\": lambda **kw: run_bash(kw[\"command\"]),\n    \"read_file\": lambda **kw: run_read(kw[\"path\"], kw.get(\"limit\")),\n    \"write_file\": lambda **kw: run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\": lambda **kw: run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n    \"load_skill\": lambda **kw: SKILL_REGISTRY.load_full_text(kw[\"name\"]),\n}\n\nTOOLS = [\n    {\n        \"name\": \"bash\",\n        \"description\": \"Run a shell command.\",\n        \"input_schema\": {\n            \"type\": \"object\",\n            \"properties\": {\"command\": {\"type\": \"string\"}},\n            \"required\": [\"command\"],\n        },\n    },\n    {\n        \"name\": \"read_file\",\n        \"description\": \"Read file contents.\",\n        \"input_schema\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"path\": {\"type\": \"string\"},\n                \"limit\": {\"type\": \"integer\"},\n            },\n            \"required\": [\"path\"],\n        },\n    },\n    {\n        \"name\": \"write_file\",\n        \"description\": \"Write content to a file.\",\n        \"input_schema\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"path\": {\"type\": \"string\"},\n                \"content\": {\"type\": \"string\"},\n            },\n            \"required\": [\"path\", \"content\"],\n        },\n    },\n    {\n        \"name\": \"edit_file\",\n        \"description\": \"Replace exact text in a file once.\",\n        \"input_schema\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"path\": {\"type\": \"string\"},\n                \"old_text\": {\"type\": \"string\"},\n                \"new_text\": {\"type\": \"string\"},\n            },\n            \"required\": [\"path\", \"old_text\", \"new_text\"],\n        },\n    },\n    {\n        \"name\": \"load_skill\",\n        \"description\": \"Load the full body of a named skill into the current context.\",\n        \"input_schema\": {\n            \"type\": \"object\",\n            \"properties\": {\"name\": {\"type\": \"string\"}},\n            \"required\": [\"name\"],\n        },\n    },\n]\n\n\ndef extract_text(content) -\u003e str:\n    if not isinstance(content, list):\n        return \"\"\n    texts = []\n    for block in content:\n        text = getattr(block, \"text\", None)\n        if text:\n            texts.append(text)\n    return \"\\n\".join(texts).strip()\n\n\ndef agent_loop(messages: list) -\u003e None:\n    while True:\n        response = client.messages.create(\n            model=MODEL,\n            system=SYSTEM,\n            messages=messages,\n            tools=TOOLS,\n            max_tokens=8000,\n        )\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n\n        if response.stop_reason != \"tool_use\":\n            return\n\n        results = []\n        for block in response.content:\n            if block.type != \"tool_use\":\n                continue\n\n            handler = TOOL_HANDLERS.get(block.name)\n            try:\n                output = handler(**block.input) if handler else f\"Unknown tool: {block.name}\"\n            except Exception as exc:\n                output = f\"Error: {exc}\"\n\n            print(f\"\u003e {block.name}: {str(output)[:200]}\")\n            results.append({\n                \"type\": \"tool_result\",\n                \"tool_use_id\": block.id,\n                \"content\": str(output),\n            })\n\n        messages.append({\"role\": \"user\", \"content\": results})\n\n\nif __name__ == \"__main__\":\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms05 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history)\n\n        final_text = extract_text(history[-1][\"content\"])\n        if final_text:\n            print(final_text)\n        print()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s05\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"技能系统\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300\",\"children\":\"核心闭环\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"先轻发现，再深加载\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[244,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[5,\" \",\"个工具\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"专门知识不该一开始全部塞进上下文，而该在需要时被轻量发现、按需展开。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s05\",\"diff\":{\"from\":\"s04\",\"to\":\"s05\",\"newClasses\":[\"SkillManifest\",\"SkillDocument\",\"SkillRegistry\"],\"newFunctions\":[\"extract_text\"],\"newTools\":[\"load_skill\"],\"locDelta\":44},\"source\":\"$14\",\"filename\":\"s05_skill_loading.py\",\"guideData\":{\"focus\":\"先盯住技能的“发现层”和“加载层”是怎么分开的。\",\"confusion\":\"skill 不是一开始全部塞进 prompt 的大说明书，而是按需加载的知识块。\",\"goal\":\"做出一个低成本发现、高成本按需读取的技能系统。\"},\"bridgeDocs\":[{\"slug\":\"glossary\",\"kind\":\"map\",\"title\":\"术语表\",\"summary\":{\"zh\":\"术语一多就先回这里，统一名词边界，避免 task、runtime task、teammate 混在一起。\",\"en\":\"Bookmark this. Come back whenever you hit an unfamiliar term.\",\"ja\":\"用語が増えて混ざり始めたときに戻る境界整理用の用語集です。\"},\"fallbackLocale\":null},{\"slug\":\"teaching-scope\",\"kind\":\"map\",\"title\":\"教学范围与取舍\",\"summary\":{\"zh\":\"说明这套教学仓库刻意不讲什么，帮助读者守住主线，不被低价值细节带偏。\",\"en\":\"What this repo teaches, what it deliberately leaves out, and why.\",\"ja\":\"この教材が意図的に省いている範囲を示し、主線を守るための資料です。\"},\"fallbackLocale\":null}],\"locale\":\"zh\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/zh/s04\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"上一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s04\",\" - \",\"子代理\"]}]]}]]}],[\"$\",\"$L16\",null,{\"href\":\"/zh/s06\",\"className\":\"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"下一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"上下文压缩\",\" - \",\"s06\"]}]]}],[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:translate-x-1\",\"children\":\"→\"}]]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>

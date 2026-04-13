@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="ja"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>MCP 能力層マップ</title><meta name="description" content="native tool・plugin・MCP server が 1 つの capability bus へ戻る全体像を補います。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/ja/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/reference/">リファレンス</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/compare/">比較</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">コアループ</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">エージェントループ</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">ツール使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">Todo 書き込み</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">サブエージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">スキル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">コンテキスト圧縮</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">システム強化</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">権限システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">記憶システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">システムプロンプト</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">エラー回復</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">タスクランタイム</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">タスクシステム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">バックグラウンドタスク</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">Cron スケジューラ</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">マルチエージェント基盤</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">エージェントチーム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">チームプロトコル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自律エージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 分離</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP とプラグイン</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/ja/"><span>←</span><span>学習パスへ戻る</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">補助ドキュメント</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">MCP 能力層マップ</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">このページへ戻るべき場面</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">native tool・plugin・MCP server が 1 つの capability bus へ戻る全体像を補います。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">いっしょに読むと効く章</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s19/">s19<!-- --> · <!-- -->MCP とプラグイン</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p><code>s19</code> の主線は引き続き tools-first で進めるべきです。
+その上で、この bridge doc は次の心智を足します。</p>
+<p><strong>MCP は単なる外部 tool 接続ではなく、複数の capability layer を持つ platform です。</strong></p>
+</blockquote>
+<h2>主線とどう併読するか</h2>
+<p>MCP を主線から外れずに学ぶなら次の順がよいです。</p>
+<ul>
+<li>まず <a href="./s19-mcp-plugin.md"><code>s19-mcp-plugin.md</code></a> を読み、tools-first の入口を固める</li>
+<li>次に <a href="./s02a-tool-control-plane.md"><code>s02a-tool-control-plane.md</code></a> を見直し、外部 capability がどう unified tool bus に戻るかを見る</li>
+<li>state record が混ざり始めたら <a href="./data-structures.md"><code>data-structures.md</code></a> を見直す</li>
+<li>concept boundary が混ざり始めたら <a href="./glossary.md"><code>glossary.md</code></a> と <a href="./entity-map.md"><code>entity-map.md</code></a> を見直す</li>
+</ul>
+<h2>なぜ別立てで必要か</h2>
+<p>教材 repo として、正文を external tools から始めるのは正しいです。</p>
+<p>最も入りやすい入口は:</p>
+<ul>
+<li>外部 server に接続する</li>
+<li>tool 定義を受け取る</li>
+<li>tool を呼ぶ</li>
+<li>結果を agent へ戻す</li>
+</ul>
+<p>しかし完成度を上げようとすると、すぐ次の問いに出会います。</p>
+<ul>
+<li>server は stdio / HTTP / SSE / WebSocket のどれでつながるのか</li>
+<li>なぜ <code>connected</code> の server もあれば <code>pending</code> や <code>needs-auth</code> の server もあるのか</li>
+<li>resources や prompts は tools とどう並ぶのか</li>
+<li>elicitation はなぜ特別な対話になるのか</li>
+<li>OAuth のような auth flow はどの層で理解すべきか</li>
+</ul>
+<p>capability-layer map がないと、MCP は急に散らばって見えます。</p>
+<h2>まず用語</h2>
+<h3>capability layer とは</h3>
+<p>capability layer は:</p>
+<blockquote>
+<p>大きな system の中の 1 つの責務面</p>
+</blockquote>
+<p>です。</p>
+<p>MCP のすべてを 1 つの袋に入れないための考え方です。</p>
+<h3>transport とは</h3>
+<p>transport は接続通路です。</p>
+<ul>
+<li>stdio</li>
+<li>HTTP</li>
+<li>SSE</li>
+<li>WebSocket</li>
+</ul>
+<h3>elicitation とは</h3>
+<p>これは見慣れない用語ですが、教材版では次の理解で十分です。</p>
+<blockquote>
+<p>MCP server 側が追加情報を要求し、user からさらに入力を引き出す対話</p>
+</blockquote>
+<p>つまり常に:</p>
+<blockquote>
+<p>agent calls tool -> tool returns result</p>
+</blockquote>
+<p>だけとは限らず、server 側から:</p>
+<blockquote>
+<p>続けるためにもっと入力が必要</p>
+</blockquote>
+<p>と言ってくる場合があります。</p>
+<h2>最小の心智モデル</h2>
+<p>MCP を 6 層で見ると整理しやすいです。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">1. Config Layer
+   server 設定がどう表現されるか
+
+2. Transport Layer
+   何の通路で接続するか
+
+3. Connection State Layer
+   connected / pending / failed / needs-auth
+
+4. Capability Layer
+   tools / resources / prompts / elicitation
+
+5. Auth Layer
+   認証が必要か、認証状態は何か
+
+6. Router Integration Layer
+   tool routing / permission / notifications にどう戻るか
+</code></pre>
+<p>ここで最重要なのは:</p>
+<p><strong>tools は一層であって、MCP の全体ではない</strong></p>
+<p>という点です。</p>
+<h2>なぜ正文は tools-first のままでよいか</h2>
+<p>教材として大事なポイントです。</p>
+<p>MCP に複数 layer があっても、正文主線はまず次で十分です。</p>
+<h3>Step 1: 外部 tools から入る</h3>
+<p>これは読者がすでに学んだものと最も自然につながります。</p>
+<ul>
+<li>local tools</li>
+<li>external tools</li>
+<li>1 本の shared router</li>
+</ul>
+<h3>Step 2: その上で他の layer があると知らせる</h3>
+<p>例えば:</p>
+<ul>
+<li>resources</li>
+<li>prompts</li>
+<li>elicitation</li>
+<li>auth</li>
+</ul>
+<h3>Step 3: どこまで実装するかを決める</h3>
+<p>これが教材 repo の目的に合っています。</p>
+<p><strong>まず似た system を作り、その後で platform layer を厚くする</strong></p>
+<h2>主要 record</h2>
+<h3>1. <code>ScopedMcpServerConfig</code></h3>
+<p>教材版でも最低限この概念は見せるべきです。</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">config = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"postgres"</span>,
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"stdio"</span>,
+    <span class="hljs-string">"command"</span>: <span class="hljs-string">"npx"</span>,
+    <span class="hljs-string">"args"</span>: [<span class="hljs-string">"-y"</span>, <span class="hljs-string">"..."</span>],
+    <span class="hljs-string">"scope"</span>: <span class="hljs-string">"project"</span>,
+}
+</code></pre>
+<p><code>scope</code> が重要なのは、server config が 1 つの場所からだけ来るとは限らないからです。</p>
+<h3>2. MCP connection state</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">server_state = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"postgres"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"connected"</span>,   <span class="hljs-comment"># pending / failed / needs-auth / disabled</span>
+    <span class="hljs-string">"config"</span>: {...},
+}
+</code></pre>
+<h3>3. <code>MCPToolSpec</code></h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">tool = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"mcp__postgres__query"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"input_schema"</span>: {...},
+}
+</code></pre>
+<h3>4. <code>ElicitationRequest</code></h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">request = {
+    <span class="hljs-string">"server_name"</span>: <span class="hljs-string">"some-server"</span>,
+    <span class="hljs-string">"message"</span>: <span class="hljs-string">"Please provide additional input"</span>,
+    <span class="hljs-string">"requested_schema"</span>: {...},
+}
+</code></pre>
+<p>ここでの教材上の要点は、elicitation を今すぐ全部実装することではありません。</p>
+<p>要点は:</p>
+<p><strong>MCP は常に一方向の tool invocation だけとは限らない</strong></p>
+<p>という点です。</p>
+<h2>より整理された図</h2>
+<pre class="code-block" data-language="text"><code class="hljs language-text">MCP Config
+  |
+  v
+Transport
+  |
+  v
+Connection State
+  |
+  +-- connected
+  +-- pending
+  +-- needs-auth
+  +-- failed
+  |
+  v
+Capabilities
+  +-- tools
+  +-- resources
+  +-- prompts
+  +-- elicitation
+  |
+  v
+Router / Permission / Notification Integration
+</code></pre>
+<h2>なぜ auth を主線の中心にしない方がよいか</h2>
+<p>auth は platform 全体では本物の layer です。</p>
+<p>しかし正文が早い段階で OAuth や vendor 固有 detail へ落ちると、初学者は system shape を失います。</p>
+<p>教材としては次の順がよいです。</p>
+<ul>
+<li>まず auth layer が存在すると知らせる</li>
+<li>次に <code>connected</code> と <code>needs-auth</code> が違う connection state だと教える</li>
+<li>さらに進んだ platform work の段階で auth state machine を詳しく扱う</li>
+</ul>
+<p>これなら正確さを保ちつつ、主線を壊しません。</p>
+<h2><code>s19</code> と <code>s02a</code> との関係</h2>
+<ul>
+<li><code>s19</code> 本文は tools-first の external capability path を教える</li>
+<li>この note は broader platform map を補う</li>
+<li><code>s02a</code> は MCP capability が unified tool control plane にどう戻るかを補う</li>
+</ul>
+<p>三つを合わせて初めて、読者は本当の構図を持てます。</p>
+<p><strong>MCP は外部 capability platform であり、tools はその最初の切り口にすぎない</strong></p>
+<h2>初学者がやりがちな間違い</h2>
+<h3>1. MCP を外部 tool catalog だけだと思う</h3>
+<p>その理解だと resources / prompts / auth / elicitation が後で急に見えて混乱します。</p>
+<h3>2. transport や OAuth detail に最初から沈み込む</h3>
+<p>これでは主線が壊れます。</p>
+<h3>3. MCP tool を permission の外に置く</h3>
+<p>system boundary に危険な横穴を開けます。</p>
+<h3>4. server config・connection state・exposed capabilities を一つに混ぜる</h3>
+<p>この三層は概念的に分けておくべきです。</p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"ja\",\"docs\",\"s19a-mcp-capability-layers\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"ja\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"s19a-mcp-capability-layers\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"ja\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"ja\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/ja\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"学習パスへ戻る\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"補助ドキュメント\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"MCP 能力層マップ\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"このページへ戻るべき場面\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"native tool・plugin・MCP server が 1 つの capability bus へ戻る全体像を補います。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"いっしょに読むと効く章\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s19\",{\"href\":\"/ja/s19\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s19\",\" · \",\"MCP とプラグイン\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"s19a-mcp-capability-layers\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"MCP 能力層マップ\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"native tool・plugin・MCP server が 1 つの capability bus へ戻る全体像を補います。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>本仓库代码阅读顺序</title><meta name="description" content="专门告诉你本地 `agents/*.py` 该按什么顺序打开、每章先盯住哪类状态和函数，避免重新乱翻源码。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/zh/"><span>←</span><span>回到学习主线</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">桥接文档</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">本仓库代码阅读顺序</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">这页适合什么时候回看</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">专门告诉你本地 `agents/*.py` 该按什么顺序打开、每章先盯住哪类状态和函数，避免重新乱翻源码。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">最适合和这些章节一起读</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s01/">s01<!-- --> · <!-- -->Agent 循环</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s07/">s07<!-- --> · <!-- -->权限系统</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s12/">s12<!-- --> · <!-- -->任务系统</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s15/">s15<!-- --> · <!-- -->Agent 团队</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p>这份文档不是让你“多看代码”。<br>
+它专门解决另一个问题：</p>
+<p><strong>当你已经知道章节顺序是对的以后，本仓库代码到底应该按什么顺序读，才不会把心智重新读乱。</strong></p>
+</blockquote>
+<h2>先说结论</h2>
+<p>不要这样读代码：</p>
+<ul>
+<li>不要从文件最长的那一章开始</li>
+<li>不要随机点一个你觉得“高级”的章节开始</li>
+<li>不要先钻 <code>web/</code> 再回头猜主线</li>
+<li>不要把 19 个 <code>agents/*.py</code> 当成一个源码池乱翻</li>
+</ul>
+<p>最稳的读法只有一句话：</p>
+<p><strong>文档顺着章节读，代码也顺着章节读。</strong></p>
+<p>而且每一章的代码，都先按同一个模板看：</p>
+<ol>
+<li>先看状态结构</li>
+<li>再看工具定义或注册表</li>
+<li>再看“这一轮怎么推进”的主函数</li>
+<li>最后才看 CLI 入口和试运行方式</li>
+</ol>
+<h2>为什么需要这份文档</h2>
+<p>很多读者不是看不懂某一章文字，而是会在真正打开代码以后重新乱掉。</p>
+<p>典型症状是：</p>
+<ul>
+<li>一上来先盯住 300 行以上的文件底部</li>
+<li>先看一堆 <code>run_*</code> 函数，却不知道它们挂在哪条主线上</li>
+<li>先看“最复杂”的平台章节，然后觉得前面的章节好像都太简单</li>
+<li>把 <code>task</code>、<code>runtime task</code>、<code>teammate</code>、<code>worktree</code> 在代码里重新混成一团</li>
+</ul>
+<p>这份阅读顺序就是为了防止这种情况。</p>
+<h2>读每个 agent 文件时，都先按同一个模板</h2>
+<p>不管你打开的是哪一章，本仓库里的 <code>agents/sXX_*.py</code> 都建议先按下面顺序读：</p>
+<h3>第一步：先看文件头注释</h3>
+<p>先回答两个问题：</p>
+<ul>
+<li>这一章到底在教什么</li>
+<li>它故意没有教什么</li>
+</ul>
+<p>如果连这一步都没建立，后面你会把每个函数都看成同等重要。</p>
+<h3>第二步：先看状态结构或管理器类</h3>
+<p>优先找这些东西：</p>
+<ul>
+<li><code>LoopState</code></li>
+<li><code>PlanningState</code></li>
+<li><code>CompactState</code></li>
+<li><code>TaskManager</code></li>
+<li><code>BackgroundManager</code></li>
+<li><code>TeammateManager</code></li>
+<li><code>WorktreeManager</code></li>
+</ul>
+<p>原因很简单：</p>
+<p><strong>先知道系统到底记住了什么，后面才看得懂它为什么要这样流动。</strong></p>
+<h3>第三步：再看工具列表或注册表</h3>
+<p>优先找这些入口：</p>
+<ul>
+<li><code>TOOLS</code></li>
+<li><code>TOOL_HANDLERS</code></li>
+<li>各种 <code>run_*</code></li>
+<li><code>build_tool_pool()</code></li>
+</ul>
+<p>这一层回答的是：</p>
+<ul>
+<li>模型到底能调用什么</li>
+<li>这些调用会落到哪条执行面上</li>
+</ul>
+<h3>第四步：最后才看主推进函数</h3>
+<p>重点函数通常长这样：</p>
+<ul>
+<li><code>run_one_turn(...)</code></li>
+<li><code>agent_loop(...)</code></li>
+<li>某个 <code>handle_*</code></li>
+</ul>
+<p>这一步要回答的是：</p>
+<ul>
+<li>这一章新机制到底接在主循环哪一环</li>
+<li>哪个分支是新增的</li>
+<li>新状态是在哪里写入、回流、继续的</li>
+</ul>
+<h3>第五步：最后再看 <code>if __name__ == "__main__"</code></h3>
+<p>CLI 入口当然有用，但它不应该成为第一屏。</p>
+<p>因为它通常只是在做：</p>
+<ul>
+<li>读用户输入</li>
+<li>初始化状态</li>
+<li>调用 <code>agent_loop</code></li>
+</ul>
+<p>真正决定一章心智主干的，不在这里。</p>
+<h2>阶段 1：<code>s01-s06</code> 应该怎样读代码</h2>
+<p>这一段不是在学“很多功能”，而是在学：</p>
+<p><strong>一个单 agent 主骨架到底怎样成立。</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>章节</th><th>文件</th><th>先看什么</th><th>再看什么</th><th>读完要确认什么</th></tr></thead><tbody><tr><td><code>s01</code></td><td><code>agents/s01_agent_loop.py</code></td><td><code>LoopState</code></td><td><code>TOOLS</code> -> <code>execute_tool_calls()</code> -> <code>run_one_turn()</code> -> <code>agent_loop()</code></td><td>你已经能看懂 <code>messages -> model -> tool_result -> next turn</code></td></tr><tr><td><code>s02</code></td><td><code>agents/s02_tool_use.py</code></td><td><code>safe_path()</code></td><td><code>run_read()</code> / <code>run_write()</code> / <code>run_edit()</code> -> <code>TOOL_HANDLERS</code> -> <code>agent_loop()</code></td><td>你已经能看懂“主循环不变，工具靠分发面增长”</td></tr><tr><td><code>s03</code></td><td><code>agents/s03_todo_write.py</code></td><td><code>PlanItem</code> / <code>PlanningState</code> / <code>TodoManager</code></td><td><code>todo</code> 相关 handler -> reminder 注入 -> <code>agent_loop()</code></td><td>你已经能看懂“会话计划状态”怎么外显化</td></tr><tr><td><code>s04</code></td><td><code>agents/s04_subagent.py</code></td><td><code>AgentTemplate</code></td><td><code>run_subagent()</code> -> 父 <code>agent_loop()</code></td><td>你已经能看懂“子智能体首先是上下文隔离”</td></tr><tr><td><code>s05</code></td><td><code>agents/s05_skill_loading.py</code></td><td><code>SkillManifest</code> / <code>SkillDocument</code> / <code>SkillRegistry</code></td><td><code>get_descriptions()</code> / <code>get_content()</code> -> <code>agent_loop()</code></td><td>你已经能看懂“先发现、再按需加载”</td></tr><tr><td><code>s06</code></td><td><code>agents/s06_context_compact.py</code></td><td><code>CompactState</code></td><td><code>persist_large_output()</code> -> <code>micro_compact()</code> -> <code>compact_history()</code> -> <code>agent_loop()</code></td><td>你已经能看懂“压缩不是删历史，而是转移细节”</td></tr></tbody></table></div>
+<h3>这一段最值得反复看的 3 个代码点</h3>
+<ol>
+<li><code>state</code> 在哪里第一次从“聊天内容”升级成“显式系统状态”</li>
+<li><code>tool_result</code> 是怎么一直保持为统一回流接口的</li>
+<li>新机制是怎样接进 <code>agent_loop()</code> 而不是把 <code>agent_loop()</code> 重写烂的</li>
+</ol>
+<h3>这一段读完后，最好的动作</h3>
+<p>不要立刻去看 <code>s07</code>。</p>
+<p>先自己从空目录手写一遍下面这些最小件：</p>
+<ul>
+<li>一个 loop</li>
+<li>一个 dispatch map</li>
+<li>一个会话计划状态</li>
+<li>一个一次性子任务隔离</li>
+<li>一个按需技能加载</li>
+<li>一个最小压缩层</li>
+</ul>
+<h2>阶段 2：<code>s07-s11</code> 应该怎样读代码</h2>
+<p>这一段不是在学“又多了五种功能”。</p>
+<p>它真正是在学：</p>
+<p><strong>单 agent 的控制面是怎样长出来的。</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>章节</th><th>文件</th><th>先看什么</th><th>再看什么</th><th>读完要确认什么</th></tr></thead><tbody><tr><td><code>s07</code></td><td><code>agents/s07_permission_system.py</code></td><td><code>BashSecurityValidator</code> / <code>PermissionManager</code></td><td>权限判定入口 -> <code>run_bash()</code> -> <code>agent_loop()</code></td><td>你已经能看懂“先 gate，再 execute”</td></tr><tr><td><code>s08</code></td><td><code>agents/s08_hook_system.py</code></td><td><code>HookManager</code></td><td>hook 注册与触发 -> <code>agent_loop()</code></td><td>你已经能看懂 hook 是固定时机的插口，不是散落 if</td></tr><tr><td><code>s09</code></td><td><code>agents/s09_memory_system.py</code></td><td><code>MemoryManager</code> / <code>DreamConsolidator</code></td><td><code>run_save_memory()</code> -> <code>build_system_prompt()</code> -> <code>agent_loop()</code></td><td>你已经能看懂 memory 是长期信息层，不是上下文垃圾桶</td></tr><tr><td><code>s10</code></td><td><code>agents/s10_system_prompt.py</code></td><td><code>SystemPromptBuilder</code></td><td><code>build_system_reminder()</code> -> <code>agent_loop()</code></td><td>你已经能看懂输入是流水线，不是单块 prompt</td></tr><tr><td><code>s11</code></td><td><code>agents/s11_error_recovery.py</code></td><td><code>estimate_tokens()</code> / <code>auto_compact()</code> / <code>backoff_delay()</code></td><td>各恢复分支 -> <code>agent_loop()</code></td><td>你已经能看懂“恢复以后怎样继续下一轮”</td></tr></tbody></table></div>
+<h3>这一段读代码时，最容易重新读乱的地方</h3>
+<ol>
+<li>把权限和 hook 混成一类</li>
+<li>把 memory 和 prompt 装配混成一类</li>
+<li>把 <code>s11</code> 看成很多异常判断，而不是“续行控制”</li>
+</ol>
+<p>如果你开始混，先回：</p>
+<ul>
+<li><code>docs/zh/s00a-query-control-plane.md</code></li>
+<li><code>docs/zh/s10a-message-prompt-pipeline.md</code></li>
+<li><code>docs/zh/s00c-query-transition-model.md</code></li>
+</ul>
+<h2>阶段 3：<code>s12-s14</code> 应该怎样读代码</h2>
+<p>这一段开始，代码理解的关键不再是“工具多了什么”，而是：</p>
+<p><strong>系统第一次真正长出会话外工作状态和运行时槽位。</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>章节</th><th>文件</th><th>先看什么</th><th>再看什么</th><th>读完要确认什么</th></tr></thead><tbody><tr><td><code>s12</code></td><td><code>agents/s12_task_system.py</code></td><td><code>TaskManager</code></td><td>任务创建、依赖、解锁 -> <code>agent_loop()</code></td><td>你已经能看懂 task 是持久工作图，不是 todo</td></tr><tr><td><code>s13</code></td><td><code>agents/s13_background_tasks.py</code></td><td><code>NotificationQueue</code> / <code>BackgroundManager</code></td><td>后台执行登记 -> 通知排空 -> <code>agent_loop()</code></td><td>你已经能看懂 background task 是运行槽位</td></tr><tr><td><code>s14</code></td><td><code>agents/s14_cron_scheduler.py</code></td><td><code>CronLock</code> / <code>CronScheduler</code></td><td><code>cron_matches()</code> -> schedule 触发 -> <code>agent_loop()</code></td><td>你已经能看懂调度器只负责“未来何时开始”</td></tr></tbody></table></div>
+<h3>这一段读代码时一定要守住的边界</h3>
+<ul>
+<li><code>task</code> 是工作目标</li>
+<li><code>runtime task</code> 是正在跑的执行槽位</li>
+<li><code>schedule</code> 是何时触发工作</li>
+</ul>
+<p>只要这三层在代码里重新混掉，后面 <code>s15-s19</code> 会一起变难。</p>
+<h2>阶段 4：<code>s15-s19</code> 应该怎样读代码</h2>
+<p>这一段不要当成“功能狂欢”去读。</p>
+<p>它真正建立的是：</p>
+<p><strong>平台边界。</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>章节</th><th>文件</th><th>先看什么</th><th>再看什么</th><th>读完要确认什么</th></tr></thead><tbody><tr><td><code>s15</code></td><td><code>agents/s15_agent_teams.py</code></td><td><code>MessageBus</code> / <code>TeammateManager</code></td><td>队友名册、邮箱、独立循环 -> <code>agent_loop()</code></td><td>你已经能看懂 teammate 是长期 actor，不是一次性 subagent</td></tr><tr><td><code>s16</code></td><td><code>agents/s16_team_protocols.py</code></td><td><code>RequestStore</code> / <code>TeammateManager</code></td><td><code>handle_shutdown_request()</code> / <code>handle_plan_review()</code> -> <code>agent_loop()</code></td><td>你已经能看懂 request-response + <code>request_id</code></td></tr><tr><td><code>s17</code></td><td><code>agents/s17_autonomous_agents.py</code></td><td><code>RequestStore</code> / <code>TeammateManager</code></td><td><code>is_claimable_task()</code> / <code>claim_task()</code> / <code>ensure_identity_context()</code> -> <code>agent_loop()</code></td><td>你已经能看懂自治主线：空闲检查 -> 安全认领 -> 恢复工作</td></tr><tr><td><code>s18</code></td><td><code>agents/s18_worktree_task_isolation.py</code></td><td><code>TaskManager</code> / <code>WorktreeManager</code> / <code>EventBus</code></td><td><code>worktree_enter</code> 相关生命周期 -> <code>agent_loop()</code></td><td>你已经能看懂 task 管目标，worktree 管执行车道</td></tr><tr><td><code>s19</code></td><td><code>agents/s19_mcp_plugin.py</code></td><td><code>CapabilityPermissionGate</code> / <code>MCPClient</code> / <code>PluginLoader</code> / <code>MCPToolRouter</code></td><td><code>build_tool_pool()</code> / <code>handle_tool_call()</code> / <code>normalize_tool_result()</code> -> <code>agent_loop()</code></td><td>你已经能看懂外部能力如何接回同一控制面</td></tr></tbody></table></div>
+<h3>这一段最容易误读的地方</h3>
+<ol>
+<li>把 <code>s15</code> 的 teammate 当成 <code>s04</code> 的 subagent 放大版</li>
+<li>把 <code>s17</code> 自治看成“agent 自己乱跑”</li>
+<li>把 <code>s18</code> worktree 看成一个 git 小技巧</li>
+<li>把 <code>s19</code> MCP 缩成“只是远程 tools”</li>
+</ol>
+<h2>代码阅读时，哪些文件不要先看</h2>
+<p>如果你的目标是建立主线心智，下面这些内容不要先看：</p>
+<ul>
+<li><code>web/</code> 里的可视化实现细节</li>
+<li><code>web/src/data/generated/*</code></li>
+<li><code>.next/</code> 或其他构建产物</li>
+<li><code>agents/s_full.py</code></li>
+</ul>
+<p>原因不是它们没价值。</p>
+<p>而是：</p>
+<ul>
+<li><code>web/</code> 解决的是展示与学习界面</li>
+<li><code>generated</code> 是抽取结果，不是机制本身</li>
+<li><code>s_full.py</code> 是整合参考，不适合第一次建立边界</li>
+</ul>
+<h2>最推荐的“文档 + 代码 + 运行”循环</h2>
+<p>每一章最稳的学习动作不是只看文档，也不是只看代码。</p>
+<p>推荐固定走这一套：</p>
+<ol>
+<li>先读这一章正文</li>
+<li>再读这一章的桥接资料</li>
+<li>再打开对应 <code>agents/sXX_*.py</code></li>
+<li>按“状态 -> 工具 -> 主推进函数 -> CLI 入口”的顺序看</li>
+<li>跑一次这章的 demo</li>
+<li>自己从空目录重写一个最小版本</li>
+</ol>
+<p>只要你每章都这样走一次，代码理解会非常稳。</p>
+<h2>初学者最容易犯的 6 个代码阅读错误</h2>
+<h3>1. 先看最长文件</h3>
+<p>这通常只会先把自己看晕。</p>
+<h3>2. 先盯 <code>run_bash()</code> 这种工具细节</h3>
+<p>工具实现细节不是主干。</p>
+<h3>3. 不先找状态结构</h3>
+<p>这样你永远不知道系统到底记住了什么。</p>
+<h3>4. 把 <code>agent_loop()</code> 当成唯一重点</h3>
+<p>主循环当然重要，但每章真正新增的边界，往往在状态容器和分支入口。</p>
+<h3>5. 读完代码不跑 demo</h3>
+<p>不实际跑一次，很难建立“这一章到底新增了哪条回路”的感觉。</p>
+<h3>6. 一口气连看三四章代码，不停下来自己重写</h3>
+<p>这样最容易出现“我好像都看过，但其实自己不会写”的错觉。</p>
+<h2>一句话记住</h2>
+<p><strong>代码阅读顺序也必须服从教学顺序：先看边界，再看状态，再看主线如何推进，而不是随机翻源码。</strong></p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"docs\",\"s00f-code-reading-order\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"s00f-code-reading-order\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/zh\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"回到学习主线\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"桥接文档\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"本仓库代码阅读顺序\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"这页适合什么时候回看\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"专门告诉你本地 `agents/*.py` 该按什么顺序打开、每章先盯住哪类状态和函数，避免重新乱翻源码。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"最适合和这些章节一起读\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s01\",{\"href\":\"/zh/s01\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s01\",\" · \",\"Agent 循环\"]}],[\"$\",\"$L13\",\"s07\",{\"href\":\"/zh/s07\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s07\",\" · \",\"权限系统\"]}],[\"$\",\"$L13\",\"s12\",{\"href\":\"/zh/s12\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s12\",\" · \",\"任务系统\"]}],[\"$\",\"$L13\",\"s15\",{\"href\":\"/zh/s15\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s15\",\" · \",\"Agent 团队\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"s00f-code-reading-order\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"本仓库代码阅读顺序\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"专门告诉你本地 `agents/*.py` 该按什么顺序打开、每章先盯住哪类状态和函数，避免重新乱翻源码。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

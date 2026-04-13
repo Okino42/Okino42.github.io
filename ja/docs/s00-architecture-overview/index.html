@@ -1,0 +1,529 @@
+<!DOCTYPE html><html lang="ja"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>アーキテクチャ全体図</title><meta name="description" content="全体像を先に見てから現在の章へ戻るための俯瞰図です。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/ja/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/reference/">リファレンス</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/compare/">比較</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">コアループ</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">エージェントループ</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">ツール使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">Todo 書き込み</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">サブエージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">スキル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">コンテキスト圧縮</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">システム強化</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">権限システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">記憶システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">システムプロンプト</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">エラー回復</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">タスクランタイム</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">タスクシステム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">バックグラウンドタスク</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">Cron スケジューラ</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">マルチエージェント基盤</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">エージェントチーム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">チームプロトコル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自律エージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 分離</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP とプラグイン</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/ja/"><span>←</span><span>学習パスへ戻る</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">補助ドキュメント</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">アーキテクチャ全体図</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">このページへ戻るべき場面</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">全体像を先に見てから現在の章へ戻るための俯瞰図です。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">いっしょに読むと効く章</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s01/">s01<!-- --> · <!-- -->エージェントループ</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s07/">s07<!-- --> · <!-- -->権限システム</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s12/">s12<!-- --> · <!-- -->タスクシステム</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s15/">s15<!-- --> · <!-- -->エージェントチーム</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p>この章は教材全体の地図です。<br>
+「結局この repository は何を教えようとしていて、なぜこの順番で章が並んでいるのか」を先に掴みたいなら、まずここから読むのがいちばん安全です。</p>
+</blockquote>
+<h2>先に結論</h2>
+<p>この教材の章順は妥当です。</p>
+<p>大事なのは章数の多さではありません。<br>
+大事なのは、初学者が無理なく積み上がる順番で system を育てていることです。</p>
+<p>全体は次の 4 段階に分かれています。</p>
+<ol>
+<li>まず本当に動く単一 agent を作る</li>
+<li>その上に安全性、拡張点、memory、prompt、recovery を足す</li>
+<li>会話中の一時的 progress を durable work system へ押し上げる</li>
+<li>最後に teams、protocols、autonomy、worktree、MCP / plugin へ広げる</li>
+</ol>
+<p>この順番が自然なのは、学習者が最初に固めるべき主線がたった 1 本だからです。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">user input
+  ->
+model reasoning
+  ->
+tool execution
+  ->
+result write-back
+  ->
+next turn or finish
+</code></pre>
+<p>この主線がまだ曖昧なまま後段の mechanism を積むと、</p>
+<ul>
+<li>permission</li>
+<li>hook</li>
+<li>memory</li>
+<li>MCP</li>
+<li>worktree</li>
+</ul>
+<p>のような言葉が全部ばらばらの trivia に見えてしまいます。</p>
+<h2>この教材が再構成したいもの</h2>
+<p>この教材の目標は、どこかの production code を逐行でなぞることではありません。</p>
+<p>本当に再構成したいのは次の部分です。</p>
+<ul>
+<li>主要 module は何か</li>
+<li>module 同士がどう協調するか</li>
+<li>各 module の責務は何か</li>
+<li>重要 state がどこに住むか</li>
+<li>1 つの request が system の中をどう流れるか</li>
+</ul>
+<p>つまり狙っているのは、</p>
+<p><strong>設計主脈への高い忠実度であって、周辺実装の 1:1 再現ではありません。</strong></p>
+<p>これはとても重要です。</p>
+<p>もしあなたが本当に知りたいのが、</p>
+<blockquote>
+<p>0 から自分で高完成度の coding agent harness を作れるようになること</p>
+</blockquote>
+<p>なら、優先して掴むべきなのは次です。</p>
+<ul>
+<li>agent loop</li>
+<li>tools</li>
+<li>planning</li>
+<li>context management</li>
+<li>permissions</li>
+<li>hooks</li>
+<li>memory</li>
+<li>prompt assembly</li>
+<li>tasks</li>
+<li>teams</li>
+<li>isolated execution lanes</li>
+<li>external capability routing</li>
+</ul>
+<p>逆に、最初の主線に持ち込まなくてよいものもあります。</p>
+<ul>
+<li>packaging / release</li>
+<li>cross-platform compatibility の細かな枝</li>
+<li>enterprise wiring</li>
+<li>telemetry</li>
+<li>歴史的 compatibility layer</li>
+<li>product 固有の naming accident</li>
+</ul>
+<p>これらが存在しうること自体は否定しません。<br>
+ただし 0-to-1 教学の中心に置くべきではありません。</p>
+<h2>読むときの 3 つの原則</h2>
+<h3>1. まず最小で正しい版を学ぶ</h3>
+<p>たとえば subagent なら、最初に必要なのはこれだけです。</p>
+<ul>
+<li>親 agent が subtask を切る</li>
+<li>子 agent が自分の <code>messages</code> を持つ</li>
+<li>子 agent が summary を返す</li>
+</ul>
+<p>これだけで、</p>
+<p><strong>親 context を汚さずに探索作業を切り出せる</strong></p>
+<p>という核心は学べます。</p>
+<p>そのあとでようやく、</p>
+<ul>
+<li>親 context を引き継ぐ fork</li>
+<li>独立 permission</li>
+<li>background 実行</li>
+<li>worktree 隔離</li>
+</ul>
+<p>を足せばよいです。</p>
+<h3>2. 新しい語は使う前に意味を固める</h3>
+<p>この教材では次のような語が頻繁に出ます。</p>
+<ul>
+<li>state machine</li>
+<li>dispatch map</li>
+<li>dependency graph</li>
+<li>worktree</li>
+<li>protocol envelope</li>
+<li>capability</li>
+<li>control plane</li>
+</ul>
+<p>意味が曖昧なまま先へ進むと、後ろの章で一気に詰まります。</p>
+<p>そのときは無理に本文を読み切ろうとせず、次の文書へ戻ってください。</p>
+<ul>
+<li><a href="./glossary.md"><code>glossary.md</code></a></li>
+<li><a href="./entity-map.md"><code>entity-map.md</code></a></li>
+<li><a href="./data-structures.md"><code>data-structures.md</code></a></li>
+</ul>
+<h3>3. 周辺の複雑さを主線へ持ち込みすぎない</h3>
+<p>良い教材は「全部話す教材」ではありません。</p>
+<p>良い教材は、</p>
+<ul>
+<li>核心は完全に話す</li>
+<li>周辺で重く複雑なものは後ろへ回す</li>
+</ul>
+<p>という構造を持っています。</p>
+<p>だからこの repository では、あえて主線の外に置いている内容があります。</p>
+<ul>
+<li>packaging / release</li>
+<li>enterprise policy glue</li>
+<li>telemetry</li>
+<li>client integration の細部</li>
+<li>逐行の逆向き比較 trivia</li>
+</ul>
+<h2>先に開いておくと楽な補助文書</h2>
+<p>主線 chapter と一緒に、次の文書を補助地図として持っておくと理解が安定します。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>文書</th><th>用途</th></tr></thead><tbody><tr><td><a href="./teaching-scope.md"><code>teaching-scope.md</code></a></td><td>何を教え、何を意図的に省くかを見る</td></tr><tr><td><a href="./data-structures.md"><code>data-structures.md</code></a></td><td>system 全体の重要 record を一か所で見る</td></tr><tr><td><a href="./s00f-code-reading-order.md"><code>s00f-code-reading-order.md</code></a></td><td>chapter order と local code reading order をそろえる</td></tr></tbody></table></div>
+<p>さらに、後半で mechanism 間のつながりが曖昧になったら、次の bridge docs が効きます。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>文書</th><th>補うもの</th></tr></thead><tbody><tr><td><a href="./s00d-chapter-order-rationale.md"><code>s00d-chapter-order-rationale.md</code></a></td><td>なぜ今の順番で学ぶのか</td></tr><tr><td><a href="./s00e-reference-module-map.md"><code>s00e-reference-module-map.md</code></a></td><td>参照 repository の高信号 module 群と教材章の対応</td></tr><tr><td><a href="./s00a-query-control-plane.md"><code>s00a-query-control-plane.md</code></a></td><td>高完成度 system に loop 以外の control plane が必要になる理由</td></tr><tr><td><a href="./s00b-one-request-lifecycle.md"><code>s00b-one-request-lifecycle.md</code></a></td><td>1 request が system 全体をどう流れるか</td></tr><tr><td><a href="./s02a-tool-control-plane.md"><code>s02a-tool-control-plane.md</code></a></td><td>tool layer が単なる <code>tool_name -> handler</code> で終わらない理由</td></tr><tr><td><a href="./s10a-message-prompt-pipeline.md"><code>s10a-message-prompt-pipeline.md</code></a></td><td>message / prompt / memory がどこで合流するか</td></tr><tr><td><a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a></td><td>durable task と live runtime slot の違い</td></tr><tr><td><a href="./s19a-mcp-capability-layers.md"><code>s19a-mcp-capability-layers.md</code></a></td><td>MCP を capability bus として見るための地図</td></tr><tr><td><a href="./entity-map.md"><code>entity-map.md</code></a></td><td>entity の境界を徹底的に分ける</td></tr></tbody></table></div>
+<h2>4 段階の学習パス</h2>
+<h3>Stage 1: Core Single-Agent (<code>s01-s06</code>)</h3>
+<p>ここでの目標は、</p>
+<p><strong>まず本当に役に立つ単一 agent を作ること</strong></p>
+<p>です。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>章</th><th>学ぶもの</th><th>解く問題</th></tr></thead><tbody><tr><td><code>s01</code></td><td>Agent Loop</td><td>loop がなければ agent にならない</td></tr><tr><td><code>s02</code></td><td>Tool Use</td><td>model を「話すだけ」から「実際に動く」へ変える</td></tr><tr><td><code>s03</code></td><td>Todo / Planning</td><td>multi-step work が漂わないようにする</td></tr><tr><td><code>s04</code></td><td>Subagent</td><td>探索作業で親 context を汚さない</td></tr><tr><td><code>s05</code></td><td>Skills</td><td>必要な知識だけ後から載せる</td></tr><tr><td><code>s06</code></td><td>Context Compact</td><td>会話が長くなっても主線を保つ</td></tr></tbody></table></div>
+<h3>Stage 2: Hardening (<code>s07-s11</code>)</h3>
+<p>ここでの目標は、</p>
+<p><strong>動くだけの agent を、安全で拡張可能な agent へ押し上げること</strong></p>
+<p>です。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>章</th><th>学ぶもの</th><th>解く問題</th></tr></thead><tbody><tr><td><code>s07</code></td><td>Permission System</td><td>危険な操作を gate の後ろへ置く</td></tr><tr><td><code>s08</code></td><td>Hook System</td><td>loop 本体を書き換えず周辺拡張する</td></tr><tr><td><code>s09</code></td><td>Memory System</td><td>本当に価値ある情報だけを跨 session で残す</td></tr><tr><td><code>s10</code></td><td>System Prompt</td><td>stable rule と runtime input を組み立てる</td></tr><tr><td><code>s11</code></td><td>Error Recovery</td><td>失敗後も stop 一択にしない</td></tr></tbody></table></div>
+<h3>Stage 3: Runtime Work (<code>s12-s14</code>)</h3>
+<p>ここでの目標は、</p>
+<p><strong>session 中の計画を durable work graph と runtime execution に分けること</strong></p>
+<p>です。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>章</th><th>学ぶもの</th><th>解く問題</th></tr></thead><tbody><tr><td><code>s12</code></td><td>Task System</td><td>work goal を disk 上に持つ</td></tr><tr><td><code>s13</code></td><td>Background Tasks</td><td>遅い command が前景思考を止めないようにする</td></tr><tr><td><code>s14</code></td><td>Cron Scheduler</td><td>時間そのものを trigger にする</td></tr></tbody></table></div>
+<h3>Stage 4: Platform (<code>s15-s19</code>)</h3>
+<p>ここでの目標は、</p>
+<p><strong>single-agent harness を協調 platform へ広げること</strong></p>
+<p>です。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>章</th><th>学ぶもの</th><th>解く問題</th></tr></thead><tbody><tr><td><code>s15</code></td><td>Agent Teams</td><td>persistent teammate を持つ</td></tr><tr><td><code>s16</code></td><td>Team Protocols</td><td>協調を自由文から structured flow へ上げる</td></tr><tr><td><code>s17</code></td><td>Autonomous Agents</td><td>idle teammate が自分で次の work を取れるようにする</td></tr><tr><td><code>s18</code></td><td>Worktree Isolation</td><td>並行 task が同じ directory を踏み荒らさないようにする</td></tr><tr><td><code>s19</code></td><td>MCP &#x26; Plugin</td><td>外部 capability を統一 surface で扱う</td></tr></tbody></table></div>
+<h2>各章が system に足す中核構造</h2>
+<p>読者が中盤で混乱しやすいのは、</p>
+<ul>
+<li>今の章は何を増やしているのか</li>
+<li>その state は system のどこに属するのか</li>
+</ul>
+<p>が曖昧になるからです。</p>
+<p>そこで各章を「新しく足す構造」で見直すとこうなります。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>章</th><th>中核構造</th><th>学習後に言えるべきこと</th></tr></thead><tbody><tr><td><code>s01</code></td><td><code>LoopState</code></td><td>最小の agent loop を自分で書ける</td></tr><tr><td><code>s02</code></td><td><code>ToolSpec</code> / dispatch map</td><td>model の意図を安定して実行へ落とせる</td></tr><tr><td><code>s03</code></td><td><code>TodoItem</code> / <code>PlanState</code></td><td>現在の progress を外部 state として持てる</td></tr><tr><td><code>s04</code></td><td><code>SubagentContext</code></td><td>親 context を汚さず委譲できる</td></tr><tr><td><code>s05</code></td><td><code>SkillRegistry</code></td><td>必要な knowledge を必要な時だけ注入できる</td></tr><tr><td><code>s06</code></td><td>compaction records</td><td>長い対話でも主線を保てる</td></tr><tr><td><code>s07</code></td><td><code>PermissionDecision</code></td><td>実行を gate の後ろへ置ける</td></tr><tr><td><code>s08</code></td><td>hook events</td><td>loop を壊さず extension を追加できる</td></tr><tr><td><code>s09</code></td><td>memory records</td><td>跨 session で残すべき情報を選別できる</td></tr><tr><td><code>s10</code></td><td>prompt parts</td><td>入力を section 単位で組み立てられる</td></tr><tr><td><code>s11</code></td><td>recovery state / transition reason</td><td>なぜ続行するのかを state として説明できる</td></tr><tr><td><code>s12</code></td><td><code>TaskRecord</code></td><td>durable work graph を作れる</td></tr><tr><td><code>s13</code></td><td><code>RuntimeTaskState</code></td><td>live execution と work goal を分けて見られる</td></tr><tr><td><code>s14</code></td><td><code>ScheduleRecord</code></td><td>time-based trigger を足せる</td></tr><tr><td><code>s15</code></td><td><code>TeamMember</code></td><td>persistent actor を持てる</td></tr><tr><td><code>s16</code></td><td><code>ProtocolEnvelope</code> / <code>RequestRecord</code></td><td>structured coordination を作れる</td></tr><tr><td><code>s17</code></td><td><code>ClaimPolicy</code> / autonomy state</td><td>自治的な claim / resume を説明できる</td></tr><tr><td><code>s18</code></td><td><code>WorktreeRecord</code> / <code>TaskBinding</code></td><td>並行 execution lane を分離できる</td></tr><tr><td><code>s19</code></td><td><code>MCPServerConfig</code> / capability route</td><td>native / plugin / MCP を同じ外側境界で見られる</td></tr></tbody></table></div>
+<h2>system 全体を 3 層で見る</h2>
+<p>全体を最も簡単に捉えるなら、次の 3 層に分けてください。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">1. Main Loop
+   user input を受け、model を呼び、結果に応じて続く
+
+2. Control / Context Layer
+   permission、hook、memory、prompt、recovery が loop を支える
+
+3. Work / Platform Layer
+   tasks、teams、runtime slots、worktrees、MCP が大きな作業面を作る
+</code></pre>
+<p>図で見るとこうです。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">User
+  |
+  v
+messages[]
+  |
+  v
++-------------------------+
+| Agent Loop (s01)        |
+| 1. 入力を組み立てる      |
+| 2. model を呼ぶ         |
+| 3. stop_reason を見る   |
+| 4. tool を実行する      |
+| 5. result を write-back |
+| 6. 次 turn を決める     |
++-------------------------+
+  |
+  +------------------------------+
+  |                              |
+  v                              v
+Tool / Control Plane         Context / State Layer
+(s02, s07, s08, s19)         (s03, s06, s09, s10, s11)
+  |                              |
+  v                              v
+Tasks / Teams / Worktree / Runtime (s12-s18)
+</code></pre>
+<p>ここで大切なのは、system 全体を 1 本の巨大な file や 1 つの class として捉えないことです。</p>
+<p><strong>chapter order とは、system をどの層の順で理解すると最も心智負荷が低いかを表したもの</strong></p>
+<p>です。</p>
+<h2>この章を読み終えたら何が言えるべきか</h2>
+<p>この章のゴールは、個々の API を覚えることではありません。</p>
+<p>読み終えた時点で、少なくとも次の 3 文を自分の言葉で言える状態を目指してください。</p>
+<ol>
+<li>この教材は production implementation の周辺 detail ではなく、agent harness の主設計を教えている</li>
+<li>chapter order は <code>single agent -> hardening -> runtime work -> platform</code> の 4 段階で意味がある</li>
+<li>後ろの章の mechanism は前の章の上に自然に積み上がるので、順番を大きく崩すと学習心智が乱れる</li>
+</ol>
+<h2>一文で覚える</h2>
+<p><strong>良い章順とは、機能一覧ではなく、前の層から次の層が自然に育つ学習経路です。</strong></p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"ja\",\"docs\",\"s00-architecture-overview\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"ja\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"s00-architecture-overview\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n14:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n4:[\"$\",\"html\",null,{\"lang\":\"ja\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"ja\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/ja\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"学習パスへ戻る\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"補助ドキュメント\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"アーキテクチャ全体図\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"このページへ戻るべき場面\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"全体像を先に見てから現在の章へ戻るための俯瞰図です。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"いっしょに読むと効く章\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s01\",{\"href\":\"/ja/s01\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s01\",\" · \",\"エージェントループ\"]}],[\"$\",\"$L13\",\"s07\",{\"href\":\"/ja/s07\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s07\",\" · \",\"権限システム\"]}],[\"$\",\"$L13\",\"s12\",{\"href\":\"/ja/s12\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s12\",\" · \",\"タスクシステム\"]}],[\"$\",\"$L13\",\"s15\",{\"href\":\"/ja/s15\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s15\",\" · \",\"エージェントチーム\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":[\"$\",\"$L14\",null,{\"slug\":\"s00-architecture-overview\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"15:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"アーキテクチャ全体図\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"全体像を先に見てから現在の章へ戻るための俯瞰図です。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L15\",\"3\",{}]]\n"])</script></body></html>

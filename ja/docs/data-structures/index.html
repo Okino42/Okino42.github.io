@@ -1,0 +1,997 @@
+<!DOCTYPE html><html lang="ja"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>主要データ構造マップ</title><meta name="description" content="主要な record 構造を横断的に見直すための資料です。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/ja/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/reference/">リファレンス</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/compare/">比較</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">コアループ</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">エージェントループ</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">ツール使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">Todo 書き込み</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">サブエージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">スキル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">コンテキスト圧縮</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">システム強化</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">権限システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">記憶システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">システムプロンプト</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">エラー回復</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">タスクランタイム</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">タスクシステム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">バックグラウンドタスク</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">Cron スケジューラ</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">マルチエージェント基盤</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">エージェントチーム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">チームプロトコル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自律エージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 分離</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP とプラグイン</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/ja/"><span>←</span><span>学習パスへ戻る</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">補助ドキュメント</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">主要データ構造マップ</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">このページへ戻るべき場面</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">主要な record 構造を横断的に見直すための資料です。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">いっしょに読むと効く章</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s03/">s03<!-- --> · <!-- -->Todo 書き込み</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s06/">s06<!-- --> · <!-- -->コンテキスト圧縮</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s09/">s09<!-- --> · <!-- -->記憶システム</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s12/">s12<!-- --> · <!-- -->タスクシステム</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s13/">s13<!-- --> · <!-- -->バックグラウンドタスク</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/ja/s18/">s18<!-- --> · <!-- -->Worktree 分離</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p>agent 学習でいちばん迷いやすいのは、機能の多さそのものではなく、<br>
+<strong>「今の状態がどの record に入っているのか」が見えなくなること</strong>です。<br>
+この文書は、主線章と bridge doc に繰り返し出てくる record をひとつの地図として並べ直し、<br>
+読者が system 全体を「機能一覧」ではなく「状態の配置図」として理解できるようにするための資料です。</p>
+</blockquote>
+<h2>どう使うか</h2>
+<p>この資料は辞書というより、<code>state map</code> として使ってください。</p>
+<ul>
+<li>単語の意味が怪しくなったら <a href="./glossary.md"><code>glossary.md</code></a> へ戻る</li>
+<li>object 同士の境界が混ざったら <a href="./entity-map.md"><code>entity-map.md</code></a> を開く</li>
+<li><code>TaskRecord</code> と <code>RuntimeTaskState</code> が混ざったら <a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a> を読む</li>
+<li>MCP で tools 以外の layer が混ざったら <a href="./s19a-mcp-capability-layers.md"><code>s19a-mcp-capability-layers.md</code></a> を併読する</li>
+</ul>
+<h2>最初にこの 2 本だけは覚える</h2>
+<h3>原則 1: 内容状態と制御状態を分ける</h3>
+<p>内容状態とは、system が「何を扱っているか」を表す状態です。</p>
+<p>例:</p>
+<ul>
+<li><code>messages</code></li>
+<li><code>tool_result</code></li>
+<li>memory の本文</li>
+<li>task の title や description</li>
+</ul>
+<p>制御状態とは、system が「次にどう進むか」を表す状態です。</p>
+<p>例:</p>
+<ul>
+<li><code>turn_count</code></li>
+<li><code>transition</code></li>
+<li><code>has_attempted_compact</code></li>
+<li><code>max_output_tokens_override</code></li>
+<li><code>pending_classifier_check</code></li>
+</ul>
+<p>この 2 つを混ぜると、読者はすぐに次の疑問で詰まります。</p>
+<ul>
+<li>なぜ <code>messages</code> だけでは足りないのか</li>
+<li>なぜ control plane が必要なのか</li>
+<li>なぜ recovery や compact が別 state を持つのか</li>
+</ul>
+<h3>原則 2: durable state と runtime state を分ける</h3>
+<p><code>durable state</code> は、session をまたいでも残す価値がある状態です。</p>
+<p>例:</p>
+<ul>
+<li>task</li>
+<li>memory</li>
+<li>schedule</li>
+<li>team roster</li>
+</ul>
+<p><code>runtime state</code> は、system が動いている間だけ意味を持つ状態です。</p>
+<p>例:</p>
+<ul>
+<li>現在の permission decision</li>
+<li>今走っている runtime task</li>
+<li>active MCP connection</li>
+<li>今回の query の continuation reason</li>
+</ul>
+<p>この区別が曖昧だと、task・runtime slot・notification・schedule・worktree が全部同じ層に見えてしまいます。</p>
+<h2>1. Query と会話制御の状態</h2>
+<p>この層の核心は:</p>
+<blockquote>
+<p>会話内容を持つ record と、query の進行理由を持つ record は別物である</p>
+</blockquote>
+<p>です。</p>
+<h3><code>Message</code></h3>
+<p>役割:</p>
+<ul>
+<li>user と assistant の会話履歴を持つ</li>
+<li>tool 呼び出し前後の往復も保存する</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">message = {
+    <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span> | <span class="hljs-string">"assistant"</span>,
+    <span class="hljs-string">"content"</span>: <span class="hljs-string">"..."</span>,
+}
+</code></pre>
+<p>agent が tool を使い始めると、<code>content</code> は単なる文字列では足りなくなり、次のような block list になることがあります。</p>
+<ul>
+<li>text block</li>
+<li><code>tool_use</code></li>
+<li><code>tool_result</code></li>
+</ul>
+<p>この record の本質は、<strong>会話内容の記録</strong>です。<br>
+「なぜ次ターンへ進んだか」は <code>Message</code> の責務ではありません。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s01</code></li>
+<li><code>s02</code></li>
+<li><code>s06</code></li>
+<li><code>s10</code></li>
+</ul>
+<h3><code>NormalizedMessage</code></h3>
+<p>役割:</p>
+<ul>
+<li>さまざまな内部 message を、model API に渡せる統一形式へ揃える</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">message = {
+    <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span> | <span class="hljs-string">"assistant"</span>,
+    <span class="hljs-string">"content"</span>: [
+        {<span class="hljs-string">"type"</span>: <span class="hljs-string">"text"</span>, <span class="hljs-string">"text"</span>: <span class="hljs-string">"..."</span>},
+    ],
+}
+</code></pre>
+<p><code>Message</code> と <code>NormalizedMessage</code> の違い:</p>
+<ul>
+<li><code>Message</code>: system 内部の履歴 record に近い</li>
+<li><code>NormalizedMessage</code>: model 呼び出し直前の入力形式に近い</li>
+</ul>
+<p>つまり、前者は「何を覚えているか」、後者は「何を送るか」です。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s10</code></li>
+<li><a href="./s10a-message-prompt-pipeline.md"><code>s10a-message-prompt-pipeline.md</code></a></li>
+</ul>
+<h3><code>CompactSummary</code></h3>
+<p>役割:</p>
+<ul>
+<li>context が長くなり過ぎたとき、古い会話を要約へ置き換える</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">summary = {
+    <span class="hljs-string">"task_overview"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"current_state"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"key_decisions"</span>: [<span class="hljs-string">"..."</span>],
+    <span class="hljs-string">"next_steps"</span>: [<span class="hljs-string">"..."</span>],
+}
+</code></pre>
+<p>重要なのは、compact が「ログ削除」ではないことです。<br>
+compact summary は次の query 継続に必要な最小構造を残す record です。</p>
+<p>最低でも次の 4 つは落とさないようにします。</p>
+<ul>
+<li>task の大枠</li>
+<li>ここまで終わったこと</li>
+<li>重要な判断</li>
+<li>次にやるべきこと</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><code>s06</code></li>
+<li><code>s11</code></li>
+</ul>
+<h3><code>SystemPromptBlock</code></h3>
+<p>役割:</p>
+<ul>
+<li>system prompt を section 単位で管理する</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">block = {
+    <span class="hljs-string">"text"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"cache_scope"</span>: <span class="hljs-literal">None</span>,
+}
+</code></pre>
+<p>この record を持つ意味:</p>
+<ul>
+<li>prompt を一枚岩の巨大文字列にしない</li>
+<li>どの section が何の役割か説明できる</li>
+<li>後から block 単位で差し替えや検査ができる</li>
+</ul>
+<p><code>cache_scope</code> は最初は不要でも構いません。<br>
+ただ、「この block は比較的安定」「この block は毎ターン変わる」という発想は早めに持っておくと、system prompt の理解が崩れにくくなります。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s10</code></li>
+<li><a href="./s10a-message-prompt-pipeline.md"><code>s10a-message-prompt-pipeline.md</code></a></li>
+</ul>
+<h3><code>PromptParts</code></h3>
+<p>役割:</p>
+<ul>
+<li>system prompt を最終連結する前に、構成 source ごとに分けて持つ</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">parts = {
+    <span class="hljs-string">"core"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"tools"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"skills"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"memory"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"dynamic"</span>: <span class="hljs-string">"..."</span>,
+}
+</code></pre>
+<p>この record は、読者に次のことを教えます。</p>
+<ul>
+<li>prompt は「書かれている」のではなく「組み立てられている」</li>
+<li>stable policy と volatile runtime data は同じ section ではない</li>
+<li>input source ごとに責務を分けた方が debug しやすい</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><code>s10</code></li>
+</ul>
+<h3><code>QueryParams</code></h3>
+<p>役割:</p>
+<ul>
+<li>query 開始時点で外部から受け取る入口入力</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">params = {
+    <span class="hljs-string">"messages"</span>: [...],
+    <span class="hljs-string">"system_prompt"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"user_context"</span>: {...},
+    <span class="hljs-string">"system_context"</span>: {...},
+    <span class="hljs-string">"tool_use_context"</span>: {...},
+    <span class="hljs-string">"fallback_model"</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">"max_output_tokens_override"</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">"max_turns"</span>: <span class="hljs-literal">None</span>,
+}
+</code></pre>
+<p>ここで大切なのは:</p>
+<ul>
+<li>これは query の<strong>入口入力</strong>である</li>
+<li>query の途中でどんどん変わる内部状態とは別である</li>
+</ul>
+<p>つまり <code>QueryParams</code> は「入る前に決まっているもの」、<code>QueryState</code> は「入ってから変わるもの」です。</p>
+<p>関連章:</p>
+<ul>
+<li><a href="./s00a-query-control-plane.md"><code>s00a-query-control-plane.md</code></a></li>
+</ul>
+<h3><code>QueryState</code></h3>
+<p>役割:</p>
+<ul>
+<li>1 本の query が複数ターンにわたって進む間の制御状態を持つ</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">state = {
+    <span class="hljs-string">"messages"</span>: [...],
+    <span class="hljs-string">"tool_use_context"</span>: {...},
+    <span class="hljs-string">"turn_count"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">"max_output_tokens_recovery_count"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"has_attempted_reactive_compact"</span>: <span class="hljs-literal">False</span>,
+    <span class="hljs-string">"max_output_tokens_override"</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">"pending_tool_use_summary"</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">"stop_hook_active"</span>: <span class="hljs-literal">False</span>,
+    <span class="hljs-string">"transition"</span>: <span class="hljs-literal">None</span>,
+}
+</code></pre>
+<p>この record に入るものの共通点:</p>
+<ul>
+<li>対話内容そのものではない</li>
+<li>「次をどう続けるか」を決める情報である</li>
+</ul>
+<p>初心者がよく詰まる点:</p>
+<ul>
+<li><code>messages</code> が入っているので「全部 conversation state に見える」</li>
+<li>しかし <code>turn_count</code> や <code>transition</code> は会話ではなく control state</li>
+</ul>
+<p>この record を理解できると、</p>
+<ul>
+<li>recovery</li>
+<li>compact</li>
+<li>hook continuation</li>
+<li>token budget continuation</li>
+</ul>
+<p>がすべて「同じ query を継続する理由の差分」として読めるようになります。</p>
+<p>関連章:</p>
+<ul>
+<li><a href="./s00a-query-control-plane.md"><code>s00a-query-control-plane.md</code></a></li>
+<li><code>s11</code></li>
+</ul>
+<h3><code>TransitionReason</code></h3>
+<p>役割:</p>
+<ul>
+<li>前ターンが終わらず、次ターンへ続いた理由を明示する</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">transition = {
+    <span class="hljs-string">"reason"</span>: <span class="hljs-string">"next_turn"</span>,
+}
+</code></pre>
+<p>より実用的には次のような値が入ります。</p>
+<ul>
+<li><code>next_turn</code></li>
+<li><code>tool_result_continuation</code></li>
+<li><code>reactive_compact_retry</code></li>
+<li><code>max_output_tokens_recovery</code></li>
+<li><code>stop_hook_continuation</code></li>
+</ul>
+<p>これを別 record として持つ利点:</p>
+<ul>
+<li>log が読みやすい</li>
+<li>test が書きやすい</li>
+<li>recovery の分岐理由を説明しやすい</li>
+</ul>
+<p>つまりこれは「高度な最適化」ではなく、<br>
+<strong>継続理由を見える状態へ変えるための最小構造</strong>です。</p>
+<p>関連章:</p>
+<ul>
+<li><a href="./s00a-query-control-plane.md"><code>s00a-query-control-plane.md</code></a></li>
+<li><code>s11</code></li>
+</ul>
+<h2>2. Tool 実行・権限・hook の状態</h2>
+<p>この層の核心は:</p>
+<blockquote>
+<p>tool は <code>name -> handler</code> だけで完結せず、その前後に permission / runtime / hook の状態が存在する</p>
+</blockquote>
+<p>です。</p>
+<h3><code>ToolSpec</code></h3>
+<p>役割:</p>
+<ul>
+<li>model に「どんな tool があり、どんな入力を受け取るか」を見せる</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">tool = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"read_file"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Read file contents."</span>,
+    <span class="hljs-string">"input_schema"</span>: {...},
+}
+</code></pre>
+<p>これは execution 実装そのものではありません。<br>
+あくまで <strong>model に見せる contract</strong> です。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s02</code></li>
+<li><code>s19</code></li>
+</ul>
+<h3><code>ToolDispatchMap</code></h3>
+<p>役割:</p>
+<ul>
+<li>tool 名を実際の handler 関数へ引く</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">dispatch = {
+    <span class="hljs-string">"read_file"</span>: run_read_file,
+    <span class="hljs-string">"write_file"</span>: run_write_file,
+}
+</code></pre>
+<p>この record の仕事は単純です。</p>
+<ul>
+<li>正しい handler を見つける</li>
+</ul>
+<p>ただし実システムではこれだけで足りません。<br>
+本当に難しいのは:</p>
+<ul>
+<li>いつ実行するか</li>
+<li>並列にしてよいか</li>
+<li>permission を通すか</li>
+<li>結果をどう loop へ戻すか</li>
+</ul>
+<p>です。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s02</code></li>
+<li><a href="./s02a-tool-control-plane.md"><code>s02a-tool-control-plane.md</code></a></li>
+</ul>
+<h3><code>ToolUseContext</code></h3>
+<p>役割:</p>
+<ul>
+<li>tool が共有状態へ触るための窓口を持つ</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">context = {
+    <span class="hljs-string">"workspace"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"permission_system"</span>: perms,
+    <span class="hljs-string">"notifications"</span>: queue,
+    <span class="hljs-string">"memory_store"</span>: memory,
+}
+</code></pre>
+<p>この record がないと、各 tool が勝手に global state を触り始め、system 全体の境界が崩れます。</p>
+<p>つまり <code>ToolUseContext</code> は、</p>
+<blockquote>
+<p>tool が system とどこで接続するか</p>
+</blockquote>
+<p>を見える形にするための record です。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s02</code></li>
+<li><code>s07</code></li>
+<li><code>s09</code></li>
+<li><code>s13</code></li>
+</ul>
+<h3><code>ToolResultEnvelope</code></h3>
+<p>役割:</p>
+<ul>
+<li>tool 実行結果を loop が扱える統一形式で包む</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">result = {
+    <span class="hljs-string">"tool_use_id"</span>: <span class="hljs-string">"toolu_123"</span>,
+    <span class="hljs-string">"content"</span>: <span class="hljs-string">"..."</span>,
+}
+</code></pre>
+<p>大切なのは、tool 結果が「ただの文字列」ではないことです。<br>
+最低でも:</p>
+<ul>
+<li>どの tool call に対する結果か</li>
+<li>loop にどう書き戻すか</li>
+</ul>
+<p>を持たせる必要があります。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s02</code></li>
+</ul>
+<h3><code>PermissionRule</code></h3>
+<p>役割:</p>
+<ul>
+<li>特定 tool / path / content に対する allow / deny / ask 条件を表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">rule = {
+    <span class="hljs-string">"tool"</span>: <span class="hljs-string">"bash"</span>,
+    <span class="hljs-string">"behavior"</span>: <span class="hljs-string">"deny"</span>,
+    <span class="hljs-string">"path"</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">"content"</span>: <span class="hljs-string">"sudo *"</span>,
+}
+</code></pre>
+<p>この record があることで、permission system は次を言えるようになります。</p>
+<ul>
+<li>どの tool に対する rule か</li>
+<li>何にマッチしたら発火するか</li>
+<li>発火後に何を返すか</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><code>s07</code></li>
+</ul>
+<h3><code>PermissionDecision</code></h3>
+<p>役割:</p>
+<ul>
+<li>今回の tool 実行に対する permission 結果を表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">decision = {
+    <span class="hljs-string">"behavior"</span>: <span class="hljs-string">"allow"</span> | <span class="hljs-string">"deny"</span> | <span class="hljs-string">"ask"</span>,
+    <span class="hljs-string">"reason"</span>: <span class="hljs-string">"..."</span>,
+}
+</code></pre>
+<p>これを独立 record にする意味:</p>
+<ul>
+<li>deny 理由を model が見える</li>
+<li>ask を loop に戻して次アクションを組み立てられる</li>
+<li>log や UI にも同じ object を流せる</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><code>s07</code></li>
+</ul>
+<h3><code>HookEvent</code></h3>
+<p>役割:</p>
+<ul>
+<li>pre_tool / post_tool / on_error などの lifecycle event を統一形で渡す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">event = {
+    <span class="hljs-string">"kind"</span>: <span class="hljs-string">"post_tool"</span>,
+    <span class="hljs-string">"tool_name"</span>: <span class="hljs-string">"edit_file"</span>,
+    <span class="hljs-string">"input"</span>: {...},
+    <span class="hljs-string">"result"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"error"</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">"duration_ms"</span>: <span class="hljs-number">42</span>,
+}
+</code></pre>
+<p>hook が安定して増やせるかどうかは、この record の形が揃っているかに大きく依存します。</p>
+<p>もし毎回適当な文字列だけを hook に渡すと:</p>
+<ul>
+<li>audit hook</li>
+<li>metrics hook</li>
+<li>policy hook</li>
+</ul>
+<p>のたびに payload 形式がばらけます。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s08</code></li>
+</ul>
+<h3><code>ToolExecutionBatch</code></h3>
+<p>役割:</p>
+<ul>
+<li>同じ execution lane でまとめて調度してよい tool block の束を表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">batch = {
+    <span class="hljs-string">"is_concurrency_safe"</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">"blocks"</span>: [tool_use_1, tool_use_2],
+}
+</code></pre>
+<p>この record を導入すると、読者は:</p>
+<ul>
+<li>tool を常に 1 個ずつ実行する必要はない</li>
+<li>ただし何でも並列にしてよいわけでもない</li>
+</ul>
+<p>という 2 本の境界を同時に理解しやすくなります。</p>
+<p>関連章:</p>
+<ul>
+<li><a href="./s02b-tool-execution-runtime.md"><code>s02b-tool-execution-runtime.md</code></a></li>
+</ul>
+<h3><code>TrackedTool</code></h3>
+<p>役割:</p>
+<ul>
+<li>各 tool の lifecycle を個別に追う</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">tracked = {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"toolu_01"</span>,
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"read_file"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"queued"</span>,
+    <span class="hljs-string">"is_concurrency_safe"</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">"pending_progress"</span>: [],
+    <span class="hljs-string">"results"</span>: [],
+    <span class="hljs-string">"context_modifiers"</span>: [],
+}
+</code></pre>
+<p>これがあると runtime は次のことを説明できます。</p>
+<ul>
+<li>何が待機中か</li>
+<li>何が実行中か</li>
+<li>何が progress を出したか</li>
+<li>何が完了したか</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><a href="./s02b-tool-execution-runtime.md"><code>s02b-tool-execution-runtime.md</code></a></li>
+</ul>
+<h3><code>queued_context_modifiers</code></h3>
+<p>役割:</p>
+<ul>
+<li>並列 tool が生んだ共有 state 変更を、先に queue し、後で安定順に merge する</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">queued = {
+    <span class="hljs-string">"toolu_01"</span>: [modifier_a],
+    <span class="hljs-string">"toolu_02"</span>: [modifier_b],
+}
+</code></pre>
+<p>ここで守りたい境界:</p>
+<ul>
+<li>並列実行してよい</li>
+<li>しかし共有 state を完了順でそのまま書き換えてよいとは限らない</li>
+</ul>
+<p>この record は、parallel execution と stable merge を切り分けるための最小構造です。</p>
+<p>関連章:</p>
+<ul>
+<li><a href="./s02b-tool-execution-runtime.md"><code>s02b-tool-execution-runtime.md</code></a></li>
+</ul>
+<h2>3. Skill・memory・prompt source の状態</h2>
+<p>この層の核心は:</p>
+<blockquote>
+<p>model input の材料は、その場でひとつの文字列に溶けているのではなく、複数の source record として存在する</p>
+</blockquote>
+<p>です。</p>
+<h3><code>SkillRegistry</code></h3>
+<p>役割:</p>
+<ul>
+<li>利用可能な skill の索引を持つ</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">registry = [
+    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"agent-browser"</span>, <span class="hljs-string">"path"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-string">"description"</span>: <span class="hljs-string">"..."</span>},
+]
+</code></pre>
+<p>これは「何があるか」を示す record であり、skill 本文そのものではありません。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s05</code></li>
+</ul>
+<h3><code>SkillContent</code></h3>
+<p>役割:</p>
+<ul>
+<li>実際に読み込んだ skill の本文や補助資料を持つ</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">skill = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"agent-browser"</span>,
+    <span class="hljs-string">"body"</span>: <span class="hljs-string">"...markdown..."</span>,
+}
+</code></pre>
+<p><code>SkillRegistry</code> と <code>SkillContent</code> を分ける理由:</p>
+<ul>
+<li>registry は discovery 用</li>
+<li>content は injection 用</li>
+</ul>
+<p>つまり「見つける record」と「使う record」を分けるためです。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s05</code></li>
+</ul>
+<h3><code>MemoryEntry</code></h3>
+<p>役割:</p>
+<ul>
+<li>長期に残すべき事実を 1 件ずつ持つ</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">entry = {
+    <span class="hljs-string">"key"</span>: <span class="hljs-string">"package_manager_preference"</span>,
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"pnpm"</span>,
+    <span class="hljs-string">"scope"</span>: <span class="hljs-string">"user"</span>,
+    <span class="hljs-string">"reason"</span>: <span class="hljs-string">"user explicit preference"</span>,
+}
+</code></pre>
+<p>memory の重要境界:</p>
+<ul>
+<li>会話全文を残す record ではない</li>
+<li>durable fact を残す record である</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><code>s09</code></li>
+</ul>
+<h3><code>MemoryWriteCandidate</code></h3>
+<p>役割:</p>
+<ul>
+<li>今回のターンから「long-term memory に昇格させる候補」を一時的に保持する</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">candidate = {
+    <span class="hljs-string">"fact"</span>: <span class="hljs-string">"Use pnpm by default"</span>,
+    <span class="hljs-string">"scope"</span>: <span class="hljs-string">"user"</span>,
+    <span class="hljs-string">"confidence"</span>: <span class="hljs-string">"high"</span>,
+}
+</code></pre>
+<p>教学 repo では必須ではありません。<br>
+ただし reader が「memory はいつ書くのか」で混乱しやすい場合、この record を挟むと</p>
+<ul>
+<li>その場の conversation detail</li>
+<li>durable fact candidate</li>
+<li>実際に保存された memory</li>
+</ul>
+<p>の 3 層を分けやすくなります。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s09</code></li>
+</ul>
+<h2>4. Todo・task・runtime・team の状態</h2>
+<p>この層が一番混ざりやすいです。<br>
+理由は、全部が「仕事っぽい object」に見えるからです。</p>
+<h3><code>TodoItem</code></h3>
+<p>役割:</p>
+<ul>
+<li>今の session 内での短期的な進行メモ</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">todo = {
+    <span class="hljs-string">"content"</span>: <span class="hljs-string">"Inspect auth tests"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
+}
+</code></pre>
+<p>これは durable work graph ではありません。<br>
+今ターンの認知負荷を軽くするための session-local 補助構造です。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s03</code></li>
+</ul>
+<h3><code>PlanState</code></h3>
+<p>役割:</p>
+<ul>
+<li>複数の <code>TodoItem</code> と current focus をまとめる</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">plan = {
+    <span class="hljs-string">"todos"</span>: [...],
+    <span class="hljs-string">"current_focus"</span>: <span class="hljs-string">"Inspect auth tests"</span>,
+}
+</code></pre>
+<p>これも基本は session-local です。<br>
+<code>TaskRecord</code> と違って、再起動しても必ず復元したい durable board とは限りません。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s03</code></li>
+</ul>
+<h3><code>TaskRecord</code></h3>
+<p>役割:</p>
+<ul>
+<li>durable work goal を表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">task = {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"task-auth-migrate"</span>,
+    <span class="hljs-string">"title"</span>: <span class="hljs-string">"Migrate auth layer"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
+    <span class="hljs-string">"dependencies"</span>: [],
+}
+</code></pre>
+<p>この record が持つべき心智:</p>
+<ul>
+<li>何を達成したいか</li>
+<li>依存関係は何か</li>
+<li>今どの状態か</li>
+</ul>
+<p>ここで大切なのは、<strong>task は goal node であって、今まさに走っている process ではない</strong>ことです。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s12</code></li>
+</ul>
+<h3><code>RuntimeTaskState</code></h3>
+<p>役割:</p>
+<ul>
+<li>いま動いている 1 回の execution slot を表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">runtime_task = {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"rt_42"</span>,
+    <span class="hljs-string">"task_id"</span>: <span class="hljs-string">"task-auth-migrate"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"running"</span>,
+    <span class="hljs-string">"preview"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"output_file"</span>: <span class="hljs-string">".runtime-tasks/rt_42.log"</span>,
+}
+</code></pre>
+<p><code>TaskRecord</code> との違い:</p>
+<ul>
+<li><code>TaskRecord</code>: 何を達成するか</li>
+<li><code>RuntimeTaskState</code>: その goal に向かう今回の実行は今どうなっているか</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><code>s13</code></li>
+<li><a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a></li>
+</ul>
+<h3><code>NotificationRecord</code></h3>
+<p>役割:</p>
+<ul>
+<li>background 実行や外部 capability から main loop へ戻る preview を持つ</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">note = {
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"runtime_task"</span>,
+    <span class="hljs-string">"task_id"</span>: <span class="hljs-string">"rt_42"</span>,
+    <span class="hljs-string">"preview"</span>: <span class="hljs-string">"3 tests failing..."</span>,
+}
+</code></pre>
+<p>この record は全文ログの保存先ではありません。<br>
+役割は:</p>
+<ul>
+<li>main loop に「戻ってきた事実」を知らせる</li>
+<li>prompt space を全文ログで埋めない</li>
+</ul>
+<p>ことです。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s13</code></li>
+</ul>
+<h3><code>ScheduleRecord</code></h3>
+<p>役割:</p>
+<ul>
+<li>いつ何を trigger するかを表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">schedule = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"nightly-health-check"</span>,
+    <span class="hljs-string">"cron"</span>: <span class="hljs-string">"0 2 * * *"</span>,
+    <span class="hljs-string">"task_template"</span>: <span class="hljs-string">"repo_health_check"</span>,
+}
+</code></pre>
+<p>重要な境界:</p>
+<ul>
+<li><code>ScheduleRecord</code> は時間規則</li>
+<li><code>TaskRecord</code> は work goal</li>
+<li><code>RuntimeTaskState</code> は live execution</li>
+</ul>
+<p>この 3 つを一緒にしないことが <code>s14</code> の核心です。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s14</code></li>
+</ul>
+<h3><code>TeamMember</code></h3>
+<p>役割:</p>
+<ul>
+<li>長期に存在する teammate の身元を表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">member = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"role"</span>: <span class="hljs-string">"test-specialist"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"working"</span>,
+}
+</code></pre>
+<p><code>TeamMember</code> は task ではありません。<br>
+「誰が長く system 内に存在しているか」を表す actor record です。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s15</code></li>
+</ul>
+<h3><code>TeamConfig</code></h3>
+<p>役割:</p>
+<ul>
+<li>team roster 全体をまとめる</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">config = {
+    <span class="hljs-string">"team_name"</span>: <span class="hljs-string">"default"</span>,
+    <span class="hljs-string">"members"</span>: [member1, member2],
+}
+</code></pre>
+<p>この record を durable に持つことで、</p>
+<ul>
+<li>team に誰がいるか</li>
+<li>役割が何か</li>
+<li>次回起動時に何を復元するか</li>
+</ul>
+<p>が見えるようになります。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s15</code></li>
+</ul>
+<h3><code>MessageEnvelope</code></h3>
+<p>役割:</p>
+<ul>
+<li>teammate 間の message を、本文とメタ情報込みで包む</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">envelope = {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"message"</span>,
+    <span class="hljs-string">"from"</span>: <span class="hljs-string">"lead"</span>,
+    <span class="hljs-string">"to"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"content"</span>: <span class="hljs-string">"Review retry tests"</span>,
+    <span class="hljs-string">"timestamp"</span>: <span class="hljs-number">1710000000.0</span>,
+}
+</code></pre>
+<p><code>envelope</code> を使う理由:</p>
+<ul>
+<li>誰から誰へ送ったか分かる</li>
+<li>普通の会話と protocol request を区別しやすい</li>
+<li>mailbox を durable channel として扱える</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><code>s15</code></li>
+<li><code>s16</code></li>
+</ul>
+<h3><code>RequestRecord</code></h3>
+<p>役割:</p>
+<ul>
+<li>approval や shutdown のような構造化 protocol state を持つ</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">request = {
+    <span class="hljs-string">"request_id"</span>: <span class="hljs-string">"req_91"</span>,
+    <span class="hljs-string">"kind"</span>: <span class="hljs-string">"plan_approval"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
+    <span class="hljs-string">"payload"</span>: {...},
+}
+</code></pre>
+<p>これを別 record にすることで、</p>
+<ul>
+<li>ただの chat message</li>
+<li>追跡可能な coordination request</li>
+</ul>
+<p>を明確に分けられます。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s16</code></li>
+</ul>
+<h3><code>ClaimPolicy</code></h3>
+<p>役割:</p>
+<ul>
+<li>autonomous worker が何を self-claim してよいかを表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">policy = {
+    <span class="hljs-string">"role"</span>: <span class="hljs-string">"test-specialist"</span>,
+    <span class="hljs-string">"may_claim"</span>: [<span class="hljs-string">"retry-related"</span>],
+}
+</code></pre>
+<p>この record がないと autonomy は「空いている worker が勝手に全部取りに行く」設計になりやすく、<br>
+race condition と重複実行を呼び込みます。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s17</code></li>
+</ul>
+<h3><code>WorktreeRecord</code></h3>
+<p>役割:</p>
+<ul>
+<li>isolated execution lane を表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">worktree = {
+    <span class="hljs-string">"path"</span>: <span class="hljs-string">".worktrees/wt-auth-migrate"</span>,
+    <span class="hljs-string">"task_id"</span>: <span class="hljs-string">"task-auth-migrate"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"active"</span>,
+}
+</code></pre>
+<p>この record の核心:</p>
+<ul>
+<li>task は goal</li>
+<li>runtime slot は live execution</li>
+<li>worktree は「どこで走るか」の lane</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><code>s18</code></li>
+</ul>
+<h2>5. MCP・plugin・外部 capability の状態</h2>
+<p>この層の核心は:</p>
+<blockquote>
+<p>外部 capability も「ただの tool list」ではなく、接続状態と routing を持つ platform object である</p>
+</blockquote>
+<p>です。</p>
+<h3><code>MCPServerConfig</code></h3>
+<p>役割:</p>
+<ul>
+<li>外部 server の設定を表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">config = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"figma"</span>,
+    <span class="hljs-string">"transport"</span>: <span class="hljs-string">"stdio"</span>,
+    <span class="hljs-string">"command"</span>: <span class="hljs-string">"..."</span>,
+}
+</code></pre>
+<p>これは capability そのものではなく、接続の入口設定です。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s19</code></li>
+</ul>
+<h3><code>ConnectionState</code></h3>
+<p>役割:</p>
+<ul>
+<li>remote capability の現在状態を表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">state = {
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"connected"</span>,
+    <span class="hljs-string">"needs_auth"</span>: <span class="hljs-literal">False</span>,
+    <span class="hljs-string">"last_error"</span>: <span class="hljs-literal">None</span>,
+}
+</code></pre>
+<p>この record が必要な理由:</p>
+<ul>
+<li>外部 capability は常に使えるとは限らない</li>
+<li>問題が tool schema なのか connection なのか区別する必要がある</li>
+</ul>
+<p>関連章:</p>
+<ul>
+<li><code>s19</code></li>
+<li><a href="./s19a-mcp-capability-layers.md"><code>s19a-mcp-capability-layers.md</code></a></li>
+</ul>
+<h3><code>CapabilityRoute</code></h3>
+<p>役割:</p>
+<ul>
+<li>native tool / plugin / MCP server のどこへ解決されたかを表す</li>
+</ul>
+<p>最小形:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">route = {
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"mcp"</span>,
+    <span class="hljs-string">"target"</span>: <span class="hljs-string">"figma.inspect"</span>,
+}
+</code></pre>
+<p>この record があると、</p>
+<ul>
+<li>発見</li>
+<li>routing</li>
+<li>permission</li>
+<li>実行</li>
+<li>result normalization</li>
+</ul>
+<p>が同じ capability bus 上で説明できます。</p>
+<p>関連章:</p>
+<ul>
+<li><code>s19</code></li>
+</ul>
+<h2>最後に、特に混同しやすい組み合わせ</h2>
+<h3><code>TodoItem</code> vs <code>TaskRecord</code></h3>
+<ul>
+<li><code>TodoItem</code>: 今 session で何を見るか</li>
+<li><code>TaskRecord</code>: durable work goal と dependency をどう持つか</li>
+</ul>
+<h3><code>TaskRecord</code> vs <code>RuntimeTaskState</code></h3>
+<ul>
+<li><code>TaskRecord</code>: 何を達成したいか</li>
+<li><code>RuntimeTaskState</code>: 今回の実行は今どう進んでいるか</li>
+</ul>
+<h3><code>RuntimeTaskState</code> vs <code>ScheduleRecord</code></h3>
+<ul>
+<li><code>RuntimeTaskState</code>: live execution</li>
+<li><code>ScheduleRecord</code>: いつ trigger するか</li>
+</ul>
+<h3><code>SubagentContext</code> vs <code>TeamMember</code></h3>
+<ul>
+<li><code>SubagentContext</code>: 一回きりの delegation branch</li>
+<li><code>TeamMember</code>: 長期に残る actor identity</li>
+</ul>
+<h3><code>TeamMember</code> vs <code>RequestRecord</code></h3>
+<ul>
+<li><code>TeamMember</code>: 誰が存在するか</li>
+<li><code>RequestRecord</code>: どんな coordination request が進行中か</li>
+</ul>
+<h3><code>TaskRecord</code> vs <code>WorktreeRecord</code></h3>
+<ul>
+<li><code>TaskRecord</code>: 何をやるか</li>
+<li><code>WorktreeRecord</code>: どこでやるか</li>
+</ul>
+<h3><code>ToolSpec</code> vs <code>CapabilityRoute</code></h3>
+<ul>
+<li><code>ToolSpec</code>: model に見せる contract</li>
+<li><code>CapabilityRoute</code>: 実際にどこへ routing するか</li>
+</ul>
+<h2>読み終えたら言えるべきこと</h2>
+<p>少なくとも次の 3 文を、自分の言葉で説明できる状態を目指してください。</p>
+<ol>
+<li><code>messages</code> は内容状態であり、<code>transition</code> は制御状態である。</li>
+<li><code>TaskRecord</code> は goal node であり、<code>RuntimeTaskState</code> は live execution slot である。</li>
+<li><code>TeamMember</code>、<code>RequestRecord</code>、<code>WorktreeRecord</code> は全部「仕事っぽい」が、それぞれ actor、protocol、lane という別層の object である。</li>
+</ol>
+<h2>一文で覚える</h2>
+<p><strong>どの record が内容を持ち、どの record が流れを持ち、どれが durable でどれが runtime かを分けられれば、agent system の複雑さは急に読める形になります。</strong></p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"ja\",\"docs\",\"data-structures\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"ja\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"data-structures\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n4:[\"$\",\"html\",null,{\"lang\":\"ja\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"ja\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/ja\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"学習パスへ戻る\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"補助ドキュメント\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"主要データ構造マップ\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"このページへ戻るべき場面\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"主要な record 構造を横断的に見直すための資料です。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"いっしょに読むと効く章\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s03\",{\"href\":\"/ja/s03\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s03\",\" · \",\"Todo 書き込み\"]}],[\"$\",\"$L13\",\"s06\",{\"href\":\"/ja/s06\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s06\",\" · \",\"コンテキスト圧縮\"]}],[\"$\",\"$L13\",\"s09\",{\"href\":\"/ja/s09\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s09\",\" · \",\"記憶システム\"]}],[\"$\",\"$L13\",\"s12\",{\"href\":\"/ja/s12\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s12\",\" · \",\"タスクシステム\"]}],[\"$\",\"$L13\",\"s13\",{\"href\":\"/ja/s13\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s13\",\" · \",\"バックグラウンドタスク\"]}],[\"$\",\"$L13\",\"s18\",{\"href\":\"/ja/s18\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s18\",\" · \",\"Worktree 分離\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":\"$L14\"}]]}]\n"])</script><script>self.__next_f.push([1,"15:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n14:[\"$\",\"$L15\",null,{\"slug\":\"data-structures\"}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"16:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"主要データ構造マップ\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"主要な record 構造を横断的に見直すための資料です。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L16\",\"3\",{}]]\n"])</script></body></html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s16</span><h1 class="text-2xl font-bold sm:text-3xl">团队协议</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">多 Agent 平台</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">共享请求-响应规则<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">482<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>12<!-- --> <!-- -->个工具</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">团队只有在协作遵守共同消息模式时，才会变得可理解、可调试、可扩展。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学习</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">源码</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深入探索</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > s05 > s06 > s07 > s08 > s09 > s10 > s11 > s12 > s13 > s14 > s15 > [ s16 ] > s17 > s18 > s19</code></p>
+<blockquote class="hero-callout">
+<p><em>有了邮箱以后，团队已经能说话；有了协议以后，团队才开始会“按规矩协作”。</em></p>
+</blockquote>
+<h2>这一章要解决什么问题</h2>
+<p><code>s15</code> 已经让队友之间可以互相发消息。</p>
+<p>但如果所有事情都只靠自由文本，会有两个明显问题：</p>
+<ul>
+<li>某些动作必须明确批准或拒绝，不能只靠一句模糊回复</li>
+<li>一旦多个请求同时存在，系统很难知道“这条回复对应哪一件事”</li>
+</ul>
+<p>最典型的两个场景就是：</p>
+<ol>
+<li>队友要不要优雅关机</li>
+<li>某个高风险计划要不要先审批</li>
+</ol>
+<p>这两件事看起来不同，但结构其实一样：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">一方发请求
+另一方明确回复
+双方都能用同一个 request_id 对上号
+</code></pre>
+<p>所以这一章要加的，不是更多自由聊天，而是：</p>
+<p><strong>一层结构化协议。</strong></p>
+<h2>建议联读</h2>
+<ul>
+<li>如果你开始把普通消息和协议请求混掉，先回 <a href="./glossary.md"><code>glossary.md</code></a> 和 <a href="./entity-map.md"><code>entity-map.md</code></a>。</li>
+<li>如果你准备继续读 <code>s17</code> 和 <code>s18</code>，建议先看 <a href="./team-task-lane-model.md"><code>team-task-lane-model.md</code></a>，这样后面自治认领和 worktree 车道不会一下子缠在一起。</li>
+<li>如果你想重新确认协议请求最终怎样回流到主系统，可以配合看 <a href="./s00b-one-request-lifecycle.md"><code>s00b-one-request-lifecycle.md</code></a>。</li>
+</ul>
+<h2>先把几个词讲明白</h2>
+<h3>什么是协议</h3>
+<p>协议可以简单理解成：</p>
+<blockquote>
+<p>双方提前约定好“消息长什么样、收到以后怎么处理”。</p>
+</blockquote>
+<h3>什么是 request_id</h3>
+<p><code>request_id</code> 就是请求编号。</p>
+<p>它的作用是：</p>
+<ul>
+<li>某个请求发出去以后有一个唯一身份</li>
+<li>之后的批准、拒绝、超时都能准确指向这一个请求</li>
+</ul>
+<h3>什么是请求-响应模式</h3>
+<p>这个词听起来像高级概念，其实很简单：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">请求方：我发起一件事
+响应方：我明确回答同意还是不同意
+</code></pre>
+<p>本章做的，就是把这种模式从“口头表达”升级成“结构化数据”。</p>
+<h2>最小心智模型</h2>
+<p>从教学角度，你可以先把协议看成两层：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">1. 协议消息
+2. 请求追踪表
+</code></pre>
+<h3>协议消息</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">{
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"shutdown_request"</span>,
+    <span class="hljs-string">"from"</span>: <span class="hljs-string">"lead"</span>,
+    <span class="hljs-string">"to"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"request_id"</span>: <span class="hljs-string">"req_001"</span>,
+    <span class="hljs-string">"payload"</span>: {},
+}
+</code></pre>
+<h3>请求追踪表</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">requests = {
+    <span class="hljs-string">"req_001"</span>: {
+        <span class="hljs-string">"kind"</span>: <span class="hljs-string">"shutdown"</span>,
+        <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
+    }
+}
+</code></pre>
+<p>只要这两层都存在，系统就能同时回答：</p>
+<ul>
+<li>现在发生了什么</li>
+<li>这件事目前走到哪一步</li>
+</ul>
+<h2>关键数据结构</h2>
+<h3>1. ProtocolEnvelope</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">message = {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"shutdown_request"</span>,
+    <span class="hljs-string">"from"</span>: <span class="hljs-string">"lead"</span>,
+    <span class="hljs-string">"to"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"request_id"</span>: <span class="hljs-string">"req_001"</span>,
+    <span class="hljs-string">"payload"</span>: {},
+    <span class="hljs-string">"timestamp"</span>: <span class="hljs-number">1710000000.0</span>,
+}
+</code></pre>
+<p>它比普通消息多出来的关键字段就是：</p>
+<ul>
+<li><code>type</code></li>
+<li><code>request_id</code></li>
+<li><code>payload</code></li>
+</ul>
+<h3>2. RequestRecord</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">request = {
+    <span class="hljs-string">"request_id"</span>: <span class="hljs-string">"req_001"</span>,
+    <span class="hljs-string">"kind"</span>: <span class="hljs-string">"shutdown"</span>,
+    <span class="hljs-string">"from"</span>: <span class="hljs-string">"lead"</span>,
+    <span class="hljs-string">"to"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
+}
+</code></pre>
+<p>它负责记录：</p>
+<ul>
+<li>这是哪种请求</li>
+<li>谁发给谁</li>
+<li>当前状态是什么</li>
+</ul>
+<p>如果你想把教学版再往真实系统推进一步，建议不要只放在内存字典里，而是直接落盘：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">.team/requests/
+  req_001.json
+  req_002.json
+</code></pre>
+<p>这样系统就能做到：</p>
+<ul>
+<li>请求状态可恢复</li>
+<li>协议过程可检查</li>
+<li>即使主循环继续往前，请求记录也不会丢</li>
+</ul>
+<h3>3. 状态机</h3>
+<p>本章里的状态机非常简单：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">pending -> approved
+pending -> rejected
+pending -> expired
+</code></pre>
+<p>这里再次提醒读者：</p>
+<p><code>状态机</code> 的意思不是复杂理论，<br>
+只是“状态之间如何变化的一张规则表”。</p>
+<h2>最小实现</h2>
+<h3>协议 1：优雅关机</h3>
+<p>“优雅关机”的意思不是直接把线程硬砍掉。<br>
+而是：</p>
+<ol>
+<li>先发关机请求</li>
+<li>队友明确回复同意或拒绝</li>
+<li>如果同意，先收尾，再退出</li>
+</ol>
+<p>发请求：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">request_shutdown</span>(<span class="hljs-params">target: <span class="hljs-built_in">str</span></span>):
+    request_id = new_id()
+    requests[request_id] = {
+        <span class="hljs-string">"kind"</span>: <span class="hljs-string">"shutdown"</span>,
+        <span class="hljs-string">"target"</span>: target,
+        <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
+    }
+    bus.send(
+        <span class="hljs-string">"lead"</span>,
+        target,
+        msg_type=<span class="hljs-string">"shutdown_request"</span>,
+        extra={<span class="hljs-string">"request_id"</span>: request_id},
+        content=<span class="hljs-string">"Please shut down gracefully."</span>,
+    )
+</code></pre>
+<p>收响应：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">handle_shutdown_response</span>(<span class="hljs-params">request_id: <span class="hljs-built_in">str</span>, approve: <span class="hljs-built_in">bool</span></span>):
+    record = requests[request_id]
+    record[<span class="hljs-string">"status"</span>] = <span class="hljs-string">"approved"</span> <span class="hljs-keyword">if</span> approve <span class="hljs-keyword">else</span> <span class="hljs-string">"rejected"</span>
+</code></pre>
+<h3>协议 2：计划审批</h3>
+<p>这其实还是同一个请求-响应模板。</p>
+<p>比如某个队友想做高风险改动，可以先提计划：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">submit_plan</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span>, plan_text: <span class="hljs-built_in">str</span></span>):
+    request_id = new_id()
+    requests[request_id] = {
+        <span class="hljs-string">"kind"</span>: <span class="hljs-string">"plan_approval"</span>,
+        <span class="hljs-string">"from"</span>: name,
+        <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
+        <span class="hljs-string">"plan"</span>: plan_text,
+    }
+    bus.send(
+        name,
+        <span class="hljs-string">"lead"</span>,
+        msg_type=<span class="hljs-string">"plan_approval"</span>,
+        extra={<span class="hljs-string">"request_id"</span>: request_id, <span class="hljs-string">"plan"</span>: plan_text},
+        content=<span class="hljs-string">"Requesting review."</span>,
+    )
+</code></pre>
+<p>领导审批：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">review_plan</span>(<span class="hljs-params">request_id: <span class="hljs-built_in">str</span>, approve: <span class="hljs-built_in">bool</span>, feedback: <span class="hljs-built_in">str</span> = <span class="hljs-string">""</span></span>):
+    record = requests[request_id]
+    record[<span class="hljs-string">"status"</span>] = <span class="hljs-string">"approved"</span> <span class="hljs-keyword">if</span> approve <span class="hljs-keyword">else</span> <span class="hljs-string">"rejected"</span>
+    bus.send(
+        <span class="hljs-string">"lead"</span>,
+        record[<span class="hljs-string">"from"</span>],
+        msg_type=<span class="hljs-string">"plan_approval_response"</span>,
+        extra={<span class="hljs-string">"request_id"</span>: request_id, <span class="hljs-string">"approve"</span>: approve},
+        content=feedback,
+    )
+</code></pre>
+<p>看到这里，读者应该开始意识到：</p>
+<p><strong>本章最重要的不是“关机”或“计划”本身，而是同一个协议模板可以反复复用。</strong></p>
+<h2>协议请求不是普通消息</h2>
+<p>这一点一定要讲透。</p>
+<p>邮箱里虽然都叫“消息”，但 <code>s16</code> 以后其实已经分成两类：</p>
+<h3>1. 普通消息</h3>
+<p>适合：</p>
+<ul>
+<li>讨论</li>
+<li>提醒</li>
+<li>补充说明</li>
+</ul>
+<h3>2. 协议消息</h3>
+<p>适合：</p>
+<ul>
+<li>审批</li>
+<li>关机</li>
+<li>交接</li>
+<li>签收</li>
+</ul>
+<p>它至少要带：</p>
+<ul>
+<li><code>type</code></li>
+<li><code>request_id</code></li>
+<li><code>from</code></li>
+<li><code>to</code></li>
+<li><code>payload</code></li>
+</ul>
+<p>最简单的记法是：</p>
+<ul>
+<li>普通消息解决“说了什么”</li>
+<li>协议消息解决“这件事走到哪一步了”</li>
+</ul>
+<h2>如何接到团队系统里</h2>
+<p>这章真正补上的，不只是两个新工具名，而是一条新的协作回路：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">某个队友 / lead 发起请求
+  ->
+写入 RequestRecord
+  ->
+把 ProtocolEnvelope 投递进对方 inbox
+  ->
+对方下一轮 drain inbox
+  ->
+按 request_id 更新请求状态
+  ->
+必要时再回一条 response
+  ->
+请求方根据 approved / rejected 继续后续动作
+</code></pre>
+<p>你可以把它理解成：</p>
+<ul>
+<li><code>s15</code> 给了团队“邮箱”</li>
+<li><code>s16</code> 现在给邮箱里的某些消息加上“编号 + 状态机 + 回执”</li>
+</ul>
+<p>如果少了这条结构化回路，团队虽然能沟通，但无法稳定协作。</p>
+<h2>MessageEnvelope、ProtocolEnvelope、RequestRecord、TaskRecord 的边界</h2>
+<p>这 4 个对象很容易一起打结。最稳的记法是：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>对象</th><th>它回答什么问题</th><th>典型字段</th></tr></thead><tbody><tr><td><code>MessageEnvelope</code></td><td>谁跟谁说了什么</td><td><code>from</code> / <code>to</code> / <code>content</code></td></tr><tr><td><code>ProtocolEnvelope</code></td><td>这是不是一条结构化请求或响应</td><td><code>type</code> / <code>request_id</code> / <code>payload</code></td></tr><tr><td><code>RequestRecord</code></td><td>这件协作流程现在走到哪一步</td><td><code>kind</code> / <code>status</code> / <code>from</code> / <code>to</code></td></tr><tr><td><code>TaskRecord</code></td><td>真正的工作项是什么、谁在做、还卡着谁</td><td><code>subject</code> / <code>status</code> / <code>blockedBy</code> / <code>owner</code></td></tr></tbody></table></div>
+<p>一定要牢牢记住：</p>
+<ul>
+<li>协议请求不是任务本身</li>
+<li>请求状态表也不是任务板</li>
+<li>协议只负责“协作流程”</li>
+<li>任务系统才负责“真正的工作推进”</li>
+</ul>
+<h2>这一章的教学边界</h2>
+<p>教学版先只讲 2 类协议就够了：</p>
+<ul>
+<li><code>shutdown</code></li>
+<li><code>plan_approval</code></li>
+</ul>
+<p>因为这两类已经足够把下面几件事讲清楚：</p>
+<ul>
+<li>什么是结构化消息</li>
+<li>什么是 request_id</li>
+<li>为什么要有请求状态表</li>
+<li>为什么协议不是自由文本</li>
+</ul>
+<p>等这套模板学稳以后，你完全可以再扩展：</p>
+<ul>
+<li>任务认领协议</li>
+<li>交接协议</li>
+<li>结果签收协议</li>
+</ul>
+<p>但这些都应该建立在本章的统一模板之上。</p>
+<h2>初学者最容易犯的错</h2>
+<h3>1. 没有 <code>request_id</code></h3>
+<p>没有编号，多个请求同时存在时很快就会乱。</p>
+<h3>2. 收到请求以后只回一句自然语言</h3>
+<p>例如：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">好的，我知道了
+</code></pre>
+<p>人类可能看得懂，但系统很难稳定处理。</p>
+<h3>3. 没有请求状态表</h3>
+<p>如果系统不记录 <code>pending</code> / <code>approved</code> / <code>rejected</code>，协议其实就没有真正落地。</p>
+<h3>4. 把协议消息和普通消息混成一种结构</h3>
+<p>这样后面一多，处理逻辑会越来越混。</p>
+<h2>学完这一章，你应该真正掌握什么</h2>
+<p>学完以后，你应该能独立复述下面几件事：</p>
+<ol>
+<li>团队协议的核心，是“请求-响应 + request_id + 状态表”。</li>
+<li>协议消息和普通聊天消息不是一回事。</li>
+<li>关机协议和计划审批虽然业务不同，但底层模板可以复用。</li>
+<li>团队一旦进入结构化协作，就要靠协议，而不是只靠自然语言。</li>
+</ol>
+<p>如果这 4 点已经非常稳定，说明这一章真正学到了。</p>
+<h2>下一章学什么</h2>
+<p>这一章解决的是：</p>
+<blockquote>
+<p>团队如何按规则协作。</p>
+</blockquote>
+<p>下一章 <code>s17</code> 要解决的是：</p>
+<blockquote>
+<p>如果没有人每次都手动派活，队友能不能在空闲时自己找任务、自己恢复工作。</p>
+</blockquote>
+<p>也就是从“协议化协作”继续走向“自治行为”。</p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s15/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">上一章</div><div class="font-medium">s15<!-- --> - <!-- -->Agent 团队</div></div></a><a class="group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s17/"><div><div class="text-xs text-zinc-400">下一章</div><div class="font-medium">自主代理<!-- --> - <!-- -->s17</div></div><span class="transition-transform group-hover:translate-x-1">→</span></a></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"s16\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s16\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T5c15,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: protocols -- structured handshakes between models.\n\"\"\"\ns16_team_protocols.py - Team Protocols\n\nShutdown protocol and plan approval protocol, both using the same\nrequest_id correlation pattern. Builds on s15's mailbox-based team messaging.\n\n    Shutdown FSM: pending -\u003e approved | rejected\n\n    Lead                              Teammate\n    +---------------------+          +---------------------+\n    | shutdown_request     |          |                     |\n    | {                    | -------\u003e | receives request    |\n    |   request_id: abc    |          | decides: approve?   |\n    | }                    |          |                     |\n    +---------------------+          +---------------------+\n                                             |\n    +---------------------+          +-------v-------------+\n    | shutdown_response    | \u003c------- | shutdown_response   |\n    | {                    |          | {                   |\n    |   request_id: abc    |          |   request_id: abc   |\n    |   approve: true      |          |   approve: true     |\n    | }                    |          | }                   |\n    +---------------------+          +---------------------+\n            |\n            v\n    status -\u003e \"shutdown\", thread stops\n\n    Plan approval FSM: pending -\u003e approved | rejected\n\n    Teammate                          Lead\n    +---------------------+          +---------------------+\n    | plan_approval        |          |                     |\n    | submit: {plan:\"...\"}| -------\u003e | reviews plan text   |\n    +---------------------+          | approve/reject?     |\n                                     +---------------------+\n                                             |\n    +---------------------+          +-------v-------------+\n    | plan_approval_response| \u003c------ | plan_approval       |\n    | {approve: true}      |          | review: {req_id,    |\n    +---------------------+          |   approve: true}     |\n                                     +---------------------+\n\n    Request store: .team/requests/{request_id}.json\n\nKey idea: one request/response shape can support multiple kinds of team workflow.\nProtocol requests are structured workflow objects, not normal free-form chat.\n\nRead this file in this order:\n1. MessageBus: how protocol envelopes still travel through the same inbox surface.\n2. Request files under .team/requests: how a request keeps durable status after the message is sent.\n3. Protocol handlers: how shutdown and plan approval reuse the same correlation pattern.\n\nMost common confusion:\n- a protocol request is not a normal teammate chat message\n- a request record is not a task record\n\nTeaching boundary:\nthis file teaches durable handshakes first.\nAutonomous claiming, task selection, and worktree assignment stay in later chapters.\n\"\"\"\n\nimport json\nimport os\nimport subprocess\nimport threading\nimport time\nimport uuid\nfrom pathlib import Path\n\nfrom anthropic import Anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\nTEAM_DIR = WORKDIR / \".team\"\nINBOX_DIR = TEAM_DIR / \"inbox\"\nREQUESTS_DIR = TEAM_DIR / \"requests\"\n\nSYSTEM = f\"You are a team lead at {WORKDIR}. Manage teammates with shutdown and plan approval protocols.\"\n\nVALID_MSG_TYPES = {\n    \"message\",\n    \"broadcast\",\n    \"shutdown_request\",\n    \"shutdown_response\",\n    \"plan_approval\",\n    \"plan_approval_response\",\n}\n\n# -- MessageBus: JSONL inbox per teammate --\nclass MessageBus:\n    def __init__(self, inbox_dir: Path):\n        self.dir = inbox_dir\n        self.dir.mkdir(parents=True, exist_ok=True)\n\n    def send(self, sender: str, to: str, content: str,\n             msg_type: str = \"message\", extra: dict = None) -\u003e str:\n        if msg_type not in VALID_MSG_TYPES:\n            return f\"Error: Invalid type '{msg_type}'. Valid: {VALID_MSG_TYPES}\"\n        msg = {\n            \"type\": msg_type,\n            \"from\": sender,\n            \"content\": content,\n            \"timestamp\": time.time(),\n        }\n        if extra:\n            msg.update(extra)\n        inbox_path = self.dir / f\"{to}.jsonl\"\n        with open(inbox_path, \"a\") as f:\n            f.write(json.dumps(msg) + \"\\n\")\n        return f\"Sent {msg_type} to {to}\"\n\n    def read_inbox(self, name: str) -\u003e list:\n        inbox_path = self.dir / f\"{name}.jsonl\"\n        if not inbox_path.exists():\n            return []\n        messages = []\n        for line in inbox_path.read_text().strip().splitlines():\n            if line:\n                messages.append(json.loads(line))\n        inbox_path.write_text(\"\")\n        return messages\n\n    def broadcast(self, sender: str, content: str, teammates: list) -\u003e str:\n        count = 0\n        for name in teammates:\n            if name != sender:\n                self.send(sender, name, content, \"broadcast\")\n                count += 1\n        return f\"Broadcast to {count} teammates\"\n\n\nBUS = MessageBus(INBOX_DIR)\n\n\nclass RequestStore:\n    \"\"\"\n    Durable request records for protocol workflows.\n\n    Protocol state should survive long enough to inspect, resume, or reconcile.\n    This store keeps one JSON file per request_id under .team/requests/.\n    \"\"\"\n\n    def __init__(self, base_dir: Path):\n        self.dir = base_dir\n        self.dir.mkdir(parents=True, exist_ok=True)\n        self._lock = threading.Lock()\n\n    def _path(self, request_id: str) -\u003e Path:\n        return self.dir / f\"{request_id}.json\"\n\n    def create(self, record: dict) -\u003e dict:\n        request_id = record[\"request_id\"]\n        with self._lock:\n            self._path(request_id).write_text(json.dumps(record, indent=2))\n        return record\n\n    def get(self, request_id: str) -\u003e dict | None:\n        path = self._path(request_id)\n        if not path.exists():\n            return None\n        return json.loads(path.read_text())\n\n    def update(self, request_id: str, **changes) -\u003e dict | None:\n        with self._lock:\n            record = self.get(request_id)\n            if not record:\n                return None\n            record.update(changes)\n            record[\"updated_at\"] = time.time()\n            self._path(request_id).write_text(json.dumps(record, indent=2))\n        return record\n\n\nREQUEST_STORE = RequestStore(REQUESTS_DIR)\n\n\n# -- TeammateManager with shutdown + plan approval --\nclass TeammateManager:\n    def __init__(self, team_dir: Path):\n        self.dir = team_dir\n        self.dir.mkdir(exist_ok=True)\n        self.config_path = self.dir / \"config.json\"\n        self.config = self._load_config()\n        self.threads = {}\n\n    def _load_config(self) -\u003e dict:\n        if self.config_path.exists():\n            return json.loads(self.config_path.read_text())\n        return {\"team_name\": \"default\", \"members\": []}\n\n    def _save_config(self):\n        self.config_path.write_text(json.dumps(self.config, indent=2))\n\n    def _find_member(self, name: str) -\u003e dict:\n        for m in self.config[\"members\"]:\n            if m[\"name\"] == name:\n                return m\n        return None\n\n    def spawn(self, name: str, role: str, prompt: str) -\u003e str:\n        member = self._find_member(name)\n        if member:\n            if member[\"status\"] not in (\"idle\", \"shutdown\"):\n                return f\"Error: '{name}' is currently {member['status']}\"\n            member[\"status\"] = \"working\"\n            member[\"role\"] = role\n        else:\n            member = {\"name\": name, \"role\": role, \"status\": \"working\"}\n            self.config[\"members\"].append(member)\n        self._save_config()\n        thread = threading.Thread(\n            target=self._teammate_loop,\n            args=(name, role, prompt),\n            daemon=True,\n        )\n        self.threads[name] = thread\n        thread.start()\n        return f\"Spawned '{name}' (role: {role})\"\n\n    def _teammate_loop(self, name: str, role: str, prompt: str):\n        sys_prompt = (\n            f\"You are '{name}', role: {role}, at {WORKDIR}. \"\n            f\"Submit plans via plan_approval before major work. \"\n            f\"Respond to shutdown_request with shutdown_response.\"\n        )\n        messages = [{\"role\": \"user\", \"content\": prompt}]\n        tools = self._teammate_tools()\n        should_exit = False\n        for _ in range(50):\n            inbox = BUS.read_inbox(name)\n            for msg in inbox:\n                messages.append({\"role\": \"user\", \"content\": json.dumps(msg)})\n            if should_exit:\n                break\n            try:\n                response = client.messages.create(\n                    model=MODEL,\n                    system=sys_prompt,\n                    messages=messages,\n                    tools=tools,\n                    max_tokens=8000,\n                )\n            except Exception:\n                break\n            messages.append({\"role\": \"assistant\", \"content\": response.content})\n            if response.stop_reason != \"tool_use\":\n                break\n            results = []\n            for block in response.content:\n                if block.type == \"tool_use\":\n                    output = self._exec(name, block.name, block.input)\n                    print(f\"  [{name}] {block.name}: {str(output)[:120]}\")\n                    results.append({\n                        \"type\": \"tool_result\",\n                        \"tool_use_id\": block.id,\n                        \"content\": str(output),\n                    })\n                    if block.name == \"shutdown_response\" and block.input.get(\"approve\"):\n                        should_exit = True\n            messages.append({\"role\": \"user\", \"content\": results})\n        member = self._find_member(name)\n        if member:\n            member[\"status\"] = \"shutdown\" if should_exit else \"idle\"\n            self._save_config()\n\n    def _exec(self, sender: str, tool_name: str, args: dict) -\u003e str:\n        # these base tools are unchanged from s02\n        if tool_name == \"bash\":\n            return _run_bash(args[\"command\"])\n        if tool_name == \"read_file\":\n            return _run_read(args[\"path\"])\n        if tool_name == \"write_file\":\n            return _run_write(args[\"path\"], args[\"content\"])\n        if tool_name == \"edit_file\":\n            return _run_edit(args[\"path\"], args[\"old_text\"], args[\"new_text\"])\n        if tool_name == \"send_message\":\n            return BUS.send(sender, args[\"to\"], args[\"content\"], args.get(\"msg_type\", \"message\"))\n        if tool_name == \"read_inbox\":\n            return json.dumps(BUS.read_inbox(sender), indent=2)\n        if tool_name == \"shutdown_response\":\n            req_id = args[\"request_id\"]\n            approve = args[\"approve\"]\n            updated = REQUEST_STORE.update(\n                req_id,\n                status=\"approved\" if approve else \"rejected\",\n                resolved_by=sender,\n                resolved_at=time.time(),\n                response={\"approve\": approve, \"reason\": args.get(\"reason\", \"\")},\n            )\n            if not updated:\n                return f\"Error: Unknown shutdown request {req_id}\"\n            BUS.send(\n                sender, \"lead\", args.get(\"reason\", \"\"),\n                \"shutdown_response\", {\"request_id\": req_id, \"approve\": approve},\n            )\n            return f\"Shutdown {'approved' if approve else 'rejected'}\"\n        if tool_name == \"plan_approval\":\n            plan_text = args.get(\"plan\", \"\")\n            req_id = str(uuid.uuid4())[:8]\n            REQUEST_STORE.create({\n                \"request_id\": req_id,\n                \"kind\": \"plan_approval\",\n                \"from\": sender,\n                \"to\": \"lead\",\n                \"status\": \"pending\",\n                \"plan\": plan_text,\n                \"created_at\": time.time(),\n                \"updated_at\": time.time(),\n            })\n            BUS.send(\n                sender, \"lead\", plan_text, \"plan_approval\",\n                {\"request_id\": req_id, \"plan\": plan_text},\n            )\n            return f\"Plan submitted (request_id={req_id}). Waiting for lead approval.\"\n        return f\"Unknown tool: {tool_name}\"\n\n    def _teammate_tools(self) -\u003e list:\n        # these base tools are unchanged from s02\n        return [\n            {\"name\": \"bash\", \"description\": \"Run a shell command.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n            {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}}, \"required\": [\"path\"]}},\n            {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n            {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n            {\"name\": \"send_message\", \"description\": \"Send message to a teammate.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"to\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}, \"msg_type\": {\"type\": \"string\", \"enum\": list(VALID_MSG_TYPES)}}, \"required\": [\"to\", \"content\"]}},\n            {\"name\": \"read_inbox\", \"description\": \"Read and drain your inbox.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {}}},\n            {\"name\": \"shutdown_response\", \"description\": \"Respond to a shutdown request. Approve to shut down, reject to keep working.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"request_id\": {\"type\": \"string\"}, \"approve\": {\"type\": \"boolean\"}, \"reason\": {\"type\": \"string\"}}, \"required\": [\"request_id\", \"approve\"]}},\n            {\"name\": \"plan_approval\", \"description\": \"Submit a plan for lead approval. Provide plan text.\",\n             \"input_schema\": {\"type\": \"object\", \"properties\": {\"plan\": {\"type\": \"string\"}}, \"required\": [\"plan\"]}},\n        ]\n\n    def list_all(self) -\u003e str:\n        if not self.config[\"members\"]:\n            return \"No teammates.\"\n        lines = [f\"Team: {self.config['team_name']}\"]\n        for m in self.config[\"members\"]:\n            lines.append(f\"  {m['name']} ({m['role']}): {m['status']}\")\n        return \"\\n\".join(lines)\n\n    def member_names(self) -\u003e list:\n        return [m[\"name\"] for m in self.config[\"members\"]]\n\n\nTEAM = TeammateManager(TEAM_DIR)\n\n\n# -- Base tool implementations (these base tools are unchanged from s02) --\ndef _safe_path(p: str) -\u003e Path:\n    path = (WORKDIR / p).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {p}\")\n    return path\n\n\ndef _run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\"]\n    if any(d in command for d in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        r = subprocess.run(\n            command, shell=True, cwd=WORKDIR,\n            capture_output=True, text=True, timeout=120,\n        )\n        out = (r.stdout + r.stderr).strip()\n        return out[:50000] if out else \"(no output)\"\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\n\ndef _run_read(path: str, limit: int = None) -\u003e str:\n    try:\n        lines = _safe_path(path).read_text().splitlines()\n        if limit and limit \u003c len(lines):\n            lines = lines[:limit] + [f\"... ({len(lines) - limit} more)\"]\n        return \"\\n\".join(lines)[:50000]\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef _run_write(path: str, content: str) -\u003e str:\n    try:\n        fp = _safe_path(path)\n        fp.parent.mkdir(parents=True, exist_ok=True)\n        fp.write_text(content)\n        return f\"Wrote {len(content)} bytes\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef _run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        fp = _safe_path(path)\n        c = fp.read_text()\n        if old_text not in c:\n            return f\"Error: Text not found in {path}\"\n        fp.write_text(c.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\n# -- Lead-specific protocol handlers --\ndef handle_shutdown_request(teammate: str) -\u003e str:\n    req_id = str(uuid.uuid4())[:8]\n    REQUEST_STORE.create({\n        \"request_id\": req_id,\n        \"kind\": \"shutdown\",\n        \"from\": \"lead\",\n        \"to\": teammate,\n        \"status\": \"pending\",\n        \"created_at\": time.time(),\n        \"updated_at\": time.time(),\n    })\n    BUS.send(\n        \"lead\", teammate, \"Please shut down gracefully.\",\n        \"shutdown_request\", {\"request_id\": req_id},\n    )\n    return f\"Shutdown request {req_id} sent to '{teammate}' (status: pending)\"\n\n\ndef handle_plan_review(request_id: str, approve: bool, feedback: str = \"\") -\u003e str:\n    req = REQUEST_STORE.get(request_id)\n    if not req:\n        return f\"Error: Unknown plan request_id '{request_id}'\"\n    REQUEST_STORE.update(\n        request_id,\n        status=\"approved\" if approve else \"rejected\",\n        reviewed_by=\"lead\",\n        resolved_at=time.time(),\n        feedback=feedback,\n    )\n    BUS.send(\n        \"lead\", req[\"from\"], feedback, \"plan_approval_response\",\n        {\"request_id\": request_id, \"approve\": approve, \"feedback\": feedback},\n    )\n    return f\"Plan {'approved' if approve else 'rejected'} for '{req['from']}'\"\n\n\ndef _check_shutdown_status(request_id: str) -\u003e str:\n    return json.dumps(REQUEST_STORE.get(request_id) or {\"error\": \"not found\"})\n\n\n# -- Lead tool dispatch (12 tools) --\nTOOL_HANDLERS = {\n    \"bash\":              lambda **kw: _run_bash(kw[\"command\"]),\n    \"read_file\":         lambda **kw: _run_read(kw[\"path\"], kw.get(\"limit\")),\n    \"write_file\":        lambda **kw: _run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\":         lambda **kw: _run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n    \"spawn_teammate\":    lambda **kw: TEAM.spawn(kw[\"name\"], kw[\"role\"], kw[\"prompt\"]),\n    \"list_teammates\":    lambda **kw: TEAM.list_all(),\n    \"send_message\":      lambda **kw: BUS.send(\"lead\", kw[\"to\"], kw[\"content\"], kw.get(\"msg_type\", \"message\")),\n    \"read_inbox\":        lambda **kw: json.dumps(BUS.read_inbox(\"lead\"), indent=2),\n    \"broadcast\":         lambda **kw: BUS.broadcast(\"lead\", kw[\"content\"], TEAM.member_names()),\n    \"shutdown_request\":  lambda **kw: handle_shutdown_request(kw[\"teammate\"]),\n    \"shutdown_response\": lambda **kw: _check_shutdown_status(kw.get(\"request_id\", \"\")),\n    \"plan_approval\":     lambda **kw: handle_plan_review(kw[\"request_id\"], kw[\"approve\"], kw.get(\"feedback\", \"\")),\n}\n\n# these base tools are unchanged from s02\nTOOLS = [\n    {\"name\": \"bash\", \"description\": \"Run a shell command.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"limit\": {\"type\": \"integer\"}}, \"required\": [\"path\"]}},\n    {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n    {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n    {\"name\": \"spawn_teammate\", \"description\": \"Spawn a persistent teammate.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}, \"role\": {\"type\": \"string\"}, \"prompt\": {\"type\": \"string\"}}, \"required\": [\"name\", \"role\", \"prompt\"]}},\n    {\"name\": \"list_teammates\", \"description\": \"List all teammates.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {}}},\n    {\"name\": \"send_message\", \"description\": \"Send a message to a teammate.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"to\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}, \"msg_type\": {\"type\": \"string\", \"enum\": list(VALID_MSG_TYPES)}}, \"required\": [\"to\", \"content\"]}},\n    {\"name\": \"read_inbox\", \"description\": \"Read and drain the lead's inbox.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {}}},\n    {\"name\": \"broadcast\", \"description\": \"Send a message to all teammates.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"content\": {\"type\": \"string\"}}, \"required\": [\"content\"]}},\n    {\"name\": \"shutdown_request\", \"description\": \"Request a teammate to shut down gracefully. Returns a request_id for tracking.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"teammate\": {\"type\": \"string\"}}, \"required\": [\"teammate\"]}},\n    {\"name\": \"shutdown_response\", \"description\": \"Check the status of a shutdown request by request_id.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"request_id\": {\"type\": \"string\"}}, \"required\": [\"request_id\"]}},\n    {\"name\": \"plan_approval\", \"description\": \"Approve or reject a teammate's plan. Provide request_id + approve + optional feedback.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"request_id\": {\"type\": \"string\"}, \"approve\": {\"type\": \"boolean\"}, \"feedback\": {\"type\": \"string\"}}, \"required\": [\"request_id\", \"approve\"]}},\n]\n\n\ndef agent_loop(messages: list):\n    while True:\n        inbox = BUS.read_inbox(\"lead\")\n        if inbox:\n            messages.append({\n                \"role\": \"user\",\n                \"content\": f\"\u003cinbox\u003e{json.dumps(inbox, indent=2)}\u003c/inbox\u003e\",\n            })\n        response = client.messages.create(\n            model=MODEL,\n            system=SYSTEM,\n            messages=messages,\n            tools=TOOLS,\n            max_tokens=8000,\n        )\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n        if response.stop_reason != \"tool_use\":\n            return\n        results = []\n        for block in response.content:\n            if block.type == \"tool_use\":\n                handler = TOOL_HANDLERS.get(block.name)\n                try:\n                    output = handler(**block.input) if handler else f\"Unknown tool: {block.name}\"\n                except Exception as e:\n                    output = f\"Error: {e}\"\n                print(f\"\u003e {block.name}:\")\n                print(str(output)[:200])\n                results.append({\n                    \"type\": \"tool_result\",\n                    \"tool_use_id\": block.id,\n                    \"content\": str(output),\n                })\n        messages.append({\"role\": \"user\", \"content\": results})\n\n\nif __name__ == \"__main__\":\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms16 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n        if query.strip() == \"/team\":\n            print(TEAM.list_all())\n            continue\n        if query.strip() == \"/inbox\":\n            print(json.dumps(BUS.read_inbox(\"lead\"), indent=2))\n            continue\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history)\n        response_content = history[-1][\"content\"]\n        if isinstance(response_content, list):\n            for block in response_content:\n                if hasattr(block, \"text\"):\n                    print(block.text)\n        print()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s16\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"团队协议\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300\",\"children\":\"多 Agent 平台\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"共享请求-响应规则\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[482,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[12,\" \",\"个工具\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"团队只有在协作遵守共同消息模式时，才会变得可理解、可调试、可扩展。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s16\",\"diff\":{\"from\":\"s15\",\"to\":\"s16\",\"newClasses\":[\"RequestStore\"],\"newFunctions\":[\"handle_shutdown_request\",\"handle_plan_review\",\"_check_shutdown_status\"],\"newTools\":[\"shutdown_response\",\"plan_approval\",\"shutdown_request\"],\"locDelta\":132},\"source\":\"$14\",\"filename\":\"s16_team_protocols.py\",\"guideData\":{\"focus\":\"先盯住 `ProtocolEnvelope`、`request_id` 和 `RequestRecord`。\",\"confusion\":\"协议消息不是普通聊天消息，它必须能被系统追踪和更新状态。\",\"goal\":\"让团队协作从自由聊天升级成可批准、可拒绝、可跟踪的流程。\"},\"bridgeDocs\":[{\"slug\":\"team-task-lane-model\",\"kind\":\"map\",\"title\":\"队友-任务-车道模型\",\"summary\":{\"zh\":\"专门拆清队友、协议请求、任务、运行时槽位和 worktree 车道这五层边界。\",\"en\":\"Five concepts that look similar but live on different layers. Keep open during s15-s18.\",\"ja\":\"teammate・protocol request・task・runtime slot・worktree lane の 5 層境界を整理します。\"},\"fallbackLocale\":null},{\"slug\":\"glossary\",\"kind\":\"map\",\"title\":\"术语表\",\"summary\":{\"zh\":\"术语一多就先回这里，统一名词边界，避免 task、runtime task、teammate 混在一起。\",\"en\":\"Bookmark this. Come back whenever you hit an unfamiliar term.\",\"ja\":\"用語が増えて混ざり始めたときに戻る境界整理用の用語集です。\"},\"fallbackLocale\":null}],\"locale\":\"zh\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/zh/s15\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"上一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s15\",\" - \",\"Agent 团队\"]}]]}]]}],[\"$\",\"$L16\",null,{\"href\":\"/zh/s17\",\"className\":\"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"下一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"自主代理\",\" - \",\"s17\"]}]]}],[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:translate-x-1\",\"children\":\"→\"}]]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>

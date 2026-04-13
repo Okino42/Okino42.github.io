@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s18</span><h1 class="text-2xl font-bold sm:text-3xl">Worktree 隔离</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">多 Agent 平台</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">独立目录，独立车道<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">564<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>18<!-- --> <!-- -->个工具</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">task 管目标，worktree 管隔离执行车道和收尾状态；两者不能混成一个概念。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学习</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">源码</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深入探索</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > s05 > s06 > s07 > s08 > s09 > s10 > s11 > s12 > s13 > s14 > s15 > s16 > s17 > [ s18 ] > s19</code></p>
+<blockquote class="hero-callout">
+<p><em>任务板解决“做什么”，worktree 解决“在哪做而不互相踩到”。</em></p>
+</blockquote>
+<h2>这一章要解决什么问题</h2>
+<p>到 <code>s17</code> 为止，系统已经可以：</p>
+<ul>
+<li>拆任务</li>
+<li>认领任务</li>
+<li>让多个 agent 并行推进不同工作</li>
+</ul>
+<p>但如果所有人都在同一个工作目录里改文件，很快就会出现这些问题：</p>
+<ul>
+<li>两个任务同时改同一个文件</li>
+<li>一个任务还没做完，另一个任务的修改已经把目录污染了</li>
+<li>想单独回看某个任务的改动范围时，很难分清</li>
+</ul>
+<p>也就是说，任务系统已经回答了“谁做什么”，却还没有回答：</p>
+<p><strong>每个任务应该在哪个独立工作空间里执行。</strong></p>
+<p>这就是 worktree 要解决的问题。</p>
+<h2>建议联读</h2>
+<ul>
+<li>如果你开始把 task、runtime slot、worktree lane 三层混成一个词，先看 <a href="./team-task-lane-model.md"><code>team-task-lane-model.md</code></a>。</li>
+<li>如果你想确认 worktree 记录和任务记录分别该保存哪些字段，回看 <a href="./data-structures.md"><code>data-structures.md</code></a>。</li>
+<li>如果你想从“参考仓库主干”角度确认这一章为什么必须晚于 tasks / teams，再看 <a href="./s00e-reference-module-map.md"><code>s00e-reference-module-map.md</code></a>。</li>
+</ul>
+<h2>先解释几个名词</h2>
+<h3>什么是 worktree</h3>
+<p>如果你熟悉 git，可以把 worktree 理解成：</p>
+<blockquote>
+<p>同一个仓库的另一个独立检出目录。</p>
+</blockquote>
+<p>如果你还不熟悉 git，也可以先把它理解成：</p>
+<blockquote>
+<p>一条属于某个任务的独立工作车道。</p>
+</blockquote>
+<h3>什么叫隔离执行</h3>
+<p>隔离执行就是：</p>
+<blockquote>
+<p>任务 A 在自己的目录里跑，任务 B 在自己的目录里跑，彼此默认不共享未提交改动。</p>
+</blockquote>
+<h3>什么叫绑定</h3>
+<p>绑定的意思是：</p>
+<blockquote>
+<p>把某个任务 ID 和某个 worktree 记录明确关联起来。</p>
+</blockquote>
+<h2>最小心智模型</h2>
+<p>最容易理解的方式，是把这一章拆成两张表：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">任务板
+  负责回答：做什么、谁在做、状态如何
+
+worktree 注册表
+  负责回答：在哪做、目录在哪、对应哪个任务
+</code></pre>
+<p>两者通过 <code>task_id</code> 连起来：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">.tasks/task_12.json
+  {
+    "id": 12,
+    "subject": "Refactor auth flow",
+    "status": "in_progress",
+    "worktree": "auth-refactor"
+  }
+
+.worktrees/index.json
+  {
+    "worktrees": [
+      {
+        "name": "auth-refactor",
+        "path": ".worktrees/auth-refactor",
+        "branch": "wt/auth-refactor",
+        "task_id": 12,
+        "status": "active"
+      }
+    ]
+  }
+</code></pre>
+<p>看懂这两条记录，这一章的主线就已经抓住了：</p>
+<p><strong>任务记录工作目标，worktree 记录执行车道。</strong></p>
+<h2>关键数据结构</h2>
+<h3>1. TaskRecord 不再只记录 <code>worktree</code></h3>
+<p>到当前教学代码这一步，任务记录里和车道相关的字段已经不只一个：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">task = {
+    <span class="hljs-string">"id"</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"Refactor auth flow"</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"in_progress"</span>,
+    <span class="hljs-string">"owner"</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-string">"worktree"</span>: <span class="hljs-string">"auth-refactor"</span>,
+    <span class="hljs-string">"worktree_state"</span>: <span class="hljs-string">"active"</span>,
+    <span class="hljs-string">"last_worktree"</span>: <span class="hljs-string">"auth-refactor"</span>,
+    <span class="hljs-string">"closeout"</span>: <span class="hljs-literal">None</span>,
+}
+</code></pre>
+<p>这 4 个字段分别回答不同问题：</p>
+<ul>
+<li><code>worktree</code>：当前还绑定着哪条车道</li>
+<li><code>worktree_state</code>：这条绑定现在是 <code>active</code>、<code>kept</code>、<code>removed</code> 还是 <code>unbound</code></li>
+<li><code>last_worktree</code>：最近一次用过哪条车道</li>
+<li><code>closeout</code>：最后一次收尾动作是什么</li>
+</ul>
+<p>为什么要拆这么细？</p>
+<p>因为到多 agent 并行阶段，系统已经不只需要知道“现在在哪做”，还需要知道：</p>
+<ul>
+<li>这条车道现在是不是还活着</li>
+<li>它最后是保留还是回收</li>
+<li>之后如果恢复或排查，应该看哪条历史车道</li>
+</ul>
+<h3>2. WorktreeRecord 不只是路径映射</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">worktree = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"auth-refactor"</span>,
+    <span class="hljs-string">"path"</span>: <span class="hljs-string">".worktrees/auth-refactor"</span>,
+    <span class="hljs-string">"branch"</span>: <span class="hljs-string">"wt/auth-refactor"</span>,
+    <span class="hljs-string">"task_id"</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-string">"status"</span>: <span class="hljs-string">"active"</span>,
+    <span class="hljs-string">"last_entered_at"</span>: <span class="hljs-number">1710000000.0</span>,
+    <span class="hljs-string">"last_command_at"</span>: <span class="hljs-number">1710000012.0</span>,
+    <span class="hljs-string">"last_command_preview"</span>: <span class="hljs-string">"pytest tests/auth -q"</span>,
+    <span class="hljs-string">"closeout"</span>: <span class="hljs-literal">None</span>,
+}
+</code></pre>
+<p>这里也要特别注意：</p>
+<p>worktree 记录回答的不只是“目录在哪”，还开始回答：</p>
+<ul>
+<li>最近什么时候进入过</li>
+<li>最近跑过什么命令</li>
+<li>最后是怎么收尾的</li>
+</ul>
+<p>这就是为什么这章讲的是：</p>
+<p><strong>可观察的执行车道</strong></p>
+<p>而不只是“多开一个目录”。</p>
+<h3>3. CloseoutRecord</h3>
+<p>这一章在当前代码里，一个完整的收尾记录大致是：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">closeout = {
+    <span class="hljs-string">"action"</span>: <span class="hljs-string">"keep"</span>,
+    <span class="hljs-string">"reason"</span>: <span class="hljs-string">"Need follow-up review"</span>,
+    <span class="hljs-string">"at"</span>: <span class="hljs-number">1710000100.0</span>,
+}
+</code></pre>
+<p>这层记录很重要，因为它把“结尾到底发生了什么”显式写出来，而不是靠人猜：</p>
+<ul>
+<li>是保留目录，方便继续追看</li>
+<li>还是回收目录，表示这条执行车道已经结束</li>
+</ul>
+<h3>4. EventRecord</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">event = {
+    <span class="hljs-string">"event"</span>: <span class="hljs-string">"worktree.closeout.keep"</span>,
+    <span class="hljs-string">"task_id"</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-string">"worktree"</span>: <span class="hljs-string">"auth-refactor"</span>,
+    <span class="hljs-string">"reason"</span>: <span class="hljs-string">"Need follow-up review"</span>,
+    <span class="hljs-string">"ts"</span>: <span class="hljs-number">1710000100.0</span>,
+}
+</code></pre>
+<p>为什么还要事件记录？</p>
+<p>因为 worktree 的生命周期经常跨很多步：</p>
+<ul>
+<li>创建</li>
+<li>进入</li>
+<li>运行命令</li>
+<li>保留</li>
+<li>删除</li>
+<li>删除失败</li>
+</ul>
+<p>有显式事件日志，会比只看当前状态更容易排查问题。</p>
+<h2>最小实现</h2>
+<h3>第一步：先有任务，再有 worktree</h3>
+<p>不要先开目录再回头补任务。</p>
+<p>更清楚的顺序是：</p>
+<ol>
+<li>先创建任务</li>
+<li>再为这个任务分配 worktree</li>
+</ol>
+<pre class="code-block" data-language="python"><code class="hljs language-python">task = tasks.create(<span class="hljs-string">"Refactor auth flow"</span>)
+worktrees.create(<span class="hljs-string">"auth-refactor"</span>, task_id=task[<span class="hljs-string">"id"</span>])
+</code></pre>
+<h3>第二步：创建 worktree 并写入注册表</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">create</span>(<span class="hljs-params">self, name: <span class="hljs-built_in">str</span>, task_id: <span class="hljs-built_in">int</span></span>):
+    path = <span class="hljs-variable language_">self</span>.root / <span class="hljs-string">".worktrees"</span> / name
+    branch = <span class="hljs-string">f"wt/<span class="hljs-subst">{name}</span>"</span>
+
+    run_git([<span class="hljs-string">"worktree"</span>, <span class="hljs-string">"add"</span>, <span class="hljs-string">"-b"</span>, branch, <span class="hljs-built_in">str</span>(path), <span class="hljs-string">"HEAD"</span>])
+
+    record = {
+        <span class="hljs-string">"name"</span>: name,
+        <span class="hljs-string">"path"</span>: <span class="hljs-built_in">str</span>(path),
+        <span class="hljs-string">"branch"</span>: branch,
+        <span class="hljs-string">"task_id"</span>: task_id,
+        <span class="hljs-string">"status"</span>: <span class="hljs-string">"active"</span>,
+    }
+    <span class="hljs-variable language_">self</span>.index[<span class="hljs-string">"worktrees"</span>].append(record)
+    <span class="hljs-variable language_">self</span>._save_index()
+</code></pre>
+<h3>第三步：同时更新任务记录，不只是写一个 <code>worktree</code></h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">bind_worktree</span>(<span class="hljs-params">task_id: <span class="hljs-built_in">int</span>, name: <span class="hljs-built_in">str</span></span>):
+    task = tasks.load(task_id)
+    task[<span class="hljs-string">"worktree"</span>] = name
+    task[<span class="hljs-string">"last_worktree"</span>] = name
+    task[<span class="hljs-string">"worktree_state"</span>] = <span class="hljs-string">"active"</span>
+    <span class="hljs-keyword">if</span> task[<span class="hljs-string">"status"</span>] == <span class="hljs-string">"pending"</span>:
+        task[<span class="hljs-string">"status"</span>] = <span class="hljs-string">"in_progress"</span>
+    tasks.save(task)
+</code></pre>
+<p>为什么这一步很关键？</p>
+<p>因为如果只更新 worktree 注册表，不更新任务记录，系统就无法从任务板一眼看出“这个任务在哪个隔离目录里做”。</p>
+<h3>第四步：显式进入车道，再在对应目录里执行命令</h3>
+<p>当前代码里，进入和运行已经拆成两步：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">worktree_enter(<span class="hljs-string">"auth-refactor"</span>)
+worktree_run(<span class="hljs-string">"auth-refactor"</span>, <span class="hljs-string">"pytest tests/auth -q"</span>)
+</code></pre>
+<p>对应到底层，大致就是：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">enter</span>(<span class="hljs-params">self, name: <span class="hljs-built_in">str</span></span>):
+    <span class="hljs-variable language_">self</span>._update_entry(name, last_entered_at=time.time())
+    <span class="hljs-variable language_">self</span>.events.emit(<span class="hljs-string">"worktree.enter"</span>, ...)
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, name: <span class="hljs-built_in">str</span>, command: <span class="hljs-built_in">str</span></span>):
+    subprocess.run(command, cwd=worktree_path, ...)
+</code></pre>
+<pre class="code-block" data-language="python"><code class="hljs language-python">subprocess.run(command, cwd=worktree_path, ...)
+</code></pre>
+<p>这一行看起来普通，但它正是隔离的核心：</p>
+<p><strong>同一个命令，在不同 <code>cwd</code> 里执行，影响范围就不一样。</strong></p>
+<p>为什么还要单独补一个 <code>worktree_enter</code>？</p>
+<p>因为教学上你要让读者看见：</p>
+<ul>
+<li>“分配车道”是一回事</li>
+<li>“真正进入并开始在这条车道里工作”是另一回事</li>
+</ul>
+<p>这层边界一清楚，后面的观察字段才有意义：</p>
+<ul>
+<li><code>last_entered_at</code></li>
+<li><code>last_command_at</code></li>
+<li><code>last_command_preview</code></li>
+</ul>
+<h3>第五步：收尾时显式走 <code>worktree_closeout</code></h3>
+<p>不要让收尾是隐式的。</p>
+<p>当前更清楚的教学接口不是“分散记两个命令”，而是统一成一个 closeout 动作：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">worktree_closeout(
+    name=<span class="hljs-string">"auth-refactor"</span>,
+    action=<span class="hljs-string">"keep"</span>,   <span class="hljs-comment"># or "remove"</span>
+    reason=<span class="hljs-string">"Need follow-up review"</span>,
+    complete_task=<span class="hljs-literal">False</span>,
+)
+</code></pre>
+<p>这样读者会更容易理解：</p>
+<ul>
+<li>收尾一定要选动作</li>
+<li>收尾可以带原因</li>
+<li>收尾会同时回写任务记录、车道记录和事件日志</li>
+</ul>
+<p>当然，底层仍然保留：</p>
+<ul>
+<li><code>worktree_keep(name)</code></li>
+<li><code>worktree_remove(name, reason=..., complete_task=True)</code></li>
+</ul>
+<p>但教学主线最好先把：</p>
+<blockquote>
+<p><code>keep</code> 和 <code>remove</code> 看成同一个 closeout 决策的两个分支</p>
+</blockquote>
+<p>这样读者心智会更顺。</p>
+<h2>为什么 <code>worktree_state</code> 和 <code>status</code> 要分开</h2>
+<p>这也是一个很容易被忽略的细点。</p>
+<p>很多初学者会想：</p>
+<blockquote>
+<p>“任务有 <code>status</code> 了，为什么还要 <code>worktree_state</code>？”</p>
+</blockquote>
+<p>因为这两个状态根本不是一层东西：</p>
+<ul>
+<li>任务 <code>status</code> 回答：这件工作现在是 <code>pending</code>、<code>in_progress</code> 还是 <code>completed</code></li>
+<li><code>worktree_state</code> 回答：这条执行车道现在是 <code>active</code>、<code>kept</code>、<code>removed</code> 还是 <code>unbound</code></li>
+</ul>
+<p>举个最典型的例子：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">任务已经 completed
+  但 worktree 仍然 kept
+</code></pre>
+<p>这完全可能，而且很常见。<br>
+比如你已经做完了，但还想保留目录给 reviewer 看。</p>
+<p>所以：</p>
+<p><strong>任务状态和车道状态不能混成一个字段。</strong></p>
+<h2>为什么 worktree 不是“只是一个 git 小技巧”</h2>
+<p>很多初学者第一次看到这一章，会觉得：</p>
+<blockquote>
+<p>“这不就是多开几个目录吗？”</p>
+</blockquote>
+<p>这句话只说对了一半。</p>
+<p>真正关键的不只是“多开目录”，而是：</p>
+<p><strong>把任务和执行目录做显式绑定，让并行工作有清楚的边界。</strong></p>
+<p>如果没有这层绑定，系统仍然不知道：</p>
+<ul>
+<li>哪个目录属于哪个任务</li>
+<li>收尾时该完成哪条任务</li>
+<li>崩溃后该恢复哪条关系</li>
+</ul>
+<h2>如何接到前面章节里</h2>
+<p>这章和前面几章是强耦合的：</p>
+<ul>
+<li><code>s12</code> 提供任务 ID</li>
+<li><code>s15-s17</code> 提供队友和认领机制</li>
+<li><code>s18</code> 则给这些任务提供独立执行车道</li>
+</ul>
+<p>把三者连起来看，会变成：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">任务被创建
+  ->
+队友认领任务
+  ->
+系统为任务分配 worktree
+  ->
+命令在对应目录里执行
+  ->
+任务完成时决定保留还是删除 worktree
+</code></pre>
+<p>这条链一旦建立，多 agent 并行工作就会清楚很多。</p>
+<h2>worktree 不是任务本身，而是任务的执行车道</h2>
+<p>这句话值得单独再说一次。</p>
+<p>很多读者第一次学到这里时，会把这两个词混着用：</p>
+<ul>
+<li>task</li>
+<li>worktree</li>
+</ul>
+<p>但它们回答的其实不是同一个问题：</p>
+<ul>
+<li>task：做什么</li>
+<li>worktree：在哪做</li>
+</ul>
+<p>所以更完整、也更不容易混的表达方式是：</p>
+<ul>
+<li>工作图任务</li>
+<li>worktree 执行车道</li>
+</ul>
+<p>如果你开始分不清：</p>
+<ul>
+<li>任务</li>
+<li>运行时任务</li>
+<li>worktree</li>
+</ul>
+<p>建议回看：</p>
+<ul>
+<li><a href="./team-task-lane-model.md"><code>team-task-lane-model.md</code></a></li>
+<li><a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a></li>
+<li><a href="./entity-map.md"><code>entity-map.md</code></a></li>
+</ul>
+<h2>初学者最容易犯的错</h2>
+<h3>1. 有 worktree 注册表，但任务记录里没有 <code>worktree</code></h3>
+<p>这样任务板就丢掉了最重要的一条执行信息。</p>
+<h3>2. 有任务 ID，但命令仍然在主目录执行</h3>
+<p>如果 <code>cwd</code> 没切过去，worktree 形同虚设。</p>
+<h3>3. 只会 <code>worktree_remove</code>，不会解释 closeout 的含义</h3>
+<p>这样读者最后只记住“删目录”这个动作，却不知道系统真正想表达的是：</p>
+<ul>
+<li>保留</li>
+<li>回收</li>
+<li>为什么这么做</li>
+<li>是否同时完结对应任务</li>
+</ul>
+<h3>4. 删除 worktree 前不看未提交改动</h3>
+<p>这是最危险的一类错误。</p>
+<p>教学版也应该至少先建立一个原则：</p>
+<p><strong>删除前先检查是否有脏改动。</strong></p>
+<h3>5. 没有 <code>worktree_state</code> / <code>closeout</code> 这类显式收尾状态</h3>
+<p>这样系统就会只剩下“现在目录还在不在”，而没有：</p>
+<ul>
+<li>这条车道最后怎么收尾</li>
+<li>是主动保留还是主动删除</li>
+</ul>
+<h3>6. 把 worktree 当成长期垃圾堆</h3>
+<p>如果从不清理，目录会越来越多，状态越来越乱。</p>
+<h3>7. 没有事件日志</h3>
+<p>一旦创建失败、删除失败或任务关系错乱，没有事件日志会很难排查。</p>
+<h2>教学边界</h2>
+<p>这章先要讲透的不是所有 worktree 运维细节，而是主干分工：</p>
+<ul>
+<li>task 记录“做什么”</li>
+<li>worktree 记录“在哪做”</li>
+<li>enter / execute / closeout 串起这条隔离执行车道</li>
+</ul>
+<p>只要这条主干清楚，教学目标就已经达成。</p>
+<p>崩溃恢复、删除安全检查、全局缓存区、非 git 回退这些，都应该放在这条主干之后。</p>
+<h2>试一试</h2>
+<pre class="code-block" data-language="sh"><code class="hljs language-sh"><span class="hljs-built_in">cd</span> learn-claude-code
+python agents/s18_worktree_task_isolation.py
+</code></pre>
+<p>可以试试这些任务：</p>
+<ol>
+<li>为两个不同任务各建一个 worktree，观察任务板和注册表的对应关系。</li>
+<li>分别在两个 worktree 里运行 <code>git status</code>，感受目录隔离。</li>
+<li>删除一个 worktree，并确认对应任务是否被正确收尾。</li>
+</ol>
+<p>读完这一章，你应该能自己说清楚这句话：</p>
+<p><strong>任务系统管“做什么”，worktree 系统管“在哪做且互不干扰”。</strong></p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s17/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">上一章</div><div class="font-medium">s17<!-- --> - <!-- -->自主代理</div></div></a><a class="group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/zh/s19/"><div><div class="text-xs text-zinc-400">下一章</div><div class="font-medium">MCP 与插件<!-- --> - <!-- -->s19</div></div><span class="transition-transform group-hover:translate-x-1">→</span></a></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"s18\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s18\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T689a,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: directory isolation -- parallel execution lanes that never collide.\n\"\"\"\ns18_worktree_task_isolation.py - Worktree + Task Isolation\n\nDirectory-level isolation for parallel task execution.\nTasks are the control plane and worktrees are the execution plane.\n\n    .tasks/task_12.json\n      {\n        \"id\": 12,\n        \"subject\": \"Implement auth refactor\",\n        \"status\": \"in_progress\",\n        \"worktree\": \"auth-refactor\"\n      }\n\n    .worktrees/index.json\n      {\n        \"worktrees\": [\n          {\n            \"name\": \"auth-refactor\",\n            \"path\": \".../.worktrees/auth-refactor\",\n            \"branch\": \"wt/auth-refactor\",\n            \"task_id\": 12,\n            \"status\": \"active\"\n          }\n        ]\n      }\n\nKey insight: \"Isolate by directory, coordinate by task ID.\"\n\nRead this file in this order:\n1. EventBus: how worktree lifecycle stays observable.\n2. TaskManager: how a task binds to an execution lane without becoming the lane itself.\n3. Worktree registry / closeout helpers: how directory state is created, tracked, and cleaned up.\n\nMost common confusion:\n- a worktree is not the task itself\n- a worktree record is not just a path string\n\nTeaching boundary:\nthis file teaches isolated execution lanes first.\nCross-machine execution, merge automation, and enterprise policy glue are intentionally out of scope.\n\"\"\"\n\nimport json\nimport os\nimport re\nimport subprocess\nimport time\nfrom pathlib import Path\n\nfrom anthropic import Anthropic\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\n\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\n\n\ndef detect_repo_root(cwd: Path) -\u003e Path | None:\n    try:\n        r = subprocess.run(\n            [\"git\", \"rev-parse\", \"--show-toplevel\"],\n            cwd=cwd, capture_output=True, text=True, timeout=10,\n        )\n        root = Path(r.stdout.strip())\n        return root if r.returncode == 0 and root.exists() else None\n    except Exception:\n        return None\n\n\nREPO_ROOT = detect_repo_root(WORKDIR) or WORKDIR\n\nSYSTEM = (\n    f\"You are a coding agent at {WORKDIR}. \"\n    \"Use task + worktree tools for multi-task work. \"\n    \"For parallel or risky changes: create tasks, allocate worktree lanes, \"\n    \"run commands in those lanes, then choose keep/remove for closeout.\"\n)\n\n\n# -- EventBus: append-only lifecycle events for observability --\nclass EventBus:\n    def __init__(self, event_log_path: Path):\n        self.path = event_log_path\n        self.path.parent.mkdir(parents=True, exist_ok=True)\n        if not self.path.exists():\n            self.path.write_text(\"\")\n\n    def emit(self, event: str, task_id=None, wt_name=None, error=None, **extra):\n        payload = {\"event\": event, \"ts\": time.time()}\n        if task_id is not None:\n            payload[\"task_id\"] = task_id\n        if wt_name:\n            payload[\"worktree\"] = wt_name\n        if error:\n            payload[\"error\"] = error\n        payload.update(extra)\n        with self.path.open(\"a\", encoding=\"utf-8\") as f:\n            f.write(json.dumps(payload) + \"\\n\")\n\n    def list_recent(self, limit: int = 20) -\u003e str:\n        n = max(1, min(int(limit or 20), 200))\n        lines = self.path.read_text(encoding=\"utf-8\").splitlines()\n        items = []\n        for line in lines[-n:]:\n            try:\n                items.append(json.loads(line))\n            except Exception:\n                items.append({\"event\": \"parse_error\", \"raw\": line})\n        return json.dumps(items, indent=2)\n\n\n# -- TaskManager: persistent task board with optional worktree binding --\nclass TaskManager:\n    def __init__(self, tasks_dir: Path):\n        self.dir = tasks_dir\n        self.dir.mkdir(parents=True, exist_ok=True)\n        self._next_id = self._max_id() + 1\n\n    def _max_id(self) -\u003e int:\n        ids = []\n        for f in self.dir.glob(\"task_*.json\"):\n            try:\n                ids.append(int(f.stem.split(\"_\")[1]))\n            except Exception:\n                pass\n        return max(ids) if ids else 0\n\n    def _path(self, task_id: int) -\u003e Path:\n        return self.dir / f\"task_{task_id}.json\"\n\n    def _load(self, task_id: int) -\u003e dict:\n        path = self._path(task_id)\n        if not path.exists():\n            raise ValueError(f\"Task {task_id} not found\")\n        return json.loads(path.read_text())\n\n    def _save(self, task: dict):\n        self._path(task[\"id\"]).write_text(json.dumps(task, indent=2))\n\n    def create(self, subject: str, description: str = \"\") -\u003e str:\n        task = {\n            \"id\": self._next_id, \"subject\": subject, \"description\": description,\n            \"status\": \"pending\", \"owner\": \"\", \"worktree\": \"\",\n            \"worktree_state\": \"unbound\", \"last_worktree\": \"\",\n            \"closeout\": None, \"blockedBy\": [],\n            \"created_at\": time.time(), \"updated_at\": time.time(),\n        }\n        self._save(task)\n        self._next_id += 1\n        return json.dumps(task, indent=2)\n\n    def get(self, task_id: int) -\u003e str:\n        return json.dumps(self._load(task_id), indent=2)\n\n    def exists(self, task_id: int) -\u003e bool:\n        return self._path(task_id).exists()\n\n    def update(self, task_id: int, status: str = None, owner: str = None) -\u003e str:\n        task = self._load(task_id)\n        if status:\n            if status not in (\"pending\", \"in_progress\", \"completed\", \"deleted\"):\n                raise ValueError(f\"Invalid status: {status}\")\n            task[\"status\"] = status\n        if owner is not None:\n            task[\"owner\"] = owner\n        task[\"updated_at\"] = time.time()\n        self._save(task)\n        return json.dumps(task, indent=2)\n\n    def bind_worktree(self, task_id: int, worktree: str, owner: str = \"\") -\u003e str:\n        task = self._load(task_id)\n        task[\"worktree\"] = worktree\n        task[\"last_worktree\"] = worktree\n        task[\"worktree_state\"] = \"active\"\n        if owner:\n            task[\"owner\"] = owner\n        if task[\"status\"] == \"pending\":\n            task[\"status\"] = \"in_progress\"\n        task[\"updated_at\"] = time.time()\n        self._save(task)\n        return json.dumps(task, indent=2)\n\n    def unbind_worktree(self, task_id: int) -\u003e str:\n        task = self._load(task_id)\n        task[\"worktree\"] = \"\"\n        task[\"worktree_state\"] = \"unbound\"\n        task[\"updated_at\"] = time.time()\n        self._save(task)\n        return json.dumps(task, indent=2)\n\n    def record_closeout(self, task_id: int, action: str, reason: str = \"\", keep_binding: bool = False) -\u003e str:\n        task = self._load(task_id)\n        task[\"closeout\"] = {\n            \"action\": action,\n            \"reason\": reason,\n            \"at\": time.time(),\n        }\n        task[\"worktree_state\"] = action\n        if not keep_binding:\n            task[\"worktree\"] = \"\"\n        task[\"updated_at\"] = time.time()\n        self._save(task)\n        return json.dumps(task, indent=2)\n\n    def list_all(self) -\u003e str:\n        tasks = []\n        for f in sorted(self.dir.glob(\"task_*.json\")):\n            tasks.append(json.loads(f.read_text()))\n        if not tasks:\n            return \"No tasks.\"\n        lines = []\n        for t in tasks:\n            marker = {\"pending\": \"[ ]\", \"in_progress\": \"[\u003e]\", \"completed\": \"[x]\", \"deleted\": \"[-]\"}.get(t[\"status\"], \"[?]\")\n            owner = f\" owner={t['owner']}\" if t.get(\"owner\") else \"\"\n            wt = f\" wt={t['worktree']}\" if t.get(\"worktree\") else \"\"\n            lines.append(f\"{marker} #{t['id']}: {t['subject']}{owner}{wt}\")\n        return \"\\n\".join(lines)\n\n\nTASKS = TaskManager(REPO_ROOT / \".tasks\")\nEVENTS = EventBus(REPO_ROOT / \".worktrees\" / \"events.jsonl\")\n\n\n# -- WorktreeManager: create/list/run/remove git worktrees --\nclass WorktreeManager:\n    def __init__(self, repo_root: Path, tasks: TaskManager, events: EventBus):\n        self.repo_root = repo_root\n        self.tasks = tasks\n        self.events = events\n        self.dir = repo_root / \".worktrees\"\n        self.dir.mkdir(parents=True, exist_ok=True)\n        self.index_path = self.dir / \"index.json\"\n        if not self.index_path.exists():\n            self.index_path.write_text(json.dumps({\"worktrees\": []}, indent=2))\n        self.git_available = self._check_git()\n\n    def _check_git(self) -\u003e bool:\n        try:\n            r = subprocess.run(\n                [\"git\", \"rev-parse\", \"--is-inside-work-tree\"],\n                cwd=self.repo_root, capture_output=True, text=True, timeout=10,\n            )\n            return r.returncode == 0\n        except Exception:\n            return False\n\n    def _run_git(self, args: list[str]) -\u003e str:\n        if not self.git_available:\n            raise RuntimeError(\"Not in a git repository.\")\n        r = subprocess.run(\n            [\"git\", *args], cwd=self.repo_root,\n            capture_output=True, text=True, timeout=120,\n        )\n        if r.returncode != 0:\n            raise RuntimeError((r.stdout + r.stderr).strip() or f\"git {' '.join(args)} failed\")\n        return (r.stdout + r.stderr).strip() or \"(no output)\"\n\n    def _load_index(self) -\u003e dict:\n        return json.loads(self.index_path.read_text())\n\n    def _save_index(self, data: dict):\n        self.index_path.write_text(json.dumps(data, indent=2))\n\n    def _find(self, name: str) -\u003e dict | None:\n        for wt in self._load_index().get(\"worktrees\", []):\n            if wt.get(\"name\") == name:\n                return wt\n        return None\n\n    def _update_entry(self, name: str, **changes) -\u003e dict:\n        idx = self._load_index()\n        updated = None\n        for item in idx.get(\"worktrees\", []):\n            if item.get(\"name\") == name:\n                item.update(changes)\n                updated = item\n                break\n        self._save_index(idx)\n        if not updated:\n            raise ValueError(f\"Worktree '{name}' not found in index\")\n        return updated\n\n    def _validate_name(self, name: str):\n        if not re.fullmatch(r\"[A-Za-z0-9._-]{1,40}\", name or \"\"):\n            raise ValueError(\"Invalid worktree name. Use 1-40 chars: letters, digits, ., _, -\")\n\n    def create(self, name: str, task_id: int = None, base_ref: str = \"HEAD\") -\u003e str:\n        self._validate_name(name)\n        if self._find(name):\n            raise ValueError(f\"Worktree '{name}' already exists\")\n        if task_id is not None and not self.tasks.exists(task_id):\n            raise ValueError(f\"Task {task_id} not found\")\n\n        path = self.dir / name\n        branch = f\"wt/{name}\"\n        self.events.emit(\"worktree.create.before\", task_id=task_id, wt_name=name)\n        try:\n            self._run_git([\"worktree\", \"add\", \"-b\", branch, str(path), base_ref])\n            entry = {\n                \"name\": name, \"path\": str(path), \"branch\": branch,\n                \"task_id\": task_id, \"status\": \"active\", \"created_at\": time.time(),\n            }\n            idx = self._load_index()\n            idx[\"worktrees\"].append(entry)\n            self._save_index(idx)\n            if task_id is not None:\n                self.tasks.bind_worktree(task_id, name)\n            self.events.emit(\"worktree.create.after\", task_id=task_id, wt_name=name)\n            return json.dumps(entry, indent=2)\n        except Exception as e:\n            self.events.emit(\"worktree.create.failed\", task_id=task_id, wt_name=name, error=str(e))\n            raise\n\n    def list_all(self) -\u003e str:\n        wts = self._load_index().get(\"worktrees\", [])\n        if not wts:\n            return \"No worktrees in index.\"\n        lines = []\n        for wt in wts:\n            suffix = f\" task={wt['task_id']}\" if wt.get(\"task_id\") else \"\"\n            lines.append(f\"[{wt.get('status', '?')}] {wt['name']} -\u003e {wt['path']} ({wt.get('branch', '-')}){suffix}\")\n        return \"\\n\".join(lines)\n\n    def status(self, name: str) -\u003e str:\n        wt = self._find(name)\n        if not wt:\n            return f\"Error: Unknown worktree '{name}'\"\n        path = Path(wt[\"path\"])\n        if not path.exists():\n            return f\"Error: Worktree path missing: {path}\"\n        r = subprocess.run(\n            [\"git\", \"status\", \"--short\", \"--branch\"],\n            cwd=path, capture_output=True, text=True, timeout=60,\n        )\n        return (r.stdout + r.stderr).strip() or \"Clean worktree\"\n\n    def enter(self, name: str) -\u003e str:\n        wt = self._find(name)\n        if not wt:\n            return f\"Error: Unknown worktree '{name}'\"\n        path = Path(wt[\"path\"])\n        if not path.exists():\n            return f\"Error: Worktree path missing: {path}\"\n        updated = self._update_entry(name, last_entered_at=time.time())\n        self.events.emit(\"worktree.enter\", task_id=wt.get(\"task_id\"), wt_name=name, path=str(path))\n        return json.dumps(updated, indent=2)\n\n    def run(self, name: str, command: str) -\u003e str:\n        dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\", \"\u003e /dev/\"]\n        if any(d in command for d in dangerous):\n            return \"Error: Dangerous command blocked\"\n        wt = self._find(name)\n        if not wt:\n            return f\"Error: Unknown worktree '{name}'\"\n        path = Path(wt[\"path\"])\n        if not path.exists():\n            return f\"Error: Worktree path missing: {path}\"\n        try:\n            self._update_entry(\n                name,\n                last_entered_at=time.time(),\n                last_command_at=time.time(),\n                last_command_preview=command[:120],\n            )\n            self.events.emit(\"worktree.run.before\", task_id=wt.get(\"task_id\"), wt_name=name, command=command[:120])\n            r = subprocess.run(command, shell=True, cwd=path,\n                               capture_output=True, text=True, timeout=300)\n            out = (r.stdout + r.stderr).strip()\n            self.events.emit(\"worktree.run.after\", task_id=wt.get(\"task_id\"), wt_name=name)\n            return out[:50000] if out else \"(no output)\"\n        except subprocess.TimeoutExpired:\n            self.events.emit(\"worktree.run.timeout\", task_id=wt.get(\"task_id\"), wt_name=name)\n            return \"Error: Timeout (300s)\"\n\n    def remove(\n        self,\n        name: str,\n        force: bool = False,\n        complete_task: bool = False,\n        reason: str = \"\",\n    ) -\u003e str:\n        wt = self._find(name)\n        if not wt:\n            return f\"Error: Unknown worktree '{name}'\"\n        task_id = wt.get(\"task_id\")\n        self.events.emit(\"worktree.remove.before\", task_id=task_id, wt_name=name)\n        try:\n            args = [\"worktree\", \"remove\"]\n            if force:\n                args.append(\"--force\")\n            args.append(wt[\"path\"])\n            self._run_git(args)\n            if complete_task and task_id is not None:\n                self.tasks.update(task_id, status=\"completed\")\n                self.events.emit(\"task.completed\", task_id=task_id, wt_name=name)\n            if task_id is not None:\n                self.tasks.record_closeout(task_id, \"removed\", reason, keep_binding=False)\n            self._update_entry(\n                name,\n                status=\"removed\",\n                removed_at=time.time(),\n                closeout={\"action\": \"remove\", \"reason\": reason, \"at\": time.time()},\n            )\n            self.events.emit(\"worktree.remove.after\", task_id=task_id, wt_name=name)\n            return f\"Removed worktree '{name}'\"\n        except Exception as e:\n            self.events.emit(\"worktree.remove.failed\", task_id=task_id, wt_name=name, error=str(e))\n            raise\n\n    def keep(self, name: str) -\u003e str:\n        wt = self._find(name)\n        if not wt:\n            return f\"Error: Unknown worktree '{name}'\"\n        if wt.get(\"task_id\") is not None:\n            self.tasks.record_closeout(wt[\"task_id\"], \"kept\", \"\", keep_binding=True)\n        self._update_entry(\n            name,\n            status=\"kept\",\n            kept_at=time.time(),\n            closeout={\"action\": \"keep\", \"reason\": \"\", \"at\": time.time()},\n        )\n        self.events.emit(\"worktree.keep\", task_id=wt.get(\"task_id\"), wt_name=name)\n        return json.dumps(self._find(name), indent=2)\n\n    def closeout(\n        self,\n        name: str,\n        action: str,\n        reason: str = \"\",\n        force: bool = False,\n        complete_task: bool = False,\n    ) -\u003e str:\n        if action == \"keep\":\n            wt = self._find(name)\n            if not wt:\n                return f\"Error: Unknown worktree '{name}'\"\n            if wt.get(\"task_id\") is not None:\n                self.tasks.record_closeout(\n                    wt[\"task_id\"], \"kept\", reason, keep_binding=True\n                )\n                if complete_task:\n                    self.tasks.update(wt[\"task_id\"], status=\"completed\")\n            self._update_entry(\n                name,\n                status=\"kept\",\n                kept_at=time.time(),\n                closeout={\"action\": \"keep\", \"reason\": reason, \"at\": time.time()},\n            )\n            self.events.emit(\n                \"worktree.closeout.keep\",\n                task_id=wt.get(\"task_id\"),\n                wt_name=name,\n                reason=reason,\n            )\n            return json.dumps(self._find(name), indent=2)\n        if action == \"remove\":\n            self.events.emit(\"worktree.closeout.remove\", wt_name=name, reason=reason)\n            return self.remove(\n                name,\n                force=force,\n                complete_task=complete_task,\n                reason=reason,\n            )\n        raise ValueError(\"action must be 'keep' or 'remove'\")\n\n\nWORKTREES = WorktreeManager(REPO_ROOT, TASKS, EVENTS)\n\n\n# -- Base tools (same as previous sessions, kept minimal) --\ndef safe_path(p: str) -\u003e Path:\n    path = (WORKDIR / p).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {p}\")\n    return path\n\ndef run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\", \"\u003e /dev/\"]\n    if any(d in command for d in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        r = subprocess.run(command, shell=True, cwd=WORKDIR,\n                           capture_output=True, text=True, timeout=120)\n        out = (r.stdout + r.stderr).strip()\n        return out[:50000] if out else \"(no output)\"\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\ndef run_read(path: str, limit: int = None) -\u003e str:\n    try:\n        lines = safe_path(path).read_text().splitlines()\n        if limit and limit \u003c len(lines):\n            lines = lines[:limit] + [f\"... ({len(lines) - limit} more)\"]\n        return \"\\n\".join(lines)[:50000]\n    except Exception as e:\n        return f\"Error: {e}\"\n\ndef run_write(path: str, content: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        fp.parent.mkdir(parents=True, exist_ok=True)\n        fp.write_text(content)\n        return f\"Wrote {len(content)} bytes\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\ndef run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        c = fp.read_text()\n        if old_text not in c:\n            return f\"Error: Text not found in {path}\"\n        fp.write_text(c.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\nTOOL_HANDLERS = {\n    \"bash\": lambda **kw: run_bash(kw[\"command\"]),\n    \"read_file\": lambda **kw: run_read(kw[\"path\"], kw.get(\"limit\")),\n    \"write_file\": lambda **kw: run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\": lambda **kw: run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n    \"task_create\": lambda **kw: TASKS.create(kw[\"subject\"], kw.get(\"description\", \"\")),\n    \"task_list\": lambda **kw: TASKS.list_all(),\n    \"task_get\": lambda **kw: TASKS.get(kw[\"task_id\"]),\n    \"task_update\": lambda **kw: TASKS.update(kw[\"task_id\"], kw.get(\"status\"), kw.get(\"owner\")),\n    \"task_bind_worktree\": lambda **kw: TASKS.bind_worktree(kw[\"task_id\"], kw[\"worktree\"], kw.get(\"owner\", \"\")),\n    \"worktree_create\": lambda **kw: WORKTREES.create(kw[\"name\"], kw.get(\"task_id\"), kw.get(\"base_ref\", \"HEAD\")),\n    \"worktree_list\": lambda **kw: WORKTREES.list_all(),\n    \"worktree_enter\": lambda **kw: WORKTREES.enter(kw[\"name\"]),\n    \"worktree_status\": lambda **kw: WORKTREES.status(kw[\"name\"]),\n    \"worktree_run\": lambda **kw: WORKTREES.run(kw[\"name\"], kw[\"command\"]),\n    \"worktree_closeout\": lambda **kw: WORKTREES.closeout(\n        kw[\"name\"],\n        kw[\"action\"],\n        kw.get(\"reason\", \"\"),\n        kw.get(\"force\", False),\n        kw.get(\"complete_task\", False),\n    ),\n    \"worktree_keep\": lambda **kw: WORKTREES.keep(kw[\"name\"]),\n    \"worktree_remove\": lambda **kw: WORKTREES.remove(\n        kw[\"name\"],\n        kw.get(\"force\", False),\n        kw.get(\"complete_task\", False),\n        kw.get(\"reason\", \"\"),\n    ),\n    \"worktree_events\": lambda **kw: EVENTS.list_recent(kw.get(\"limit\", 20)),\n}\n\n# Compact tool definitions -- same schema, less vertical space\nTOOLS = [\n    {\"name\": \"bash\", \"description\": \"Run a shell command in the current workspace.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"limit\": {\"type\": \"integer\"}}, \"required\": [\"path\"]}},\n    {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n    {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n    {\"name\": \"task_create\", \"description\": \"Create a new task on the shared task board.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"subject\": {\"type\": \"string\"}, \"description\": {\"type\": \"string\"}}, \"required\": [\"subject\"]}},\n    {\"name\": \"task_list\", \"description\": \"List all tasks with status, owner, and worktree binding.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {}}},\n    {\"name\": \"task_get\", \"description\": \"Get task details by ID.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"task_id\": {\"type\": \"integer\"}}, \"required\": [\"task_id\"]}},\n    {\"name\": \"task_update\", \"description\": \"Update task status or owner.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"task_id\": {\"type\": \"integer\"}, \"status\": {\"type\": \"string\", \"enum\": [\"pending\", \"in_progress\", \"completed\", \"deleted\"]}, \"owner\": {\"type\": \"string\"}}, \"required\": [\"task_id\"]}},\n    {\"name\": \"task_bind_worktree\", \"description\": \"Bind a task to a worktree name.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"task_id\": {\"type\": \"integer\"}, \"worktree\": {\"type\": \"string\"}, \"owner\": {\"type\": \"string\"}}, \"required\": [\"task_id\", \"worktree\"]}},\n    {\"name\": \"worktree_create\", \"description\": \"Create a git worktree and optionally bind it to a task.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}, \"task_id\": {\"type\": \"integer\"}, \"base_ref\": {\"type\": \"string\"}}, \"required\": [\"name\"]}},\n    {\"name\": \"worktree_list\", \"description\": \"List worktrees tracked in .worktrees/index.json.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {}}},\n    {\"name\": \"worktree_enter\", \"description\": \"Enter or reopen a worktree lane before working in it.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}}, \"required\": [\"name\"]}},\n    {\"name\": \"worktree_status\", \"description\": \"Show git status for one worktree.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}}, \"required\": [\"name\"]}},\n    {\"name\": \"worktree_run\", \"description\": \"Run a shell command in a named worktree directory.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}, \"command\": {\"type\": \"string\"}}, \"required\": [\"name\", \"command\"]}},\n    {\"name\": \"worktree_closeout\", \"description\": \"Close out a lane by keeping it for follow-up or removing it.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}, \"action\": {\"type\": \"string\", \"enum\": [\"keep\", \"remove\"]}, \"reason\": {\"type\": \"string\"}, \"force\": {\"type\": \"boolean\"}, \"complete_task\": {\"type\": \"boolean\"}}, \"required\": [\"name\", \"action\"]}},\n    {\"name\": \"worktree_remove\", \"description\": \"Remove a worktree and optionally mark its bound task completed.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}, \"force\": {\"type\": \"boolean\"}, \"complete_task\": {\"type\": \"boolean\"}, \"reason\": {\"type\": \"string\"}}, \"required\": [\"name\"]}},\n    {\"name\": \"worktree_keep\", \"description\": \"Mark a worktree as kept without removing it.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}}, \"required\": [\"name\"]}},\n    {\"name\": \"worktree_events\", \"description\": \"List recent lifecycle events.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"limit\": {\"type\": \"integer\"}}}},\n]\n\n\ndef agent_loop(messages: list):\n    while True:\n        response = client.messages.create(\n            model=MODEL, system=SYSTEM, messages=messages,\n            tools=TOOLS, max_tokens=8000,\n        )\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n        if response.stop_reason != \"tool_use\":\n            return\n        results = []\n        for block in response.content:\n            if block.type == \"tool_use\":\n                handler = TOOL_HANDLERS.get(block.name)\n                try:\n                    output = handler(**block.input) if handler else f\"Unknown tool: {block.name}\"\n                except Exception as e:\n                    output = f\"Error: {e}\"\n                print(f\"\u003e {block.name}: {str(output)[:200]}\")\n                results.append({\"type\": \"tool_result\", \"tool_use_id\": block.id, \"content\": str(output)})\n        messages.append({\"role\": \"user\", \"content\": results})\n\n\nif __name__ == \"__main__\":\n    print(f\"Repo root for s18: {REPO_ROOT}\")\n    if not WORKTREES.git_available:\n        print(\"Note: Not in a git repo. worktree_* tools will return errors.\")\n\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms18 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history)\n        response_content = history[-1][\"content\"]\n        if isinstance(response_content, list):\n            for block in response_content:\n                if hasattr(block, \"text\"):\n                    print(block.text)\n        print()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s18\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"Worktree 隔离\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300\",\"children\":\"多 Agent 平台\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"独立目录，独立车道\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[564,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[18,\" \",\"个工具\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"task 管目标，worktree 管隔离执行车道和收尾状态；两者不能混成一个概念。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s18\",\"diff\":{\"from\":\"s17\",\"to\":\"s18\",\"newClasses\":[\"EventBus\",\"TaskManager\",\"WorktreeManager\"],\"newFunctions\":[\"detect_repo_root\",\"safe_path\",\"run_bash\",\"run_read\",\"run_write\",\"run_edit\"],\"newTools\":[\"task_create\",\"task_list\",\"task_get\",\"task_update\",\"task_bind_worktree\",\"worktree_create\",\"worktree_list\",\"worktree_enter\",\"worktree_status\",\"worktree_run\",\"worktree_closeout\",\"worktree_remove\",\"worktree_keep\",\"worktree_events\"],\"locDelta\":-39},\"source\":\"$14\",\"filename\":\"s18_worktree_task_isolation.py\",\"guideData\":{\"focus\":\"先盯住 `worktree_state`、`last_worktree`、`closeout`，再看 `worktree_enter` 和统一 closeout。\",\"confusion\":\"worktree 不是任务目标，也不是后台任务；它只是任务的独立执行车道，而且车道状态和任务状态不是一回事。\",\"goal\":\"让多个执行者并行改代码时，任务目标、执行目录和收尾动作都能被显式记录。\"},\"bridgeDocs\":[{\"slug\":\"team-task-lane-model\",\"kind\":\"map\",\"title\":\"队友-任务-车道模型\",\"summary\":{\"zh\":\"专门拆清队友、协议请求、任务、运行时槽位和 worktree 车道这五层边界。\",\"en\":\"Five concepts that look similar but live on different layers. Keep open during s15-s18.\",\"ja\":\"teammate・protocol request・task・runtime slot・worktree lane の 5 層境界を整理します。\"},\"fallbackLocale\":null},{\"slug\":\"data-structures\",\"kind\":\"map\",\"title\":\"关键数据结构地图\",\"summary\":{\"zh\":\"把核心记录结构放在一起看，适合任务、运行时、多 Agent 章节反复对照。\",\"en\":\"Every important record in one place. Use when you lose track of where state lives.\",\"ja\":\"主要な record 構造を横断的に見直すための資料です。\"},\"fallbackLocale\":null}],\"locale\":\"zh\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/zh/s17\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"上一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s17\",\" - \",\"自主代理\"]}]]}]]}],[\"$\",\"$L16\",null,{\"href\":\"/zh/s19\",\"className\":\"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"下一章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"MCP 与插件\",\" - \",\"s19\"]}]]}],[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:translate-x-1\",\"children\":\"→\"}]]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html><html lang="zh"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><title>术语表</title><meta name="description" content="术语一多就先回这里，统一名词边界，避免 task、runtime task、teammate 混在一起。"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/zh/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/reference/">参考资料</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/zh/compare/">版本对比</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">核心闭环</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">Agent 循环</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">工具使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">待办写入</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">子代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">技能系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">上下文压缩</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">系统加固</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">权限系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook 系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">记忆系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">系统提示词</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">错误恢复</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">任务运行时</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">任务系统</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">后台任务</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">定时调度</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">多 Agent 平台</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">Agent 团队</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">团队协议</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自主代理</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 隔离</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/zh/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP 与插件</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-8 py-4"><header class="space-y-3"><a class="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50" href="/zh/"><span>←</span><span>回到学习主线</span></a><div class="space-y-2"><span class="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">桥接文档</span><h1 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">术语表</h1></div></header><section class="rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6"><div class="space-y-4"><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">这页适合什么时候回看</p><p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">术语一多就先回这里，统一名词边界，避免 task、runtime task、teammate 混在一起。</p></div><div><p class="text-xs uppercase tracking-[0.22em] text-zinc-400">最适合和这些章节一起读</p><div class="mt-3 flex flex-wrap gap-2"><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s01/">s01<!-- --> · <!-- -->Agent 循环</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s03/">s03<!-- --> · <!-- -->待办写入</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s05/">s05<!-- --> · <!-- -->技能系统</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s09/">s09<!-- --> · <!-- -->记忆系统</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s16/">s16<!-- --> · <!-- -->团队协议</a><a class="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50" href="/zh/s19/">s19<!-- --> · <!-- -->MCP 与插件</a></div></div></div></section><section class="rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6"><div class="py-4"><div class="prose-custom"><blockquote class="hero-callout">
+<p>这份术语表只收录本仓库主线里最重要、最容易让初学者卡住的词。<br>
+如果某个词你看着眼熟但说不清它到底是什么，先回这里。</p>
+</blockquote>
+<h2>推荐联读</h2>
+<p>如果你不是单纯查词，而是已经开始分不清“这些词分别活在哪一层”，建议按这个顺序一起看：</p>
+<ul>
+<li>先看 <a href="./entity-map.md"><code>entity-map.md</code></a>：搞清每个实体属于哪一层。</li>
+<li>再看 <a href="./data-structures.md"><code>data-structures.md</code></a>：搞清这些词真正落成什么状态结构。</li>
+<li>如果你卡在“任务”这个词上，再看 <a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a>。</li>
+<li>如果你卡在 MCP 不只等于 tools，再看 <a href="./s19a-mcp-capability-layers.md"><code>s19a-mcp-capability-layers.md</code></a>。</li>
+</ul>
+<h2>Agent</h2>
+<p>在这套仓库里，<code>agent</code> 指的是：<br>
+<strong>一个能根据输入做判断，并且会调用工具去完成任务的模型。</strong></p>
+<p>你可以简单理解成：</p>
+<ul>
+<li>模型负责思考</li>
+<li>harness 负责给模型工作环境</li>
+</ul>
+<h2>Harness</h2>
+<p><code>harness</code> 可以理解成“给 agent 准备好的工作台”。</p>
+<p>它包括：</p>
+<ul>
+<li>工具</li>
+<li>文件系统</li>
+<li>权限</li>
+<li>提示词</li>
+<li>记忆</li>
+<li>任务系统</li>
+</ul>
+<p>模型本身不是 harness。<br>
+harness 也不是模型。</p>
+<h2>Agent Loop</h2>
+<p><code>agent loop</code> 是系统反复执行的一条主循环：</p>
+<ol>
+<li>把当前上下文发给模型</li>
+<li>看模型是要直接回答，还是要调工具</li>
+<li>如果调工具，就执行工具</li>
+<li>把工具结果写回上下文</li>
+<li>再继续下一轮</li>
+</ol>
+<p>没有这条循环，就没有 agent 系统。</p>
+<h2>Message / Messages</h2>
+<p><code>message</code> 是一条消息。<br>
+<code>messages</code> 是消息列表。</p>
+<p>它通常包含：</p>
+<ul>
+<li>用户消息</li>
+<li>assistant 消息</li>
+<li>tool_result 消息</li>
+</ul>
+<p>这份列表就是 agent 最主要的工作记忆。</p>
+<h2>Tool</h2>
+<p><code>tool</code> 是模型可以调用的一种动作。</p>
+<p>例如：</p>
+<ul>
+<li>读文件</li>
+<li>写文件</li>
+<li>改文件</li>
+<li>跑 shell 命令</li>
+<li>搜索文本</li>
+</ul>
+<p>模型并不直接执行系统命令。<br>
+模型只是说“我要调哪个工具、传什么参数”，真正执行的是你的代码。</p>
+<h2>Tool Schema</h2>
+<p><code>tool schema</code> 是工具的输入说明。</p>
+<p>它告诉模型：</p>
+<ul>
+<li>这个工具叫什么</li>
+<li>这个工具做什么</li>
+<li>需要哪些参数</li>
+<li>参数是什么类型</li>
+</ul>
+<p>可以把它想成“工具使用说明书”。</p>
+<h2>Dispatch Map</h2>
+<p><code>dispatch map</code> 是一张映射表：</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python">{
+    <span class="hljs-string">"read_file"</span>: read_file_handler,
+    <span class="hljs-string">"write_file"</span>: write_file_handler,
+    <span class="hljs-string">"bash"</span>: bash_handler,
+}
+</code></pre>
+<p>意思是：</p>
+<ul>
+<li>模型说要调用 <code>read_file</code></li>
+<li>代码就去表里找到 <code>read_file_handler</code></li>
+<li>然后执行它</li>
+</ul>
+<h2>Stop Reason</h2>
+<p><code>stop_reason</code> 是模型这一轮为什么停下来的原因。</p>
+<p>常见的有：</p>
+<ul>
+<li><code>end_turn</code>：模型说完了</li>
+<li><code>tool_use</code>：模型要调用工具</li>
+<li><code>max_tokens</code>：模型输出被截断了</li>
+</ul>
+<p>它决定主循环下一步怎么走。</p>
+<h2>Context</h2>
+<p><code>context</code> 是模型当前能看到的信息总和。</p>
+<p>包括：</p>
+<ul>
+<li><code>messages</code></li>
+<li>system prompt</li>
+<li>动态补充信息</li>
+<li>tool_result</li>
+</ul>
+<p>上下文不是永久记忆。<br>
+上下文是“这一轮工作时当前摆在桌上的东西”。</p>
+<h2>Compact / Compaction</h2>
+<p><code>compact</code> 指压缩上下文。</p>
+<p>因为对话越长，模型能看到的历史就越多，成本和混乱也会一起增加。</p>
+<p>压缩的目标不是“删除有用信息”，而是：</p>
+<ul>
+<li>保留真正关键的内容</li>
+<li>去掉重复和噪声</li>
+<li>给后面的轮次腾空间</li>
+</ul>
+<h2>Subagent</h2>
+<p><code>subagent</code> 是从当前 agent 派生出来的一个子任务执行者。</p>
+<p>它最重要的价值是：</p>
+<p><strong>把一个大任务放到独立上下文里处理，避免污染父上下文。</strong></p>
+<h2>Fork</h2>
+<p><code>fork</code> 在本仓库语境里，指一种子 agent 启动方式：</p>
+<ul>
+<li>不是从空白上下文开始</li>
+<li>而是先继承父 agent 的已有上下文</li>
+</ul>
+<p>这适合“子任务必须理解当前讨论背景”的场景。</p>
+<h2>Permission</h2>
+<p><code>permission</code> 就是“这个工具调用能不能执行”。</p>
+<p>一个好的权限系统通常要回答三件事：</p>
+<ul>
+<li>应不应该直接拒绝</li>
+<li>能不能自动允许</li>
+<li>剩下的是不是要问用户</li>
+</ul>
+<h2>Permission Mode</h2>
+<p><code>permission mode</code> 是权限系统的工作模式。</p>
+<p>例如：</p>
+<ul>
+<li><code>default</code>：默认询问</li>
+<li><code>plan</code>：只允许读，不允许写</li>
+<li><code>auto</code>：简单安全的操作自动过，危险操作再问</li>
+</ul>
+<h2>Hook</h2>
+<p><code>hook</code> 是一个插入点。</p>
+<p>意思是：<br>
+在不改主循环代码的前提下，在某个时机额外执行一段逻辑。</p>
+<p>例如：</p>
+<ul>
+<li>工具调用前先检查一下</li>
+<li>工具调用后追加一条审计信息</li>
+</ul>
+<h2>Memory</h2>
+<p><code>memory</code> 是跨会话保存的信息。</p>
+<p>但不是所有东西都该存 memory。</p>
+<p>适合存 memory 的，通常是：</p>
+<ul>
+<li>用户长期偏好</li>
+<li>多次出现的重要反馈</li>
+<li>未来别的会话仍然有价值的信息</li>
+</ul>
+<h2>System Prompt</h2>
+<p><code>system prompt</code> 是系统级说明。</p>
+<p>它告诉模型：</p>
+<ul>
+<li>你是谁</li>
+<li>你能做什么</li>
+<li>你有哪些规则</li>
+<li>你应该如何协作</li>
+</ul>
+<p>它比普通用户消息更稳定。</p>
+<h2>System Reminder</h2>
+<p><code>system reminder</code> 是每一轮临时追加的动态提醒。</p>
+<p>例如：</p>
+<ul>
+<li>当前目录</li>
+<li>当前日期</li>
+<li>某个本轮才需要的额外上下文</li>
+</ul>
+<p>它和稳定的 system prompt 不是一回事。</p>
+<h2>Task</h2>
+<p><code>task</code> 是持久化任务系统里的一个任务节点。</p>
+<p>一个 task 通常不只是一句待办事项，还会带：</p>
+<ul>
+<li>状态</li>
+<li>描述</li>
+<li>依赖关系</li>
+<li>owner</li>
+</ul>
+<h2>Dependency Graph</h2>
+<p><code>dependency graph</code> 指任务之间的依赖关系图。</p>
+<p>最简单的理解：</p>
+<ul>
+<li>A 做完，B 才能开始</li>
+<li>C 和 D 可以并行</li>
+<li>E 要等 C 和 D 都完成</li>
+</ul>
+<p>这类结构能帮助 agent 判断：</p>
+<ul>
+<li>现在能做什么</li>
+<li>什么被卡住了</li>
+<li>什么能同时做</li>
+</ul>
+<h2>Worktree</h2>
+<p><code>worktree</code> 是 Git 提供的一个机制：</p>
+<p>同一个仓库，可以在多个不同目录里同时展开多个工作副本。</p>
+<p>它的价值是：</p>
+<ul>
+<li>并行做多个任务</li>
+<li>不互相污染文件改动</li>
+<li>便于多 agent 并行工作</li>
+</ul>
+<h2>MCP</h2>
+<p><code>MCP</code> 是 Model Context Protocol。</p>
+<p>你可以先把它理解成一套统一接口，让 agent 能接入外部工具。</p>
+<p>它解决的核心问题是：</p>
+<ul>
+<li>工具不必都写死在主程序里</li>
+<li>可以通过统一协议接入外部能力</li>
+</ul>
+<p>如果你已经知道“能接外部工具”，但开始分不清 server、connection、tool、resource、prompt 这些层，继续看：</p>
+<ul>
+<li><a href="./data-structures.md"><code>data-structures.md</code></a></li>
+<li><a href="./s19a-mcp-capability-layers.md"><code>s19a-mcp-capability-layers.md</code></a></li>
+</ul>
+<h2>Runtime Task</h2>
+<p><code>runtime task</code> 指的是：</p>
+<blockquote>
+<p>系统当前正在运行、等待完成、或者刚刚结束的一条执行单元。</p>
+</blockquote>
+<p>例如：</p>
+<ul>
+<li>一个后台 <code>pytest</code></li>
+<li>一个正在工作的 teammate</li>
+<li>一个正在运行的 monitor</li>
+</ul>
+<p>它和 <code>task</code> 不一样。</p>
+<ul>
+<li><code>task</code> 更像工作目标</li>
+<li><code>runtime task</code> 更像执行槽位</li>
+</ul>
+<p>如果你总把这两个词混掉，不要只在正文里来回翻，直接去看：</p>
+<ul>
+<li><a href="./entity-map.md"><code>entity-map.md</code></a></li>
+<li><a href="./data-structures.md"><code>data-structures.md</code></a></li>
+<li><a href="./s13a-runtime-task-model.md"><code>s13a-runtime-task-model.md</code></a></li>
+</ul>
+<h2>Teammate</h2>
+<p><code>teammate</code> 是长期存在的队友 agent。</p>
+<p>它和 <code>subagent</code> 的区别是：</p>
+<ul>
+<li><code>subagent</code>：一次性委派，干完就结束</li>
+<li><code>teammate</code>：长期存在，可以反复接任务</li>
+</ul>
+<p>如果你发现自己开始把这两个词混用，说明你需要回看：</p>
+<ul>
+<li><code>s04</code></li>
+<li><code>s15</code></li>
+<li><code>entity-map.md</code></li>
+</ul>
+<h2>Protocol</h2>
+<p><code>protocol</code> 就是一套提前约好的协作规则。</p>
+<p>它回答的是：</p>
+<ul>
+<li>消息应该长什么样</li>
+<li>收到以后要怎么处理</li>
+<li>批准、拒绝、超时这些状态怎么记录</li>
+</ul>
+<p>在团队章节里，它最常见的形状是：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">request
+  ->
+response
+  ->
+status update
+</code></pre>
+<h2>Envelope</h2>
+<p><code>envelope</code> 本意是“信封”。</p>
+<p>在程序里，它表示：</p>
+<blockquote>
+<p>把正文和一些元信息一起包起来的一条结构化记录。</p>
+</blockquote>
+<p>例如一条协议消息里，正文之外还会附带：</p>
+<ul>
+<li><code>from</code></li>
+<li><code>to</code></li>
+<li><code>request_id</code></li>
+<li><code>timestamp</code></li>
+</ul>
+<p>这整包东西，就可以叫一个 <code>envelope</code>。</p>
+<h2>State Machine</h2>
+<p><code>state machine</code> 不是很玄的高级理论。</p>
+<p>你可以先把它理解成：</p>
+<blockquote>
+<p>一张“状态可以怎么变化”的规则表。</p>
+</blockquote>
+<p>例如：</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">pending -> approved
+pending -> rejected
+pending -> expired
+</code></pre>
+<p>这就是一个最小状态机。</p>
+<h2>Router</h2>
+<p><code>router</code> 可以简单理解成“分发器”。</p>
+<p>它的任务是：</p>
+<ul>
+<li>看请求属于哪一类</li>
+<li>把它送去正确的处理路径</li>
+</ul>
+<p>例如工具层里：</p>
+<ul>
+<li>本地工具走本地 handler</li>
+<li><code>mcp__...</code> 工具走 MCP client</li>
+</ul>
+<h2>Control Plane</h2>
+<p><code>control plane</code> 可以理解成“负责协调和控制的一层”。</p>
+<p>它通常不直接产出最终业务结果，<br>
+而是负责决定：</p>
+<ul>
+<li>谁来执行</li>
+<li>在什么环境里执行</li>
+<li>有没有权限</li>
+<li>执行后要不要通知别的模块</li>
+</ul>
+<p>这个词第一次看到容易怕。<br>
+但在本仓库里，你只需要把它先记成：</p>
+<blockquote>
+<p>不直接干活，负责协调怎么干活的一层。</p>
+</blockquote>
+<h2>Capability</h2>
+<p><code>capability</code> 就是“能力项”。</p>
+<p>例如在 MCP 里，能力不只可能是工具，还可能包括：</p>
+<ul>
+<li>tools</li>
+<li>resources</li>
+<li>prompts</li>
+<li>elicitation</li>
+</ul>
+<p>所以 <code>capability</code> 比 <code>tool</code> 更宽。</p>
+<h2>Resource</h2>
+<p><code>resource</code> 可以理解成：</p>
+<blockquote>
+<p>一个可读取、可引用、但不一定是“执行动作”的外部内容入口。</p>
+</blockquote>
+<p>例如：</p>
+<ul>
+<li>一份文档</li>
+<li>一个只读配置</li>
+<li>一块可被模型读取的数据内容</li>
+</ul>
+<p>它和 <code>tool</code> 的区别是：</p>
+<ul>
+<li><code>tool</code> 更像动作</li>
+<li><code>resource</code> 更像可读取内容</li>
+</ul>
+<h2>Elicitation</h2>
+<p><code>elicitation</code> 可以先理解成：</p>
+<blockquote>
+<p>外部系统反过来向用户要补充输入。</p>
+</blockquote>
+<p>也就是说，不再只是 agent 主动调用外部能力。<br>
+外部能力也可能说：</p>
+<p>“我还缺一点信息，请你补一下。”</p>
+<h2>最容易混的几对词</h2>
+<p>如果你是初学者，下面这几对词最值得一起记。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll"><table><thead><tr><th>词对</th><th>最简单的区分方法</th></tr></thead><tbody><tr><td><code>message</code> vs <code>system prompt</code></td><td>一个更像对话内容，一个更像系统说明</td></tr><tr><td><code>todo</code> vs <code>task</code></td><td>一个更像临时步骤，一个更像持久化工作节点</td></tr><tr><td><code>task</code> vs <code>runtime task</code></td><td>一个管目标，一个管执行</td></tr><tr><td><code>subagent</code> vs <code>teammate</code></td><td>一个一次性，一个长期存在</td></tr><tr><td><code>tool</code> vs <code>resource</code></td><td>一个更像动作，一个更像内容</td></tr><tr><td><code>permission</code> vs <code>hook</code></td><td>一个决定能不能做，一个决定要不要额外插入行为</td></tr></tbody></table></div>
+<hr>
+<p>如果读文档时又遇到新词卡住，优先回这里，不要硬顶着往后读。</p></div></div></section></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"zh\",\"docs\",\"glossary\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"zh\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"glossary\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"\"]\n4:[\"$\",\"html\",null,{\"lang\":\"zh\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"zh\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-8 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-3\",\"children\":[[\"$\",\"$L13\",null,{\"href\":\"/zh\",\"className\":\"inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-50\",\"children\":[[\"$\",\"span\",null,{\"children\":\"←\"}],[\"$\",\"span\",null,{\"children\":\"回到学习主线\"}]]}],[\"$\",\"div\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"span\",null,{\"className\":\"inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300\",\"children\":\"桥接文档\"}],[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50\",\"children\":\"术语表\"}],false]}]]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,244,245,0.92))] px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-[linear-gradient(135deg,rgba(24,24,27,0.96),rgba(9,9,11,0.92))] sm:px-6\",\"children\":[\"$\",\"div\",null,{\"className\":\"space-y-4\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"这页适合什么时候回看\"}],[\"$\",\"p\",null,{\"className\":\"mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300\",\"children\":\"术语一多就先回这里，统一名词边界，避免 task、runtime task、teammate 混在一起。\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"p\",null,{\"className\":\"text-xs uppercase tracking-[0.22em] text-zinc-400\",\"children\":\"最适合和这些章节一起读\"}],[\"$\",\"div\",null,{\"className\":\"mt-3 flex flex-wrap gap-2\",\"children\":[[\"$\",\"$L13\",\"s01\",{\"href\":\"/zh/s01\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s01\",\" · \",\"Agent 循环\"]}],[\"$\",\"$L13\",\"s03\",{\"href\":\"/zh/s03\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s03\",\" · \",\"待办写入\"]}],[\"$\",\"$L13\",\"s05\",{\"href\":\"/zh/s05\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s05\",\" · \",\"技能系统\"]}],[\"$\",\"$L13\",\"s09\",{\"href\":\"/zh/s09\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s09\",\" · \",\"记忆系统\"]}],[\"$\",\"$L13\",\"s16\",{\"href\":\"/zh/s16\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s16\",\" · \",\"团队协议\"]}],[\"$\",\"$L13\",\"s19\",{\"href\":\"/zh/s19\",\"className\":\"rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-50\",\"children\":[\"s19\",\" · \",\"MCP 与插件\"]}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"rounded-[28px] border border-zinc-200/80 bg-white/90 px-5 py-6 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:px-6\",\"children\":\"$L14\"}]]}]\n"])</script><script>self.__next_f.push([1,"15:I[57355,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\"],\"DocRenderer\"]\n14:[\"$\",\"$L15\",null,{\"slug\":\"glossary\"}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"16:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"术语表\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"术语一多就先回这里，统一名词边界，避免 task、runtime task、teammate 混在一起。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L16\",\"3\",{}]]\n"])</script></body></html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="ja"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/11kc7k3w-u.3l.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0qmh881w772ef.js"/><script src="/_next/static/chunks/0pqt~8bl3ukh4.js" async=""></script><script src="/_next/static/chunks/0h4a4y-~puu.x.js" async=""></script><script src="/_next/static/chunks/0174xh3wfsjm1.js" async=""></script><script src="/_next/static/chunks/turbopack-08tp0pxcwu_zr.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0t2xr05rlu96l.js" async=""></script><script src="/_next/static/chunks/0ja5othizjcac.js" async=""></script><script src="/_next/static/chunks/0uvn1_4nr7qfy.js" async=""></script><script src="/_next/static/chunks/063.oyz5446.o.js" async=""></script><script src="/_next/static/chunks/02kk5ekh_4.z~.js" async=""></script><script src="/_next/static/chunks/0-ogocbeyjdd4.js" async=""></script><script src="/_next/static/chunks/0_nawkytun4a5.js" async=""></script><script src="/_next/static/chunks/078.wnui.p.5c.js" async=""></script><script src="/_next/static/chunks/12~1n90oe7pm9.js" async=""></script><title>Learn Claude Code</title><meta name="description" content="19章・4段階で、0から高完成度の Claude Code-like agent を組み立てる"/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script>
+          (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            }
+          })();
+        </script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased"><div hidden=""><!--$--><!--/$--></div><header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-sm"><div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><a class="text-lg font-bold" href="/ja/">Learn Claude Code</a><nav class="hidden items-center gap-6 md:flex"><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/reference/">リファレンス</a><a class="text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white text-zinc-500 dark:text-zinc-400" href="/ja/compare/">比較</a><div class="flex items-center gap-1 rounded-lg border border-[var(--color-border)] p-0.5"><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">EN</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400">中文</button><button class="rounded-md px-2 py-1 text-xs font-medium transition-colors bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">日本語</button></div><button class="rounded-md p-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><span class="w-4 h-4 inline-block"></span></button><a href="https://github.com/shareAI-lab/learn-claude-code" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></nav><button class="flex min-h-[44px] min-w-[44px] items-center justify-center md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"><div class="flex gap-8"><nav class="hidden w-72 shrink-0 md:block"><div class="sticky top-[calc(3.5rem+2rem)] max-h-[calc(100vh-6rem)] space-y-6 overflow-y-auto pr-2"><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-blue-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">コアループ</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s01/"><span class="font-mono text-xs">s01</span><span class="ml-1.5">エージェントループ</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s02/"><span class="font-mono text-xs">s02</span><span class="ml-1.5">ツール使用</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s03/"><span class="font-mono text-xs">s03</span><span class="ml-1.5">Todo 書き込み</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s04/"><span class="font-mono text-xs">s04</span><span class="ml-1.5">サブエージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s05/"><span class="font-mono text-xs">s05</span><span class="ml-1.5">スキル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s06/"><span class="font-mono text-xs">s06</span><span class="ml-1.5">コンテキスト圧縮</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">システム強化</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s07/"><span class="font-mono text-xs">s07</span><span class="ml-1.5">権限システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s08/"><span class="font-mono text-xs">s08</span><span class="ml-1.5">Hook システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s09/"><span class="font-mono text-xs">s09</span><span class="ml-1.5">記憶システム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s10/"><span class="font-mono text-xs">s10</span><span class="ml-1.5">システムプロンプト</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white" href="/ja/s11/"><span class="font-mono text-xs">s11</span><span class="ml-1.5">エラー回復</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">タスクランタイム</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s12/"><span class="font-mono text-xs">s12</span><span class="ml-1.5">タスクシステム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s13/"><span class="font-mono text-xs">s13</span><span class="ml-1.5">バックグラウンドタスク</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s14/"><span class="font-mono text-xs">s14</span><span class="ml-1.5">Cron スケジューラ</span></a></li></ul></div><div><div class="flex items-center gap-1.5 pb-2"><span class="h-2 w-2 rounded-full bg-red-500"></span><span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">マルチエージェント基盤</span></div><ul class="space-y-0.5"><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s15/"><span class="font-mono text-xs">s15</span><span class="ml-1.5">エージェントチーム</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s16/"><span class="font-mono text-xs">s16</span><span class="ml-1.5">チームプロトコル</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s17/"><span class="font-mono text-xs">s17</span><span class="ml-1.5">自律エージェント</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s18/"><span class="font-mono text-xs">s18</span><span class="ml-1.5">Worktree 分離</span></a></li><li><a class="block rounded-md px-2.5 py-1.5 text-sm transition-colors text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-300" href="/ja/s19/"><span class="font-mono text-xs">s19</span><span class="ml-1.5">MCP とプラグイン</span></a></li></ul></div></div></nav><div class="min-w-0 flex-1"><div class="mx-auto max-w-3xl space-y-6 py-4"><header class="space-y-2"><div class="flex flex-wrap items-center gap-3"><span class="rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800">s11</span><h1 class="text-2xl font-bold sm:text-3xl">エラー回復</h1><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">システム強化</span></div><p class="text-sm text-zinc-500 dark:text-zinc-400">回復してから続行する<span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span class="font-mono">249<!-- --> LOC</span><span class="mx-2 text-zinc-300 dark:text-zinc-600">|</span><span>4<!-- --> <!-- -->ツール</span></p><blockquote class="border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">完成度の高い agent は、いま続行中なのか、再試行中なのか、回復処理中なのかを自分で区別できなければなりません。</blockquote></header><div><div class="flex border-b border-zinc-200 dark:border-zinc-700"><button class="px-4 py-2 text-sm font-medium transition-colors border-b-2 border-zinc-900 text-zinc-900 dark:border-white dark:text-white">学習</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">コード</button><button class="px-4 py-2 text-sm font-medium transition-colors text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">深掘り</button></div><div class="mt-4"><div class="py-4"><div class="prose-custom"><p><code>s00 > s01 > s02 > s03 > s04 > s05 > s06 > s07 > s08 > s09 > s10 > [ s11 ] > s12 > s13 > s14 > s15 > s16 > s17 > s18 > s19</code></p>
+<blockquote class="hero-callout">
+<p><em>error は例外イベントではなく、main loop が最初から用意しておくべき通常分岐です。</em></p>
+</blockquote>
+<h2>この章が解く問題</h2>
+<p><code>s10</code> まで来ると agent はもう demo ではありません。</p>
+<p>すでに system には、</p>
+<ul>
+<li>main loop</li>
+<li>tool use</li>
+<li>planning</li>
+<li>compaction</li>
+<li>permission</li>
+<li>hook</li>
+<li>memory</li>
+<li>prompt assembly</li>
+</ul>
+<p>があります。</p>
+<p>こうなると failure も自然に増えます。</p>
+<ul>
+<li>model output が途中で切れる</li>
+<li>context が大きすぎて request が入らない</li>
+<li>API timeout や rate limit で一時的に失敗する</li>
+</ul>
+<p>もし recovery がなければ、main loop は最初の失敗で止まります。</p>
+<p>そして初心者はよく、</p>
+<blockquote>
+<p>agent が不安定なのは model が弱いからだ</p>
+</blockquote>
+<p>と誤解します。</p>
+<p>しかし実際には多くの failure は、</p>
+<p><strong>task そのものが失敗したのではなく、この turn の続け方を変える必要があるだけ</strong></p>
+<p>です。</p>
+<p>この章の目標は 1 つです。</p>
+<p><strong>「error が出たら停止」から、「error の種類を見て recovery path を選ぶ」へ進むこと</strong></p>
+<p>です。</p>
+<h2>併読すると楽になる資料</h2>
+<ul>
+<li>今の query がなぜまだ続いているのか見失ったら <a href="./s00c-query-transition-model.md"><code>s00c-query-transition-model.md</code></a></li>
+<li>compact と recovery が同じ mechanism に見えたら <a href="./s06-context-compact.md"><code>s06-context-compact.md</code></a></li>
+<li>このあと <code>s12</code> へ進む前に、recovery state と durable task state を混ぜたくなったら <a href="./data-structures.md"><code>data-structures.md</code></a></li>
+</ul>
+<h2>先に言葉をそろえる</h2>
+<h3>recovery とは何か</h3>
+<p>recovery は「error をなかったことにする」ことではありません。</p>
+<p>意味は次です。</p>
+<ul>
+<li>これは一時的 failure かを判定する</li>
+<li>一時的なら有限回の補救動作を試す</li>
+<li>だめなら明示的に fail として返す</li>
+</ul>
+<h3>retry budget とは何か</h3>
+<p>retry budget は、</p>
+<blockquote>
+<p>最大で何回までこの recovery path を試すか</p>
+</blockquote>
+<p>です。</p>
+<p>例:</p>
+<ul>
+<li>continuation は最大 3 回</li>
+<li>transport retry は最大 3 回</li>
+</ul>
+<p>これがないと loop が無限に回る危険があります。</p>
+<h3>state machine とは何か</h3>
+<p>この章での state machine は難しい theory ではありません。</p>
+<p>単に、</p>
+<blockquote>
+<p>normal execution と各 recovery branch を、明確な状態遷移として見ること</p>
+</blockquote>
+<p>です。</p>
+<p>この章から query の進行は次のように見えるようになります。</p>
+<ul>
+<li>normal</li>
+<li>continue after truncation</li>
+<li>compact then retry</li>
+<li>backoff then retry</li>
+<li>final fail</li>
+</ul>
+<h2>最小心智モデル</h2>
+<p>最初は 3 種類の failure だけ区別できれば十分です。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">1. output truncated
+   model はまだ言い終わっていないが token が尽きた
+
+2. context too large
+   request 全体が model window に入らない
+
+3. transient transport failure
+   timeout / rate limit / temporary connection issue
+</code></pre>
+<p>それぞれに対応する recovery path はこうです。</p>
+<pre class="code-block" data-language="text"><code class="hljs language-text">LLM call
+  |
+  +-- stop_reason == "max_tokens"
+  |      -> continuation message を入れる
+  |      -> retry
+  |
+  +-- prompt too long
+  |      -> compact する
+  |      -> retry
+  |
+  +-- timeout / rate limit / connection error
+         -> 少し待つ
+         -> retry
+</code></pre>
+<p>これが最小ですが、十分に正しい recovery model です。</p>
+<h2>この章の核になるデータ構造</h2>
+<h3>1. Recovery State</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">recovery_state = {
+    <span class="hljs-string">"continuation_attempts"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"compact_attempts"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"transport_attempts"</span>: <span class="hljs-number">0</span>,
+}
+</code></pre>
+<p>役割は 2 つあります。</p>
+<ul>
+<li>各 recovery path ごとの retry 回数を分けて数える</li>
+<li>無限 recovery を防ぐ</li>
+</ul>
+<h3>2. Recovery Decision</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">{
+    <span class="hljs-string">"kind"</span>: <span class="hljs-string">"continue"</span> | <span class="hljs-string">"compact"</span> | <span class="hljs-string">"backoff"</span> | <span class="hljs-string">"fail"</span>,
+    <span class="hljs-string">"reason"</span>: <span class="hljs-string">"why this branch was chosen"</span>,
+}
+</code></pre>
+<p>ここで大事なのは、</p>
+<p><strong>error の見た目と、次に選ぶ動作を分ける</strong></p>
+<p>ことです。</p>
+<p>この分離があると loop が読みやすくなります。</p>
+<h3>3. Continuation Message</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python">CONTINUE_MESSAGE = (
+    <span class="hljs-string">"Output limit hit. Continue directly from where you stopped. "</span>
+    <span class="hljs-string">"Do not restart or repeat."</span>
+)
+</code></pre>
+<p>この message は地味ですが非常に重要です。</p>
+<p>なぜなら model は「続けて」とだけ言うと、</p>
+<ul>
+<li>最初から言い直す</li>
+<li>もう一度要約し直す</li>
+<li>直前の内容を繰り返す</li>
+</ul>
+<p>ことがあるからです。</p>
+<h2>最小実装を段階で追う</h2>
+<h3>第 1 段階: recovery chooser を作る</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">choose_recovery</span>(<span class="hljs-params">stop_reason: <span class="hljs-built_in">str</span> | <span class="hljs-literal">None</span>, error_text: <span class="hljs-built_in">str</span> | <span class="hljs-literal">None</span></span>) -> <span class="hljs-built_in">dict</span>:
+    <span class="hljs-keyword">if</span> stop_reason == <span class="hljs-string">"max_tokens"</span>:
+        <span class="hljs-keyword">return</span> {<span class="hljs-string">"kind"</span>: <span class="hljs-string">"continue"</span>, <span class="hljs-string">"reason"</span>: <span class="hljs-string">"output truncated"</span>}
+
+    <span class="hljs-keyword">if</span> error_text <span class="hljs-keyword">and</span> <span class="hljs-string">"prompt"</span> <span class="hljs-keyword">in</span> error_text <span class="hljs-keyword">and</span> <span class="hljs-string">"long"</span> <span class="hljs-keyword">in</span> error_text:
+        <span class="hljs-keyword">return</span> {<span class="hljs-string">"kind"</span>: <span class="hljs-string">"compact"</span>, <span class="hljs-string">"reason"</span>: <span class="hljs-string">"context too large"</span>}
+
+    <span class="hljs-keyword">if</span> error_text <span class="hljs-keyword">and</span> <span class="hljs-built_in">any</span>(word <span class="hljs-keyword">in</span> error_text <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> [
+        <span class="hljs-string">"timeout"</span>, <span class="hljs-string">"rate"</span>, <span class="hljs-string">"unavailable"</span>, <span class="hljs-string">"connection"</span>
+    ]):
+        <span class="hljs-keyword">return</span> {<span class="hljs-string">"kind"</span>: <span class="hljs-string">"backoff"</span>, <span class="hljs-string">"reason"</span>: <span class="hljs-string">"transient transport failure"</span>}
+
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">"kind"</span>: <span class="hljs-string">"fail"</span>, <span class="hljs-string">"reason"</span>: <span class="hljs-string">"unknown or non-recoverable error"</span>}
+</code></pre>
+<p>この関数がやっている本質は、</p>
+<p><strong>まず分類し、そのあと branch を返す</strong></p>
+<p>という 1 点です。</p>
+<h3>第 2 段階: main loop に差し込む</h3>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    <span class="hljs-keyword">try</span>:
+        response = client.messages.create(...)
+        decision = choose_recovery(response.stop_reason, <span class="hljs-literal">None</span>)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        response = <span class="hljs-literal">None</span>
+        decision = choose_recovery(<span class="hljs-literal">None</span>, <span class="hljs-built_in">str</span>(e).lower())
+
+    <span class="hljs-keyword">if</span> decision[<span class="hljs-string">"kind"</span>] == <span class="hljs-string">"continue"</span>:
+        messages.append({<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: CONTINUE_MESSAGE})
+        <span class="hljs-keyword">continue</span>
+
+    <span class="hljs-keyword">if</span> decision[<span class="hljs-string">"kind"</span>] == <span class="hljs-string">"compact"</span>:
+        messages = auto_compact(messages)
+        <span class="hljs-keyword">continue</span>
+
+    <span class="hljs-keyword">if</span> decision[<span class="hljs-string">"kind"</span>] == <span class="hljs-string">"backoff"</span>:
+        time.sleep(backoff_delay(...))
+        <span class="hljs-keyword">continue</span>
+
+    <span class="hljs-keyword">if</span> decision[<span class="hljs-string">"kind"</span>] == <span class="hljs-string">"fail"</span>:
+        <span class="hljs-keyword">break</span>
+
+    <span class="hljs-comment"># normal tool handling</span>
+</code></pre>
+<p>ここで一番大事なのは、</p>
+<ul>
+<li>catch したら即 stop</li>
+</ul>
+<p>ではなく、</p>
+<ul>
+<li>何の失敗かを見る</li>
+<li>どの recovery path を試すか決める</li>
+</ul>
+<p>という構造です。</p>
+<h2>3 つの主 recovery path が埋めている穴</h2>
+<h3>1. continuation</h3>
+<p>これは「model が言い終わる前に output budget が切れた」問題を埋めます。</p>
+<p>本質は、</p>
+<blockquote>
+<p>task が失敗したのではなく、1 turn の出力空間が足りなかった</p>
+</blockquote>
+<p>ということです。</p>
+<p>最小形はこうです。</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">if</span> response.stop_reason == <span class="hljs-string">"max_tokens"</span>:
+    <span class="hljs-keyword">if</span> state[<span class="hljs-string">"continuation_attempts"</span>] >= <span class="hljs-number">3</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"Error: output recovery exhausted"</span>
+    state[<span class="hljs-string">"continuation_attempts"</span>] += <span class="hljs-number">1</span>
+    messages.append({<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: CONTINUE_MESSAGE})
+    <span class="hljs-keyword">continue</span>
+</code></pre>
+<h3>2. compact</h3>
+<p>これは「task が無理」ではなく、</p>
+<blockquote>
+<p>active context が大きすぎて request が入らない</p>
+</blockquote>
+<p>ときに使います。</p>
+<p>ここで大事なのは、compact を delete と考えないことです。</p>
+<p>compact は、</p>
+<p><strong>過去を、そのままの原文ではなく、まだ続行可能な summary へ変換する</strong></p>
+<p>操作です。</p>
+<p>最小例:</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">auto_compact</span>(<span class="hljs-params">messages: <span class="hljs-built_in">list</span></span>) -> <span class="hljs-built_in">list</span>:
+    summary = summarize_messages(messages)
+    <span class="hljs-keyword">return</span> [{
+        <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+        <span class="hljs-string">"content"</span>: <span class="hljs-string">"This session was compacted. Continue from this summary:\n"</span> + summary,
+    }]
+</code></pre>
+<p>最低限 summary に残したいのは次です。</p>
+<ul>
+<li>今の task は何か</li>
+<li>何をすでに終えたか</li>
+<li>重要 decision は何か</li>
+<li>次に何をするつもりか</li>
+</ul>
+<h3>3. backoff</h3>
+<p>これは timeout、rate limit、temporary connection issue のような</p>
+<p><strong>時間を置けば通るかもしれない failure</strong></p>
+<p>に対して使います。</p>
+<p>考え方は単純です。</p>
+<pre class="code-block" data-language="python"><code class="hljs language-python"><span class="hljs-keyword">if</span> decision[<span class="hljs-string">"kind"</span>] == <span class="hljs-string">"backoff"</span>:
+    <span class="hljs-keyword">if</span> state[<span class="hljs-string">"transport_attempts"</span>] >= <span class="hljs-number">3</span>:
+        <span class="hljs-keyword">break</span>
+    state[<span class="hljs-string">"transport_attempts"</span>] += <span class="hljs-number">1</span>
+    time.sleep(backoff_delay(state[<span class="hljs-string">"transport_attempts"</span>]))
+    <span class="hljs-keyword">continue</span>
+</code></pre>
+<p>ここで大切なのは「retry すること」よりも、</p>
+<p><strong>retry にも budget があり、同じ速度で無限に叩かないこと</strong></p>
+<p>です。</p>
+<h2>compact と recovery を混ぜない</h2>
+<p>これは初学者が特に混ぜやすい点です。</p>
+<ul>
+<li><code>s06</code> の compact は context hygiene のために行うことがある</li>
+<li><code>s11</code> の compact recovery は request failure から戻るために行う</li>
+</ul>
+<p>同じ compact という操作でも、</p>
+<p><strong>目的が違います。</strong></p>
+<p>目的が違えば、それを呼ぶ branch も別に見るべきです。</p>
+<h2>recovery は query の continuation 理由でもある</h2>
+<p><code>s11</code> の重要な学びは、error handling を <code>except</code> の奥へ隠さないことです。</p>
+<p>むしろ次を explicit に持つ方が良いです。</p>
+<ul>
+<li>なぜまだ続いているのか</li>
+<li>何回その branch を試したのか</li>
+<li>次にどの branch を試すのか</li>
+</ul>
+<p>すると recovery は hidden plumbing ではなく、</p>
+<p><strong>query transition を説明する状態</strong></p>
+<p>になります。</p>
+<h2>初学者が混ぜやすいポイント</h2>
+<h3>1. すべての failure に同じ retry をかける</h3>
+<p>truncation と transport error は同じ問題ではありません。</p>
+<h3>2. retry budget を持たない</h3>
+<p>無限 loop の原因になります。</p>
+<h3>3. compact と recovery を 1 つの話にしてしまう</h3>
+<p>context hygiene と failure recovery は目的が違います。</p>
+<h3>4. continuation message を曖昧にする</h3>
+<p>「続けて」だけでは model が restart / repeat しやすいです。</p>
+<h3>5. なぜ続行しているのかを state に残さない</h3>
+<p>debug も teaching も急に難しくなります。</p>
+<h2>この章を読み終えたら何が言えるべきか</h2>
+<ol>
+<li>多くの error は task failure ではなく、「この turn の続け方を変えるべき」信号である</li>
+<li>recovery は <code>continue / compact / backoff / fail</code> の branch として考えられる</li>
+<li>recovery path ごとに budget を持たないと loop が壊れやすい</li>
+</ol>
+<h2>一文で覚える</h2>
+<p><strong>Error Recovery とは、failure を見た瞬間に止まるのではなく、failure の種類に応じて continuation path を選び直す control layer です。</strong></p></div></div></div></div><nav class="flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700"><a class="group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/ja/s10/"><span class="transition-transform group-hover:-translate-x-1">←</span><div><div class="text-xs text-zinc-400">前の章</div><div class="font-medium">s10<!-- --> - <!-- -->システムプロンプト</div></div></a><a class="group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white" href="/ja/s12/"><div><div class="text-xs text-zinc-400">次の章</div><div class="font-medium">タスクシステム<!-- --> - <!-- -->s12</div></div><span class="transition-transform group-hover:translate-x-1">→</span></a></nav></div><!--$--><!--/$--></div></div></main><script src="/_next/static/chunks/0qmh881w772ef.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n3:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"default\"]\n5:I[95914,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\"],\"Sidebar\"]\n7:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"OutletBoundary\"]\n8:\"$Sreact.suspense\"\nb:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"ViewportBoundary\"]\nd:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"MetadataBoundary\"]\nf:I[68027,[],\"default\",1]\n:HL[\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"ja\",\"s11\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[[\"locale\",\"ja\",\"d\",null],{\"children\":[\"(learn)\",{\"children\":[[\"version\",\"s11\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16]}],[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/11kc7k3w-u.3l.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ja5othizjcac.js\",\"async\":true,\"nonce\":\"$undefined\"}]],\"$L4\"]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"div\",null,{\"className\":\"flex gap-8\",\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"div\",null,{\"className\":\"min-w-0 flex-1\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[\"$L6\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/063.oyz5446.o.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/0_nawkytun4a5.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/_next/static/chunks/078.wnui.p.5c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/_next/static/chunks/12~1n90oe7pm9.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L7\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@9\"}]}]]}],{},null,false,null]},null,false,\"$@a\"]},null,false,null]},null,false,null]},null,false,\"$@a\"],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$8\",null,{\"name\":\"Next.Metadata\",\"children\":\"$Le\"}]}]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",[]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"-ZSuvS_2uH_NHlo_ZQLZ-\"}\n"])</script><script>self.__next_f.push([1,"10:[]\na:\"$W10\"\n"])</script><script>self.__next_f.push([1,"11:I[33499,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"I18nProvider\"]\n12:I[45872,[\"/_next/static/chunks/0ja5othizjcac.js\"],\"Header\"]\n13:I[3167,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"VersionDetailClient\"]\n4:[\"$\",\"html\",null,{\"lang\":\"ja\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n          (function() {\\n            var theme = localStorage.getItem('theme');\\n            if (theme === 'dark' || (!theme \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n              document.documentElement.classList.add('dark');\\n            }\\n          })();\\n        \"}}]}],[\"$\",\"body\",null,{\"className\":\"min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased\",\"children\":[\"$\",\"$L11\",null,{\"locale\":\"ja\",\"children\":[[\"$\",\"$L12\",null,{}],[\"$\",\"main\",null,{\"className\":\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]]}]\n14:T2e54,"])</script><script>self.__next_f.push([1,"#!/usr/bin/env python3\n# Harness: resilience -- a robust agent recovers instead of crashing.\n\"\"\"\ns11_error_recovery.py - Error Recovery\n\nTeaching demo of three recovery paths:\n\n- continue when output is truncated\n- compact when context grows too large\n- back off when transport errors are temporary\n\n    LLM response\n         |\n         v\n    [Check stop_reason]\n         |\n         +-- \"max_tokens\" ----\u003e [Strategy 1: max_output_tokens recovery]\n         |                       Inject continuation message:\n         |                       \"Output limit hit. Continue directly.\"\n         |                       Retry up to MAX_RECOVERY_ATTEMPTS (3).\n         |                       Counter: max_output_recovery_count\n         |\n         +-- API error -------\u003e [Check error type]\n         |                       |\n         |                       +-- prompt_too_long --\u003e [Strategy 2: compact + retry]\n         |                       |   Trigger auto_compact (LLM summary).\n         |                       |   Replace history with summary.\n         |                       |   Retry the turn.\n         |                       |\n         |                       +-- connection/rate --\u003e [Strategy 3: backoff retry]\n         |                           Exponential backoff: base * 2^attempt + jitter\n         |                           Up to 3 retries.\n         |\n         +-- \"end_turn\" -----\u003e [Normal exit]\n\n    Recovery priority (first match wins):\n    1. max_tokens -\u003e inject continuation, retry\n    2. prompt_too_long -\u003e compact, retry\n    3. connection error -\u003e backoff, retry\n    4. all retries exhausted -\u003e fail gracefully\n\"\"\"\n\nimport json\nimport os\nimport random\nimport subprocess\nimport time\nfrom pathlib import Path\n\nfrom anthropic import Anthropic, APIError\nfrom dotenv import load_dotenv\n\nload_dotenv(override=True)\n\nif os.getenv(\"ANTHROPIC_BASE_URL\"):\n    os.environ.pop(\"ANTHROPIC_AUTH_TOKEN\", None)\n\nWORKDIR = Path.cwd()\nclient = Anthropic(base_url=os.getenv(\"ANTHROPIC_BASE_URL\"))\nMODEL = os.environ[\"MODEL_ID\"]\n\n# Recovery constants\nMAX_RECOVERY_ATTEMPTS = 3\nBACKOFF_BASE_DELAY = 1.0  # seconds\nBACKOFF_MAX_DELAY = 30.0  # seconds\nTOKEN_THRESHOLD = 50000   # chars / 4 ~ tokens for compact trigger\n\nCONTINUATION_MESSAGE = (\n    \"Output limit hit. Continue directly from where you stopped -- \"\n    \"no recap, no repetition. Pick up mid-sentence if needed.\"\n)\n\n\ndef estimate_tokens(messages: list) -\u003e int:\n    \"\"\"Rough token estimate: ~4 chars per token.\"\"\"\n    return len(json.dumps(messages, default=str)) // 4\n\n\ndef auto_compact(messages: list) -\u003e list:\n    \"\"\"\n    Compress conversation history into a short continuation summary.\n    \"\"\"\n    conversation_text = json.dumps(messages, default=str)[:80000]\n    prompt = (\n        \"Summarize this conversation for continuity. Include:\\n\"\n        \"1) Task overview and success criteria\\n\"\n        \"2) Current state: completed work, files touched\\n\"\n        \"3) Key decisions and failed approaches\\n\"\n        \"4) Remaining next steps\\n\"\n        \"Be concise but preserve critical details.\\n\\n\"\n        + conversation_text\n    )\n    try:\n        response = client.messages.create(\n            model=MODEL,\n            messages=[{\"role\": \"user\", \"content\": prompt}],\n            max_tokens=4000,\n        )\n        summary = response.content[0].text\n    except Exception as e:\n        summary = f\"(compact failed: {e}). Previous context lost.\"\n\n    continuation = (\n        \"This session continues from a previous conversation that was compacted. \"\n        f\"Summary of prior context:\\n\\n{summary}\\n\\n\"\n        \"Continue from where we left off without re-asking the user.\"\n    )\n    return [{\"role\": \"user\", \"content\": continuation}]\n\n\ndef backoff_delay(attempt: int) -\u003e float:\n    \"\"\"Exponential backoff with jitter: base * 2^attempt + random(0, 1).\"\"\"\n    delay = min(BACKOFF_BASE_DELAY * (2 ** attempt), BACKOFF_MAX_DELAY)\n    jitter = random.uniform(0, 1)\n    return delay + jitter\n\n\n# -- Tool implementations --\ndef safe_path(p: str) -\u003e Path:\n    path = (WORKDIR / p).resolve()\n    if not path.is_relative_to(WORKDIR):\n        raise ValueError(f\"Path escapes workspace: {p}\")\n    return path\n\n\ndef run_bash(command: str) -\u003e str:\n    dangerous = [\"rm -rf /\", \"sudo\", \"shutdown\", \"reboot\", \"\u003e /dev/\"]\n    if any(d in command for d in dangerous):\n        return \"Error: Dangerous command blocked\"\n    try:\n        r = subprocess.run(command, shell=True, cwd=WORKDIR,\n                           capture_output=True, text=True, timeout=120)\n        out = (r.stdout + r.stderr).strip()\n        return out[:50000] if out else \"(no output)\"\n    except subprocess.TimeoutExpired:\n        return \"Error: Timeout (120s)\"\n\n\ndef run_read(path: str, limit: int = None) -\u003e str:\n    try:\n        lines = safe_path(path).read_text().splitlines()\n        if limit and limit \u003c len(lines):\n            lines = lines[:limit] + [f\"... ({len(lines) - limit} more)\"]\n        return \"\\n\".join(lines)[:50000]\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef run_write(path: str, content: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        fp.parent.mkdir(parents=True, exist_ok=True)\n        fp.write_text(content)\n        return f\"Wrote {len(content)} bytes\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\ndef run_edit(path: str, old_text: str, new_text: str) -\u003e str:\n    try:\n        fp = safe_path(path)\n        content = fp.read_text()\n        if old_text not in content:\n            return f\"Error: Text not found in {path}\"\n        fp.write_text(content.replace(old_text, new_text, 1))\n        return f\"Edited {path}\"\n    except Exception as e:\n        return f\"Error: {e}\"\n\n\nTOOL_HANDLERS = {\n    \"bash\":       lambda **kw: run_bash(kw[\"command\"]),\n    \"read_file\":  lambda **kw: run_read(kw[\"path\"], kw.get(\"limit\")),\n    \"write_file\": lambda **kw: run_write(kw[\"path\"], kw[\"content\"]),\n    \"edit_file\":  lambda **kw: run_edit(kw[\"path\"], kw[\"old_text\"], kw[\"new_text\"]),\n}\n\nTOOLS = [\n    {\"name\": \"bash\", \"description\": \"Run a shell command.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}}, \"required\": [\"command\"]}},\n    {\"name\": \"read_file\", \"description\": \"Read file contents.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"limit\": {\"type\": \"integer\"}}, \"required\": [\"path\"]}},\n    {\"name\": \"write_file\", \"description\": \"Write content to file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"content\": {\"type\": \"string\"}}, \"required\": [\"path\", \"content\"]}},\n    {\"name\": \"edit_file\", \"description\": \"Replace exact text in file.\",\n     \"input_schema\": {\"type\": \"object\", \"properties\": {\"path\": {\"type\": \"string\"}, \"old_text\": {\"type\": \"string\"}, \"new_text\": {\"type\": \"string\"}}, \"required\": [\"path\", \"old_text\", \"new_text\"]}},\n]\n\nSYSTEM = f\"You are a coding agent at {WORKDIR}. Use tools to solve tasks.\"\n\n\ndef agent_loop(messages: list):\n    \"\"\"\n    Error-recovering agent loop with three paths:\n\n    1. continue after max_tokens\n    2. compact after prompt-too-long\n    3. back off after transient transport failure\n    \"\"\"\n    max_output_recovery_count = 0\n\n    while True:\n        # -- Attempt the API call with connection retry --\n        response = None\n        for attempt in range(MAX_RECOVERY_ATTEMPTS + 1):\n            try:\n                response = client.messages.create(\n                    model=MODEL, system=SYSTEM, messages=messages,\n                    tools=TOOLS, max_tokens=8000,\n                )\n                break  # success\n\n            except APIError as e:\n                error_body = str(e).lower()\n\n                # Strategy 2: prompt_too_long -\u003e compact and retry\n                if \"overlong_prompt\" in error_body or (\"prompt\" in error_body and \"long\" in error_body):\n                    print(f\"[Recovery] Prompt too long. Compacting... (attempt {attempt + 1})\")\n                    messages[:] = auto_compact(messages)\n                    continue\n\n                # Strategy 3: connection/rate errors -\u003e backoff\n                if attempt \u003c MAX_RECOVERY_ATTEMPTS:\n                    delay = backoff_delay(attempt)\n                    print(f\"[Recovery] API error: {e}. \"\n                          f\"Retrying in {delay:.1f}s (attempt {attempt + 1}/{MAX_RECOVERY_ATTEMPTS})\")\n                    time.sleep(delay)\n                    continue\n\n                # All retries exhausted\n                print(f\"[Error] API call failed after {MAX_RECOVERY_ATTEMPTS} retries: {e}\")\n                return\n\n            except (ConnectionError, TimeoutError, OSError) as e:\n                # Strategy 3: network-level errors -\u003e backoff\n                if attempt \u003c MAX_RECOVERY_ATTEMPTS:\n                    delay = backoff_delay(attempt)\n                    print(f\"[Recovery] Connection error: {e}. \"\n                          f\"Retrying in {delay:.1f}s (attempt {attempt + 1}/{MAX_RECOVERY_ATTEMPTS})\")\n                    time.sleep(delay)\n                    continue\n\n                print(f\"[Error] Connection failed after {MAX_RECOVERY_ATTEMPTS} retries: {e}\")\n                return\n\n        if response is None:\n            print(\"[Error] No response received.\")\n            return\n\n        messages.append({\"role\": \"assistant\", \"content\": response.content})\n\n        # -- Strategy 1: max_tokens recovery --\n        if response.stop_reason == \"max_tokens\":\n            max_output_recovery_count += 1\n            if max_output_recovery_count \u003c= MAX_RECOVERY_ATTEMPTS:\n                print(f\"[Recovery] max_tokens hit \"\n                      f\"({max_output_recovery_count}/{MAX_RECOVERY_ATTEMPTS}). \"\n                      \"Injecting continuation...\")\n                messages.append({\"role\": \"user\", \"content\": CONTINUATION_MESSAGE})\n                continue  # retry the loop\n            else:\n                print(f\"[Error] max_tokens recovery exhausted \"\n                      f\"({MAX_RECOVERY_ATTEMPTS} attempts). Stopping.\")\n                return\n\n        # Reset max_tokens counter on successful non-max_tokens response\n        max_output_recovery_count = 0\n\n        # -- Normal end_turn: no tool use requested --\n        if response.stop_reason != \"tool_use\":\n            return\n\n        # -- Process tool calls --\n        results = []\n        for block in response.content:\n            if block.type != \"tool_use\":\n                continue\n            handler = TOOL_HANDLERS.get(block.name)\n            try:\n                output = handler(**(block.input or {})) if handler else f\"Unknown: {block.name}\"\n            except Exception as e:\n                output = f\"Error: {e}\"\n            print(f\"\u003e {block.name}: {str(output)[:200]}\")\n            results.append({\n                \"type\": \"tool_result\",\n                \"tool_use_id\": block.id,\n                \"content\": str(output),\n            })\n\n        messages.append({\"role\": \"user\", \"content\": results})\n\n        # Check if we should auto-compact (proactive, not just reactive)\n        if estimate_tokens(messages) \u003e TOKEN_THRESHOLD:\n            print(\"[Recovery] Token estimate exceeds threshold. Auto-compacting...\")\n            messages[:] = auto_compact(messages)\n\n\nif __name__ == \"__main__\":\n    print(\"[Error recovery enabled: max_tokens / prompt_too_long / connection backoff]\")\n    history = []\n    while True:\n        try:\n            query = input(\"\\033[36ms11 \u003e\u003e \\033[0m\")\n        except (EOFError, KeyboardInterrupt):\n            break\n        if query.strip().lower() in (\"q\", \"exit\", \"\"):\n            break\n        history.append({\"role\": \"user\", \"content\": query})\n        agent_loop(history)\n        response_content = history[-1][\"content\"]\n        if isinstance(response_content, list):\n            for block in response_content:\n                if hasattr(block, \"text\"):\n                    print(block.text)\n        print()\n"])</script><script>self.__next_f.push([1,"6:[\"$\",\"div\",null,{\"className\":\"mx-auto max-w-3xl space-y-6 py-4\",\"children\":[[\"$\",\"header\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-wrap items-center gap-3\",\"children\":[[\"$\",\"span\",null,{\"className\":\"rounded-lg bg-zinc-100 px-3 py-1 font-mono text-lg font-bold dark:bg-zinc-800\",\"children\":\"s11\"}],[\"$\",\"h1\",null,{\"className\":\"text-2xl font-bold sm:text-3xl\",\"children\":\"エラー回復\"}],[\"$\",\"span\",null,{\"className\":\"inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300\",\"children\":\"システム強化\"}]]}],[\"$\",\"p\",null,{\"className\":\"text-sm text-zinc-500 dark:text-zinc-400\",\"children\":[\"回復してから続行する\",[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"className\":\"font-mono\",\"children\":[249,\" LOC\"]}],[\"$\",\"span\",null,{\"className\":\"mx-2 text-zinc-300 dark:text-zinc-600\",\"children\":\"|\"}],[\"$\",\"span\",null,{\"children\":[4,\" \",\"ツール\"]}]]}],[\"$\",\"blockquote\",null,{\"className\":\"border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-500 dark:border-zinc-600 dark:text-zinc-400\",\"children\":\"完成度の高い agent は、いま続行中なのか、再試行中なのか、回復処理中なのかを自分で区別できなければなりません。\"}]]}],[\"$\",\"$L13\",null,{\"version\":\"s11\",\"diff\":{\"from\":\"s10\",\"to\":\"s11\",\"newClasses\":[],\"newFunctions\":[\"estimate_tokens\",\"auto_compact\",\"backoff_delay\"],\"newTools\":[],\"locDelta\":-56},\"source\":\"$14\",\"filename\":\"s11_error_recovery.py\",\"guideData\":{\"focus\":\"`RecoveryState` と `TransitionReason`、特に「なぜ続行するのか」を見る。\",\"confusion\":\"error recovery は単なる try/except ではなく、再試行・compact 後再試行・終了を区別することです。\",\"goal\":\"回復可能な失敗の後でも、agent が筋道立てて進めるようにする。\"},\"bridgeDocs\":[{\"slug\":\"s00c-query-transition-model\",\"kind\":\"mechanism\",\"title\":\"クエリ遷移モデル\",\"summary\":{\"zh\":\"专门讲一条 query 为什么继续下一轮，适合恢复、压缩、预算、hook 开始缠在一起时回看。\",\"en\":\"Why each continuation needs an explicit reason. Best read alongside s11 (Error Recovery).\",\"ja\":\"エラー回復・文脈圧縮・予算制御・hook が重なり始めたときに、query がなぜ次のターンへ続くのかを補う資料です。\"},\"fallbackLocale\":null},{\"slug\":\"s00b-one-request-lifecycle\",\"kind\":\"mechanism\",\"title\":\"1 リクエストのライフサイクル\",\"summary\":{\"zh\":\"把一次请求从进入、执行到回写走完一遍，适合主线开始混时回头校正心智。\",\"en\":\"Traces one request from entry to write-back. Best read after Stage 2 when pieces need connecting.\",\"ja\":\"1回の要求を入口から write-back まで通して確認する補助資料です。\"},\"fallbackLocale\":null}],\"locale\":\"ja\"}],\"$L15\"]}]\n"])</script><script>self.__next_f.push([1,"16:I[22016,[\"/_next/static/chunks/0ja5othizjcac.js\",\"/_next/static/chunks/0uvn1_4nr7qfy.js\",\"/_next/static/chunks/063.oyz5446.o.js\",\"/_next/static/chunks/02kk5ekh_4.z~.js\",\"/_next/static/chunks/0-ogocbeyjdd4.js\",\"/_next/static/chunks/0_nawkytun4a5.js\",\"/_next/static/chunks/078.wnui.p.5c.js\",\"/_next/static/chunks/12~1n90oe7pm9.js\"],\"\"]\n15:[\"$\",\"nav\",null,{\"className\":\"flex items-center justify-between border-t border-zinc-200 pt-6 dark:border-zinc-700\",\"children\":[[\"$\",\"$L16\",null,{\"href\":\"/ja/s10\",\"className\":\"group flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:-translate-x-1\",\"children\":\"←\"}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"前の章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"s10\",\" - \",\"システムプロンプト\"]}]]}]]}],[\"$\",\"$L16\",null,{\"href\":\"/ja/s12\",\"className\":\"group flex items-center gap-2 text-right text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-white\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"text-xs text-zinc-400\",\"children\":\"次の章\"}],[\"$\",\"div\",null,{\"className\":\"font-medium\",\"children\":[\"タスクシステム\",\" - \",\"s12\"]}]]}],[\"$\",\"span\",null,{\"className\":\"transition-transform group-hover:translate-x-1\",\"children\":\"→\"}]]}]]}]\n"])</script><script>self.__next_f.push([1,"c:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0t2xr05rlu96l.js\"],\"IconMark\"]\n9:null\ne:[[\"$\",\"title\",\"0\",{\"children\":\"Learn Claude Code\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"19章・4段階で、0から高完成度の Claude Code-like agent を組み立てる\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>
