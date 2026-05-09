@@ -1,4 +1,4 @@
-1:"$Sreact.fragment"
+﻿1:"$Sreact.fragment"
 2:I[39756,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"default"]
 3:I[37457,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"default"]
 5:I[47257,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"ClientPageRoot"]
@@ -20,4 +20,4 @@ c:"$W12"
 e:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 15:I[27201,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0t2xr05rlu96l.js"],"IconMark"]
 b:null
-10:[["$","title","0",{"children":"Learn Claude Code"}],["$","meta","1",{"name":"description","content":"19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent"}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.0x3dzn~oxb6tn.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L15","3",{}]]
+10:[["$","title","0",{"children":"Claude Coding Agent Harness"}],["$","meta","1",{"name":"description","content":"19 章节、4 个阶段，带你从 0 到 1 手搓一个结构完整的 Claude Code-like Agent"}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.0x3dzn~oxb6tn.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L15","3",{}]]
